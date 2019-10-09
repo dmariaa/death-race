@@ -34,7 +34,7 @@ window.addEventListener('load', function() {
     scene: [ ArenaScene, LoadingScene ],
     plugins: {
       global: [
-        { key: 'BikePlugin', plugin: BikePlugin, start: true }
+        { key: 'GameObjectsPlugin', plugin: GameObjectsPlugin, start: true }
       ]
     }
   });
