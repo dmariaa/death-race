@@ -88,6 +88,22 @@ class ArenaScene extends Phaser.Scene {
     // Input
     this.input.keyboard.on('keydown', this.handleInput, this);
     this.input.keyboard.on('keyup', this.handleInput, this);
+
+    // Load press-any-key scene
+    this.scene.get('PressAnyKeyScene').parentScene = this;
+    this.scene.launch('PressAnyKeyScene');
+    this.scene.pause();
+
+    this.events.on('pause', this.pause, this);
+    this.events.on('resume', this.resume, this);
+  }
+
+  pause() {
+    this.sound.setMute(true);
+  }
+
+  resume() {
+    this.sound.setMute(false);
   }
 
   update(time, delta) {
@@ -127,6 +143,4 @@ class ArenaScene extends Phaser.Scene {
       }
     }
   }
-
-
 }
