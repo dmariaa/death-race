@@ -15,11 +15,17 @@
  */
 
 var game;
+var arenaWidth = 1400;
+var arenaHeight = 900;
 
 window.addEventListener('load', function() {
-  var arenaWidth = 1400;
-  var arenaHeight = 900;
+  WebFont.load({
+    google: { families: [ 'Orbitron:400,500,700,900' ] },
+    active: loadPhaser
+  });
+});
 
+var loadPhaser = function() {
   game = new Phaser.Game({
     type: Phaser.AUTO,
     pixelArt: true,
@@ -31,11 +37,11 @@ window.addEventListener('load', function() {
     //   expandParent: true,
     //   mode: Phaser.Scale.ScaleModes.NONE
     // },
-    scene: [ ArenaScene, LoadingScene ],
+    scene: [ ArenaScene, LoadingScene, PressAnyKeyScene ],
     plugins: {
       global: [
         { key: 'GameObjectsPlugin', plugin: GameObjectsPlugin, start: true }
       ]
     }
   });
-});
+};
