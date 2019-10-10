@@ -22,7 +22,7 @@ Equipo de desarrollo:
 
 Death Race es un juego arcade multijugador basado en la carrera de motos de luz (light cycles) que aparece en la película Tron en su edición clásica de 1982. Tomando como referencia este clásico del cine de videojuegos, el jugador conducirá una moto por una **arena** donde dejará a su paso una estela que funcionará como barrera para el resto de competidores, aunque está no será la única opción que se le presentará para poder alcanzar la victoria. En nuestra revisión hemos decidido añadir escenarios algo mas complejos, además de trampas y power-ups que permitirán al jugador aplicar ciertas estrategias a la hora de vencer a sus oponentes, mejorando la experiencia de juego. 
 
-En Death Race hasta 4 jugadores se enfrentaran entre ellos a lo largo de varias rondas con el fin de ganar la copa del campeón. Se trata de un juego arcade competitivo online que estará disponible en ordenador. Circulamos a través del mapa de manera que dejamos estelas contra las que otros jugadores pueden chocar y morir.
+En Death Race hasta 4 jugadores se enfrentarán entre ellos a lo largo de varias rondas con el fin de ganar la copa del campeón. Se trata de un juego arcade competitivo online que estará disponible en ordenador. Circulamos a través del mapa de manera que dejamos estelas contra las que otros jugadores pueden chocar y morir.
 
 ### Género
 
@@ -33,7 +33,7 @@ El videojuego se podría clasificar dentro de los siguientes géneros:
 
 ### Plataformas
 
-En principio, para la única plataforma para la que estaría sería ordenador.
+En principio, debido a los esquemas de control y otros aspectos del videojuego para la única plataforma para la que estaría sería ordenador, ejecutándose este en un navegador Web.
 
 ### Audiencia objetivo
 
@@ -59,7 +59,7 @@ El jugador controlará un **vehículo** que se desplaza por la arena en linea re
 
 En la arena encontrará trampas y ayudas por los que debe luchar con el resto de jugadores.
 
-En el juego participan un mínimo de 2 jugadores y un máximo de 4 *(revisar)*
+En el juego participan un mínimo de 2 jugadores y un máximo de 4.
 
 ### Directrices de jugabilidad
 
