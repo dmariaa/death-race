@@ -29,6 +29,7 @@ class BikeTrail extends Phaser.GameObjects.GameObject {
     wall.setStrokeStyle(1, this.color.color);
     wall.setLineWidth(1);
     wall.setTo(x, y, x, y);
+
     this._currentWall = wall;
     this.walls.splice(0, 0, this._currentWall);
   }
