@@ -19,6 +19,7 @@ class GameObjectsPlugin extends Phaser.Plugins.BasePlugin {
     super(pluginManager);
     pluginManager.registerGameObject('bike', this.createBike);
     pluginManager.registerGameObject('trail', this.createTrail);
+    pluginManager.registerGameObject('level', this.createLevel);
   }
   createBike(x, y, texture, color) {
     var bike = new Bike(this.scene, x, y, texture, color);
@@ -30,6 +31,11 @@ class GameObjectsPlugin extends Phaser.Plugins.BasePlugin {
     var trail = new BikeTrail(this.scene, bike);
     this.scene.add.existing(trail);
     return trail;
+  }
+  createLevel() {
+    var level = new Level(this.scene);
+    this.scene.add.existing(level);
+    return level;
   }
   createPowerUp(x, y) {
     var powerup = new PowerUp(x, y);

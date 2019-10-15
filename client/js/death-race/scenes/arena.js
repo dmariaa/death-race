@@ -78,12 +78,17 @@ class ArenaScene extends Phaser.Scene {
     this.wallGroup.push(this.eastWall);
     this.wallGroup.push(this.westWall);
 
+    // Building level
+    this.level = this.add.level();
+    this.level.loadLevel(1);
+
     // Building red bike
     this.bike = this.add.bike(74, 74, 'yellow-bike', new Phaser.Display.Color(255, 255, 0));
 
     // Bike - walls collider
     this.physics.add.overlap(this.bike, this.wallGroup, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bike, this.bike.trail.walls, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bike, this.level.walls, this.bikeCollision, null, this);
 
     // Input
     this.input.keyboard.on('keydown', this.handleInput, this);
