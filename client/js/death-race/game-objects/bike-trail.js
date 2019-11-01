@@ -14,15 +14,21 @@
  * limitations under the License.
  */
 
-class BikeTrail extends Phaser.GameObjects.GameObject {
-  constructor(scene, bike) {
-    super(scene, "biketrail");
+var deathrace = deathrace || {};
+deathrace.gameobjects = deathrace.gameobjects || {};
+
+(function() {
+  var BikeTrail = function(scene, bike) {
+    Phaser.GameObjects.GameObject.call(this, scene, "biketrail");
     this.walls = [];
     this.bike = bike;
     this.color = bike.color.clone().darken(50);
-  }
+  };
 
-  add(x, y) {
+  BikeTrail.prototype = Object.create(Phaser.GameObjects.GameObject.prototype);
+  BikeTrail.constructor = BikeTrail;
+
+  BikeTrail.prototype.add = function(x, y) {
     var wall = this.scene.add.line();
     this.scene.physics.add.existing(wall);
     wall.setOrigin(0, 0);
@@ -32,9 +38,9 @@ class BikeTrail extends Phaser.GameObjects.GameObject {
 
     this._currentWall = wall;
     this.walls.splice(0, 0, this._currentWall);
-  }
+  };
 
-  set(x, y) {
+  BikeTrail.prototype.set = function(x, y) {
     if(!this._currentWall) {
       this.add(x, y);
     }
@@ -42,23 +48,25 @@ class BikeTrail extends Phaser.GameObjects.GameObject {
     this._currentWall.setTo(geom.x1, geom.y1, x, y);
     this._currentWall.body.setOffset(Math.min(geom.x1, geom.x2), Math.min(geom.y2, geom.y1));
     this._currentWall.body.setSize(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1), false);
-  }
+  };
 
-  break(wall, x, y) {
-    var index = this._findWallIndex(wall);
+  BikeTrail.prototype.break = function(wall, x, y) {
+    var index = this.findWallIndex(wall);
 
     if(index===-1) {
       console.error("Wall does not belong to this trail");
       return;
     }
-  }
+  };
 
-  _findWallIndex(wall) {
+  BikeTrail.prototype.findWallIndex = function(wall) {
     for(var i=0; i < this.walls.length; ++i) {
       if(this.walls[i].wall === wall) {
         return i;
       }
     }
     return -1;
-  }
-}
+  };
+
+  deathrace.gameobjects.BikeTrail = BikeTrail;
+})();

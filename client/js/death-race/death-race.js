@@ -44,7 +44,7 @@ var loadPhaser = function() {
     ],
     plugins: {
       global: [
-        { key: 'GameObjectsPlugin', plugin: GameObjectsPlugin, start: true }
+        { key: 'GameObjectsPlugin', plugin: deathrace.gameobjects.GameObjectsPlugin, start: true }
       ]
     }
   });

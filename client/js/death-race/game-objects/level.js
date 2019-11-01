@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-class Level extends Phaser.GameObjects.GameObject {
-  constructor(scene) {
-    super(scene, "level");
+var deathrace = deathrace || {};
+deathrace.gameobjects = deathrace.gameobjects || {};
+
+(function() {
+  var Level = function(scene) {
+    Phaser.GameObjects.GameObject.call(this, scene, "level");
 
     this.walls = [];
 
@@ -70,9 +73,12 @@ class Level extends Phaser.GameObjects.GameObject {
         ]
       }
     ];
-  }
+  };
 
-  loadLevel(level) {
+  Level.prototype = Object.create(Phaser.GameObjects.GameObject.prototype);
+  Level.prototype.constructor = Level;
+
+  Level.prototype.loadLevel = function(level) {
     this.walls.length = 0;
 
     var level = this.levels[level];
@@ -90,5 +96,7 @@ class Level extends Phaser.GameObjects.GameObject {
       wallLine.body.setSize(wall.x2 - wall.x1, wall.y2 - wall.y1, false);
       this.walls.push(wallLine);
     }
-  }
-}
+  };
+
+  deathrace.gameobjects.Level = Level;
+})();

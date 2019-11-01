@@ -14,12 +14,16 @@
  * limitations under the License.
  */
 
-var HALF_PI = Math.PI / 2;
-var PI = Math.PI;
+var deathrace = deathrace || {};
+deathrace.gameobjects = deathrace.gameobjects || {};
 
-class Bike extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture, color) {
-    super(scene, x, y, texture);
+(function() {
+  var HALF_PI = Math.PI / 2;
+  var PI = Math.PI;
+
+  var Bike = function(scene, x, y, texture, color) {
+    Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
+
     scene.physics.add.existing(this);
 
     this.speed = 0.35;
@@ -66,22 +70,25 @@ class Bike extends Phaser.GameObjects.Sprite {
 
     // Set color
     this.setColors();
-  }
+  };
 
-  explode() {
+  Bike.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
+  Bike.prototype.constructor = Bike;
+
+  Bike.prototype.explode = function() {
     this.engineSound.stop();
     this.explosionSound.play();
     this.explosion.setPosition(this.x, this.y);
     this.trail.set(this.x, this.y);
     this.explosion.explode();
     this.destroy();
-  }
+  };
 
   /**
    * Replaces this bike colors
    * with selected color palette.
    */
-  setColors() {
+  Bike.prototype.setColors = function() {
     var tx = this.texture;
     var img = tx.getSourceImage();
 
@@ -106,16 +113,14 @@ class Bike extends Phaser.GameObjects.Sprite {
     ct.context.putImageData(pixelsData, 0, 0);
     ct.refresh();
     this.setTexture(this.name);
-  }
+  };
 
-  preUpdate(time, delta)
-  {
-    super.preUpdate(time, delta);
+  Bike.prototype.preUpdate = function(time, delta) {
+    Phaser.GameObjects.Sprite.prototype.preUpdate.call(this, time, delta);
     this.update(time, delta);
-  }
+  };
 
-  update(time, delta)
-  {
+  Bike.prototype.update = function(time, delta) {
     this.setPosition(
       this.x + this.directionVector.x * this.speed * delta,
       this.y + this.directionVector.y * this.speed * delta
@@ -125,10 +130,9 @@ class Bike extends Phaser.GameObjects.Sprite {
       this.x - this.directionVector.x * this.trailOffset,
       this.y - this.directionVector.y * this.trailOffset
     );
-  }
+  };
 
-  toggleBreak(breaking)
-  {
+  Bike.prototype.toggleBreak = function(breaking) {
     if(breaking) {
       this.speed = 0.15;
       this.engineSound.setDetune(-50);
@@ -136,20 +140,17 @@ class Bike extends Phaser.GameObjects.Sprite {
       this.speed = 0.35;
       this.engineSound.setDetune(50);
     }
-  }
+  };
 
-  turnLeft()
-  {
+  Bike.prototype.turnLeft = function() {
     this.turnBikeAndTrail(this.directionVector.y, -this.directionVector.x);
-  }
+  };
 
-  turnRight()
-  {
+  Bike.prototype.turnRight = function() {
     this.turnBikeAndTrail(-this.directionVector.y, this.directionVector.x);
-  }
+  };
 
-  turnBikeAndTrail(newVectorX, newVectorY)
-  {
+  Bike.prototype.turnBikeAndTrail = function(newVectorX, newVectorY) {
     // End current trail
     this.trail.set(
       this.x,
@@ -175,6 +176,7 @@ class Bike extends Phaser.GameObjects.Sprite {
       this.x + this.directionVector.x * this.physicsCorrectionOffset,
       this.y + this.directionVector.y * this.physicsCorrectionOffset
     );
-  }
-}
+  };
 
+  deathrace.gameobjects.Bike = Bike;
+})();
