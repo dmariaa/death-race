@@ -14,33 +14,46 @@
  * limitations under the License.
  */
 
-class GameObjectsPlugin extends Phaser.Plugins.BasePlugin {
-  constructor(pluginManager) {
-    super(pluginManager);
+var deathrace = deathrace || {};
+deathrace.gameobjects = deathrace.gameobjects || {};
+
+(function () {
+
+  var GameObjectsPlugin = function (pluginManager) {
+    Phaser.Plugins.BasePlugin.call(this, pluginManager);
     pluginManager.registerGameObject('bike', this.createBike);
     pluginManager.registerGameObject('trail', this.createTrail);
     pluginManager.registerGameObject('level', this.createLevel);
-  }
-  createBike(x, y, texture, color) {
-    var bike = new Bike(this.scene, x, y, texture, color);
+  };
+
+  GameObjectsPlugin.prototype = Object.create(Phaser.Plugins.BasePlugin.prototype);
+  GameObjectsPlugin.prototype.constructor = GameObjectsPlugin;
+
+  GameObjectsPlugin.prototype.createBike = function (x, y, texture, color) {
+    var bike = new deathrace.gameobjects.Bike(this.scene, x, y, texture, color);
     this.scene.add.existing(bike);
     this.scene.physics.add.existing(bike);
     return bike;
-  }
-  createTrail(bike) {
-    var trail = new BikeTrail(this.scene, bike);
+  };
+
+  GameObjectsPlugin.prototype.createTrail = function (bike) {
+    var trail = new deathrace.gameobjects.BikeTrail(this.scene, bike);
     this.scene.add.existing(trail);
     return trail;
-  }
-  createLevel() {
-    var level = new Level(this.scene);
+  };
+
+  GameObjectsPlugin.prototype.createLevel = function () {
+    var level = new deathrace.gameobjects.Level(this.scene);
     this.scene.add.existing(level);
     return level;
-  }
-  createPowerUp(x, y) {
-    var powerup = new PowerUp(x, y);
+  };
+
+  GameObjectsPlugin.prototype.createPowerUp = function (x, y) {
+    var powerup = new deathrace.gameobjects.PowerUp(x, y);
     this.scene.add.existing(powerup);
     this.scene.physics.add.existin(powerup);
     return powerup;
-  }
-}
+  };
+
+  deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;
+})();

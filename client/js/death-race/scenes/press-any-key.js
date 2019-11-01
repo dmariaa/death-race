@@ -14,12 +14,18 @@
  * limitations under the License.
  */
 
-class PressAnyKeyScene extends Phaser.Scene {
-  constructor() {
-    super("PressAnyKeyScene");
-  }
+var deathrace = deathrace || {};
+deathrace.scenes = deathrace.scenes || {};
 
-  create() {
+(function() {
+  var PressAnyKey = function() {
+    Phaser.Scene.call(this, "PressAnyKey");
+  };
+
+  PressAnyKey.prototype = Object.create(Phaser.Scene.prototype);
+  PressAnyKey.constructor = PressAnyKey;
+
+  PressAnyKey.prototype.create = function(data) {
     var textString = "Pulsa cualquier tecla para comenzar.";
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 2);
 
@@ -30,9 +36,9 @@ class PressAnyKeyScene extends Phaser.Scene {
     text.setOrigin(0.5, 0.5);
 
     this.input.keyboard.on('keydown', this.handleInput, this);
-  }
+  };
 
-  handleInput() {
+  PressAnyKey.prototype.handleInput = function() {
     if (game.sound.context.state === 'suspended') {
       game.sound.context.resume();
     }
@@ -41,6 +47,7 @@ class PressAnyKeyScene extends Phaser.Scene {
       this.scene.stop();
       this.parentScene.scene.resume();
     }
-  }
-}
+  };
 
+  deathrace.scenes.PressAnyKey = PressAnyKey;
+})();

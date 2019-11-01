@@ -14,9 +14,16 @@
  * limitations under the License.
  */
 
-class ArenaScene extends Phaser.Scene {
-  constructor() {
-    super({
+var deathrace = deathrace || {};
+deathrace.scenes = deathrace.scenes || {};
+
+(function() {
+  /**
+   * Main arena class
+   * @constructor
+   */
+  var Arena = function() {
+    Phaser.Scene.call(this, {
       key: "ArenaScene",
       physics: {
         default: 'arcade',
@@ -25,11 +32,16 @@ class ArenaScene extends Phaser.Scene {
         }
       }
     });
+  };
 
-    this.gridColor = 0x061539;
-  }
+  // Setting inheritance
+  Arena.prototype = Object.create(Phaser.Scene.prototype);
+  Arena.prototype.constructor = Arena;
 
-  preload() {
+  /**
+   * Scene Preloading callback
+   */
+  Arena.prototype.preload = function() {
     this.margin = 10;
     this.wallWidth = 3;
 
@@ -40,9 +52,12 @@ class ArenaScene extends Phaser.Scene {
     this.load.image('yellow-bike', 'img/sprites/yellowbike.png');
     this.load.audio('bike-engine', 'sounds/bike-engine.wav');
     this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-  }
+  };
 
-  create() {
+  /**
+   * Scene create callback
+   */
+  Arena.prototype.create = function() {
     console.log("ArenaScene loaded");
 
     // Building grid
@@ -95,36 +110,47 @@ class ArenaScene extends Phaser.Scene {
     this.input.keyboard.on('keyup', this.handleInput, this);
 
     // Load press-any-key scene
-    this.scene.get('PressAnyKeyScene').parentScene = this;
-    this.scene.launch('PressAnyKeyScene');
+    this.scene.get('PressAnyKey').parentScene = this;
+    this.scene.launch('PressAnyKey');
     this.scene.pause();
 
     this.events.on('pause', this.pause, this);
     this.events.on('resume', this.resume, this);
-  }
+  };
 
-  pause() {
+  /**
+   * Pauses Arena execution
+   */
+  Arena.prototype.pause = function() {
     this.sound.setMute(true);
-  }
+  };
 
-  resume() {
+  /**
+   * Resumes Arena execution
+   */
+  Arena.prototype.resume = function() {
     this.sound.setMute(false);
-  }
+  };
 
-  update(time, delta) {
-  }
+  /**
+   * @override Phaser.scene.update
+   */
+  Arena.prototype.update = function(time, delta) {
+  };
 
-  bikeCollision(body, other) {
+  /**
+   * Handles bike collision
+   * @param body Gameobject, the bike
+   * @param other
+   */
+  Arena.prototype.bikeCollision = function(body, other) {
     if(this.bike.active) {
       this.bike.setActive(false);
       this.bike.explode();
     }
-  }
+  };
 
-  generateRandomWall() {
-  }
-
-  handleInput(e) {
+  Arena.prototype.handleInput = function(e) {
     if(!this.bike.active) return;
 
     console.log("Key pressed: " + e.code);
@@ -147,5 +173,9 @@ class ArenaScene extends Phaser.Scene {
           break;
       }
     }
-  }
-}
+  };
+
+  // Add to namespace
+  deathrace.scenes.Arena = Arena;
+})();
+

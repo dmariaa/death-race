@@ -14,9 +14,13 @@
  * limitations under the License.
  */
 
-class PowerUp extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture) {
-    super(scene, x, y, texture);
+var deathrace = deathrace || {};
+deathrace.gameobjects = deathrace.gameobjects || {};
+
+(function() {
+  var PowerUp = function(scene, x, y, texture) {
+    Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
+
     this.path = [ new Phaser.Math.Vector2(x, y), new Phaser.Math.Vector2(x, y) ];
     this.name = texture;
 
@@ -30,5 +34,7 @@ class PowerUp extends Phaser.GameObjects.Sprite {
       LASER_SHOT: 6,
       COMMANDED_MISSILE: 7
     });
-  }
-}
+  };
+
+  deathrace.gameobjects.PowerUp = PowerUp;
+});
