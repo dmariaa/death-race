@@ -14,11 +14,24 @@
  * limitations under the License.
  */
 
-class LoadingScene extends Phaser.Scene {
-  constructor() {
-    super("LoadingScene");
-  }
-  create() {
-    console.log("LoadingScene loaded");
-  }
-}
+var deathrace = deathrace || {};
+deathrace.scenes = deathrace.scenes || {};
+
+(function() {
+  /**
+   * Loading message scene class
+   * @constructor
+   */
+  var Loading = function() {
+    Phaser.Scene.call(this, "LoadingScene");
+  };
+
+  Loading.prototype = Object.create(Phaser.Scene.prototype);
+  Loading.prototype.constructor = Loading;
+
+  Loading.prototype.create = function() {
+    console.log("Loading screen loaded");
+  };
+
+  deathrace.scenes.Loading = Loading;
+})();

@@ -37,7 +37,11 @@ var loadPhaser = function() {
     //   expandParent: true,
     //   mode: Phaser.Scale.ScaleModes.NONE
     // },
-    scene: [ ArenaScene, LoadingScene, PressAnyKeyScene ],
+    scene: [
+      deathrace.scenes.Arena,
+      deathrace.scenes.Loading,
+      deathrace.scenes.PressAnyKey
+    ],
     plugins: {
       global: [
         { key: 'GameObjectsPlugin', plugin: GameObjectsPlugin, start: true }
