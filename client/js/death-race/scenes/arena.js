@@ -19,7 +19,7 @@ deathrace.scenes = deathrace.scenes || {};
 
 (function() {
   /**
-   * Main arena class
+   * Game Arena class constructor
    * @constructor
    */
   var Arena = function() {
@@ -34,7 +34,7 @@ deathrace.scenes = deathrace.scenes || {};
     });
   };
 
-  // Setting inheritance
+  // Inheritance, Arena extends Phaser.Scene
   Arena.prototype = Object.create(Phaser.Scene.prototype);
   Arena.prototype.constructor = Arena;
 
@@ -42,10 +42,28 @@ deathrace.scenes = deathrace.scenes || {};
    * Scene Preloading callback
    */
   Arena.prototype.preload = function() {
+    /**
+     * Margin between arena ending and limit walls
+     * @type {number}
+     */
     this.margin = 10;
+
+    /**
+     * Width of limit wall lines
+     * @type {number}
+     */
     this.wallWidth = 3;
 
+    /**
+     * Inside limits arena width
+     * @type {number}
+     */
     this.horzLength = this.game.canvas.width - 2 * this.margin;
+
+    /**
+     * Inside limits arena height
+     * @type {number}
+     */
     this.vertLength = this.game.canvas.height - 2 * this.margin;
 
     this.load.image('bike', 'img/sprites/blackbike.png');
@@ -150,6 +168,10 @@ deathrace.scenes = deathrace.scenes || {};
     }
   };
 
+  /**
+   * Input handler
+   * @param e
+   */
   Arena.prototype.handleInput = function(e) {
     if(!this.bike.active) return;
 

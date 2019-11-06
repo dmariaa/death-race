@@ -21,6 +21,15 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   var HALF_PI = Math.PI / 2;
   var PI = Math.PI;
 
+  /**
+   * Bike class constructor.
+   * @param scene scene
+   * @param x Position vector X
+   * @param y Position vector Y
+   * @param texture Bike texture
+   * @param color Bike color
+   * @constructor
+   */
   var Bike = function(scene, x, y, texture, color) {
     Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
 
@@ -72,9 +81,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.setColors();
   };
 
+  // Inheritance, Bike extends Phaser.GameObjects.Sprite
   Bike.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
   Bike.prototype.constructor = Bike;
 
+  /**
+   * Destroys bike, with explosion particle system and sounds
+   */
   Bike.prototype.explode = function() {
     this.engineSound.stop();
     this.explosionSound.play();
@@ -115,11 +128,21 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.setTexture(this.name);
   };
 
+  /**
+   * Pre update, needed to call update
+   * @param time
+   * @param delta
+   */
   Bike.prototype.preUpdate = function(time, delta) {
     Phaser.GameObjects.Sprite.prototype.preUpdate.call(this, time, delta);
     this.update(time, delta);
   };
 
+  /**
+   * Update method, updates bike position and trail
+   * @param time
+   * @param delta
+   */
   Bike.prototype.update = function(time, delta) {
     this.setPosition(
       this.x + this.directionVector.x * this.speed * delta,
@@ -132,6 +155,10 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     );
   };
 
+  /**
+   * Toggles breaks
+   * @param breaking true to break, false to release brake
+   */
   Bike.prototype.toggleBreak = function(breaking) {
     if(breaking) {
       this.speed = 0.15;
@@ -142,14 +169,25 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     }
   };
 
+  /**
+   * Turns bike left
+   */
   Bike.prototype.turnLeft = function() {
     this.turnBikeAndTrail(this.directionVector.y, -this.directionVector.x);
   };
 
+  /**
+   * Turns bike right
+   */
   Bike.prototype.turnRight = function() {
     this.turnBikeAndTrail(-this.directionVector.y, this.directionVector.x);
   };
 
+  /**
+   * Computes bike data for new direction
+   * @param newVectorX Direction vector X
+   * @param newVectorY Direction vector Y
+   */
   Bike.prototype.turnBikeAndTrail = function(newVectorX, newVectorY) {
     // End current trail
     this.trail.set(
