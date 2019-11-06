@@ -18,11 +18,20 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
 (function() {
-  var PowerUp = function(scene, x, y, texture) {
-    Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
+  /**
+   * Powerup base class
+   * @param scene
+   * @param x
+   * @param y
+   * @param texture
+   * @constructor
+   */
+  var PowerUp = function(scene, x, y) {
+    Phaser.GameObjects.Sprite.call(this, scene, x, y, "yellow-bike");
 
+    this.setSize(32, 32);
     this.path = [ new Phaser.Math.Vector2(x, y), new Phaser.Math.Vector2(x, y) ];
-    this.name = texture;
+    this.name = "powerup";
 
     this.Types = Object.freeze({
       SPARK_DRINK: 0,
@@ -36,5 +45,8 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     });
   };
 
+  PowerUp.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
+  PowerUp.prototype.constructor = PowerUp;
+
   deathrace.gameobjects.PowerUp = PowerUp;
-});
+})();

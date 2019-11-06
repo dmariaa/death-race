@@ -95,10 +95,13 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Building level
     this.level = this.add.level();
-    this.level.loadLevel(1);
+    this.level.loadLevel(4);
 
     // Building red bike
     this.bike = this.add.bike(74, 74, 'yellow-bike', new Phaser.Display.Color(255, 255, 0));
+
+    // Generate power ups
+    this.powerUps = this.spawnPowerUps();
 
     // Bike - walls collider
     this.physics.add.overlap(this.bike, this.wallGroup, this.bikeCollision, null, this);
@@ -148,6 +151,23 @@ deathrace.scenes = deathrace.scenes || {};
       this.bike.setActive(false);
       this.bike.explode();
     }
+  };
+
+  Arena.prototype.spawnPowerUps = function() {
+    var numberOfPowerUps = Math.trunc(Math.random() * 7 + 3);
+    var powerUps = [];
+
+    for(var i=0; i<numberOfPowerUps; ++i) {
+      var powerUpType = Math.trunc(Math.random() * 8);
+      var powerUpX = Math.trunc(Math.random() * this.horzLength + this.margin);
+      var powerUpY = Math.trunc(Math.random() * this.vertLength + this.margin);
+
+       powerUps.push(
+        this.add.powerUp(powerUpX, powerUpY, powerUpType)
+      );
+    }
+
+    return powerUps;
   };
 
   Arena.prototype.handleInput = function(e) {
