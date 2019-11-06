@@ -26,9 +26,13 @@ deathrace.scenes = deathrace.scenes || {};
     Phaser.Scene.call(this, "LoadingScene");
   };
 
+  // Inheritance, Loading extends Phaser.Scene
   Loading.prototype = Object.create(Phaser.Scene.prototype);
   Loading.prototype.constructor = Loading;
 
+  /**
+   * Scene create method
+   */
   Loading.prototype.create = function() {
     console.log("Loading screen loaded");
   };
