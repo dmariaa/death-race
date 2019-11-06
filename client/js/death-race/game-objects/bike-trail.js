@@ -18,16 +18,43 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
 (function() {
+  /**
+   * Bike trail class constructor
+   * @param scene
+   * @param bike
+   * @constructor
+   */
   var BikeTrail = function(scene, bike) {
     Phaser.GameObjects.GameObject.call(this, scene, "biketrail");
+
+    /**
+     * Trail walls array
+     * @type {Array}
+     */
     this.walls = [];
+
+    /**
+     * Parent bike
+     * @type {deathrace.gameobjects.Bike}
+     */
     this.bike = bike;
+
+    /**
+     * Bike color
+     * @type {*|Phaser.Display.Color}
+     */
     this.color = bike.color.clone().darken(50);
   };
 
+  // Inheritance, BikeTrail extends Phaser.GameObjects.GameObject
   BikeTrail.prototype = Object.create(Phaser.GameObjects.GameObject.prototype);
   BikeTrail.constructor = BikeTrail;
 
+  /**
+   * Adds a trail at position to the trails list
+   * @param x Position X
+   * @param y Position Y
+   */
   BikeTrail.prototype.add = function(x, y) {
     var wall = this.scene.add.line();
     this.scene.physics.add.existing(wall);
@@ -40,6 +67,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.walls.splice(0, 0, this._currentWall);
   };
 
+  /**
+   * Sets new end point at position for current trail
+   * @param x Position X
+   * @param y Position Y
+   */
   BikeTrail.prototype.set = function(x, y) {
     if(!this._currentWall) {
       this.add(x, y);
@@ -50,6 +82,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this._currentWall.body.setSize(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1), false);
   };
 
+  /**
+   * Builds a breach in a trail wall at position
+   * @param wall wall to break
+   * @param x Position X
+   * @param y Position Y
+   */
   BikeTrail.prototype.break = function(wall, x, y) {
     var index = this.findWallIndex(wall);
 
@@ -59,6 +97,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     }
   };
 
+  /**
+   * Returns index of wall in the trail walls array
+   * @param wall Wall to search for
+   * @returns {number} Index of wall in array
+   */
   BikeTrail.prototype.findWallIndex = function(wall) {
     for(var i=0; i < this.walls.length; ++i) {
       if(this.walls[i].wall === wall) {
