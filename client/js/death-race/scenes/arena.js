@@ -95,7 +95,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Building level
     this.level = this.add.level();
-    this.level.loadLevel(1);
+    this.level.loadLevel(2);
 
     // Building red bike
     this.bike = this.add.bike(74, 74, 'yellow-bike', new Phaser.Display.Color(255, 255, 0));
