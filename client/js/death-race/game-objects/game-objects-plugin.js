@@ -18,7 +18,6 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
 (function () {
-
   var GameObjectsPlugin = function (pluginManager) {
     Phaser.Plugins.BasePlugin.call(this, pluginManager);
     pluginManager.registerGameObject('bike', this.createBike);
@@ -45,14 +44,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
   GameObjectsPlugin.prototype.createLevel = function () {
     var level = new deathrace.gameobjects.Level(this.scene);
-    this.scene.add.existing(level);
     return level;
   };
 
   GameObjectsPlugin.prototype.createPowerUp = function (x, y, powerUpType) {
-    var powerup = new deathrace.gameobjects.PowerUp(this.scene, x, y);
-    this.scene.add.existing(powerup);
-    this.scene.physics.add.existing(powerup);
+    powerUpType = powerUpType || deathrace.gameobjects.powerups.Types.randomType();
+    var powerup = deathrace.gameobjects.powerups.PowerUpFactory(this.scene, x, y, powerUpType);
     return powerup;
   };
 

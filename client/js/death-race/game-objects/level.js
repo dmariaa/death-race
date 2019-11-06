@@ -21,7 +21,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   var Level = function(scene) {
     Phaser.GameObjects.GameObject.call(this, scene, "level");
 
-    this.walls = [];
+    this.walls = scene.physics.add.group();
 
     this.levels = [
       {
@@ -160,22 +160,21 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   Level.prototype.constructor = Level;
 
   Level.prototype.loadLevel = function(level) {
-    this.walls.length = 0;
+    this.walls.clear();
 
     var level = this.levels[level];
 
     for(var i=0; i < level.walls.length; ++i) {
       var wall = level.walls[i];
-
       var wallLine = this.scene.add.line();
-      this.scene.physics.add.existing(wallLine);
+
+      this.walls.add(wallLine);
       wallLine.setOrigin(0, 0);
       wallLine.setStrokeStyle(1, 0x00ff00);
       wallLine.setLineWidth(1);
       wallLine.setTo(wall.x1, wall.y1, wall.x2, wall.y2);
       wallLine.body.setOffset(wall.x1, wall.y1);
       wallLine.body.setSize(wall.x2 - wall.x1, wall.y2 - wall.y1, false);
-      this.walls.push(wallLine);
     }
   };
 
