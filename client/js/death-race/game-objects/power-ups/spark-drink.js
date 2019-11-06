@@ -16,25 +16,16 @@
 
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
+deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
-  var PowerUp = function(scene, x, y, texture) {
-    Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
-
-    this.path = [ new Phaser.Math.Vector2(x, y), new Phaser.Math.Vector2(x, y) ];
-    this.name = texture;
-
-    this.Types = Object.freeze({
-      SPARK_DRINK: 0,
-      GUMMY_BOMB: 1,
-      MIRROR_SHIELD: 2,
-      STRINGS_PUPPET: 3,
-      SHARP_KNIFE: 4,
-      POISON_OF_WISDOM: 5,
-      LASER_SHOT: 6,
-      COMMANDED_MISSILE: 7
-    });
+  var SparkDrink = function(scene, x, y) {
+    deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SP");
+    this.name = "spark-drink";
   };
 
-  deathrace.gameobjects.PowerUp = PowerUp;
-});
+  SparkDrink.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
+  SparkDrink.prototype.constructor = SparkDrink;
+
+  deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
+})();

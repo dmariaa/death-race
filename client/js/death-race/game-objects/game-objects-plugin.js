@@ -18,12 +18,12 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
 (function () {
-
   var GameObjectsPlugin = function (pluginManager) {
     Phaser.Plugins.BasePlugin.call(this, pluginManager);
     pluginManager.registerGameObject('bike', this.createBike);
     pluginManager.registerGameObject('trail', this.createTrail);
     pluginManager.registerGameObject('level', this.createLevel);
+    pluginManager.registerGameObject('powerUp', this.createPowerUp);
   };
 
   GameObjectsPlugin.prototype = Object.create(Phaser.Plugins.BasePlugin.prototype);
@@ -44,14 +44,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
   GameObjectsPlugin.prototype.createLevel = function () {
     var level = new deathrace.gameobjects.Level(this.scene);
-    this.scene.add.existing(level);
     return level;
   };
 
-  GameObjectsPlugin.prototype.createPowerUp = function (x, y) {
-    var powerup = new deathrace.gameobjects.PowerUp(x, y);
-    this.scene.add.existing(powerup);
-    this.scene.physics.add.existin(powerup);
+  GameObjectsPlugin.prototype.createPowerUp = function (x, y, powerUpType) {
+    powerUpType = powerUpType || deathrace.gameobjects.powerups.Types.randomType();
+    var powerup = deathrace.gameobjects.powerups.PowerUpFactory(this.scene, x, y, powerUpType);
     return powerup;
   };
 
