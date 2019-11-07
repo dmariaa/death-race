@@ -38,6 +38,8 @@ var loadPhaser = function() {
     //   mode: Phaser.Scale.ScaleModes.NONE
     // },
     scene: [
+      deathrace.scenes.MainMenu,
+      deathrace.scenes.PlayMenu,
       deathrace.scenes.Arena,
       deathrace.scenes.Loading,
       deathrace.scenes.PressAnyKey
@@ -45,6 +47,9 @@ var loadPhaser = function() {
     plugins: {
       global: [
         { key: 'GameObjectsPlugin', plugin: deathrace.gameobjects.GameObjectsPlugin, start: true }
+      ],
+      scene: [
+        { key: 'MenuPlugin', plugin: deathrace.scenes.plugins.MenuPlugin }
       ]
     }
   });
