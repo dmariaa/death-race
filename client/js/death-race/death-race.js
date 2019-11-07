@@ -49,7 +49,7 @@ var loadPhaser = function() {
         { key: 'GameObjectsPlugin', plugin: deathrace.gameobjects.GameObjectsPlugin, start: true }
       ],
       scene: [
-        { key: 'MenuPlugin', plugin: deathrace.scenes.plugins.MenuPlugin }
+        { key: 'MenuPlugin', plugin: deathrace.scenes.plugins.MenuPlugin, mapping: 'menu' }
       ]
     }
   });

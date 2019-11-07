@@ -21,15 +21,6 @@ deathrace.scenes = deathrace.scenes || {};
   var PlayMenu = function() {
     Phaser.Scene.call(this, {
       key: "PlayMenu",
-      menu: {
-        title: "Play Menu",
-        marginLeft: 100,
-        marginBottom: 100,
-        options: [
-          { id: 'create', label: 'Crear partida' },
-          { id: 'exit', label: 'Volver' }
-        ]
-      }
     });
   };
 
@@ -37,11 +28,25 @@ deathrace.scenes = deathrace.scenes || {};
   PlayMenu.prototype.constructor = PlayMenu;
 
   PlayMenu.prototype.create = function() {
+    this.menu.create({
+      title: "Play Menu",
+        marginLeft: 100,
+        marginBottom: 100,
+        options: [
+          { id: 'create', label: 'Crear partida' },
+          { id: 'exit', label: 'Volver' }
+        ]
+      }
+    );
+
     this.events.on('menuselected', this.handleMenuSelected, this);
   };
 
   PlayMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
+      case 'create':
+        this.scene.switch("ArenaScene");
+        break;
       case 'exit':
         this.scene.switch('MainMenu');
         break;

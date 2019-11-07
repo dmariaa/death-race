@@ -22,7 +22,6 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
   var MenuPlugin = function(scene) {
     this.scene = scene;
     this.systems = scene.sys;
-    this.config = this.systems.config.menu;
 
     if(!scene.sys.settings.isBooted) {
       scene.sys.events.once('boot', this.boot, this);
@@ -38,7 +37,10 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
     eventEmitter.on('start', this.start, this);
   };
 
-  MenuPlugin.prototype.start = function() {
+  MenuPlugin.prototype.start = function() {};
+
+  MenuPlugin.prototype.create = function(config) {
+    this.config = config;
     this.setupMenu();
     this.setupInput();
   };
