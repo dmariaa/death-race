@@ -21,8 +21,18 @@ deathrace.scenes = deathrace.scenes || {};
   var MainMenu = function() {
     Phaser.Scene.call(this, {
       key: "MainMenu",
-      menu: {
-        title: "Main menu",
+    });
+  };
+
+  MainMenu.prototype = Object.create(Phaser.Scene.prototype);
+  MainMenu.prototype.constructor = MainMenu;
+
+  MainMenu.prototype.create = function() {
+    // Show main title
+    this.showTitle();
+
+    this.menu.create({
+      title: "Main menu",
         marginLeft: 100,
         marginBottom: 100,
         options: [
@@ -32,19 +42,9 @@ deathrace.scenes = deathrace.scenes || {};
           { id: 'credits', label: 'Créditos' },
           { id: 'exit', label: 'Exit' }
         ]
-      },
-      plugins: [
-        'MenuPlugin',
-        'InputPlugin'
-      ]
-    });
-  };
+      }
+    );
 
-  MainMenu.prototype = Object.create(Phaser.Scene.prototype);
-  MainMenu.prototype.constructor = MainMenu;
-
-  MainMenu.prototype.create = function() {
-    this.showTitle();
     this.events.on('menuselected', this.handleMenuSelected, this);
   };
 
