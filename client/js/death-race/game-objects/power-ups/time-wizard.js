@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 dmariaa
+ * Copyright 2019 NITROPC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,32 +14,26 @@
  * limitations under the License.
  */
 
+
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
-  var SparkDrink = function(scene, x, y) {
-    deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SD");
-    this.name = "spark-drink";
-  };
+    var TimeWizard = function(scene, x, y) {
+        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.TW");
+        this.name = "time-wizard";
+    };
 
-  SparkDrink.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
-  SparkDrink.prototype.constructor = SparkDrink;
+    TimeWizard.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
+    TimeWizard.prototype.constructor = TimeWizard;
 
 
+    TimeWizard.prototype.launch=function (bike) {
+        console.log("TimeWizard launched");
 
-   SparkDrink.prototype.launch = function (bike) {
-       console.log("Spark Drink Launched");
-         var currentSpeed = bike.speed;
-          bike.speed = bike.speed * 1.5;
+    };
+    deathrace.gameobjects.powerups.TimeWizard = TimeWizard;
 
-       window.setTimeout(function() {
-           bike.speed = currentSpeed;
-       }, 3000);
-   };
 
-    deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
 })();
-
-

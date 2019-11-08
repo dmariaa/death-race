@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 dmariaa
+ * Copyright 2019 NITROPC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,27 +19,19 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
-  var SparkDrink = function(scene, x, y) {
-    deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SD");
-    this.name = "spark-drink";
-  };
+    var StringsPuppet = function(scene, x, y) {
+        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SP");
+        this.name = "strings-puppet";
+    };
 
-  SparkDrink.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
-  SparkDrink.prototype.constructor = SparkDrink;
+    StringsPuppet.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
+    StringsPuppet.prototype.constructor = StringsPuppet;
 
 
+    StringsPuppet.prototype.launch=function (bike) {
+            console.log("StringsPuppet launched");
+    };
+    deathrace.gameobjects.powerups.StringsPuppet = StringsPuppet;
 
-   SparkDrink.prototype.launch = function (bike) {
-       console.log("Spark Drink Launched");
-         var currentSpeed = bike.speed;
-          bike.speed = bike.speed * 1.5;
 
-       window.setTimeout(function() {
-           bike.speed = currentSpeed;
-       }, 3000);
-   };
-
-    deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
 })();
-
-
