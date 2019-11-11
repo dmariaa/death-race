@@ -44,6 +44,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
      * @type {*|Phaser.Display.Color}
      */
     this.color = bike.color.clone().darken(50);
+
+    /**
+     * Trail length
+     * @type {number}
+     */
+    this.length = 0;
+    this._currentWallLength = 0;
   };
 
   // Inheritance, BikeTrail extends Phaser.GameObjects.GameObject
@@ -62,6 +69,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     wall.setStrokeStyle(1, this.color.color);
     wall.setLineWidth(1);
     wall.setTo(x, y, x, y);
+    this.length += this._currentWallLength;
 
     this._currentWall = wall;
     this.walls.splice(0, 0, this._currentWall);
@@ -80,6 +88,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this._currentWall.setTo(geom.x1, geom.y1, x, y);
     this._currentWall.body.setOffset(Math.min(geom.x1, geom.x2), Math.min(geom.y2, geom.y1));
     this._currentWall.body.setSize(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1), false);
+    this._currentWallLength = Math.max(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1));
+  };
+
+  BikeTrail.prototype.getLength = function() {
+    return this.length + this._currentWallLength;
   };
 
   /**
@@ -90,7 +103,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    */
   BikeTrail.prototype.break = function(wall, x, y) {
     var index = this.findWallIndex(wall);
-
     if(index===-1) {
       console.error("Wall does not belong to this trail");
       return;

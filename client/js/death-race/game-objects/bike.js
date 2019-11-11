@@ -30,13 +30,14 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param color Bike color
    * @constructor
    */
-  var Bike = function(scene, x, y, texture, color) {
+  var Bike = function(scene, x, y, name, color) {
+    texture = 'yellow-bike';
     Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
-
     scene.physics.add.existing(this);
 
-    this.speed = 0.35;
-    this.name = texture + '-bike';
+    this.name = name + '-bike';
+
+    this.speed = 0.25;
     this.color = color;
     this.directionVector = new Phaser.Math.Vector2(0, 1);
     this.trail = this.scene.add.trail(this);
@@ -49,13 +50,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.trailOffset = this.physicsCorrectionOffset + 1;
 
     // Explosion texture
-    var rt = scene.textures.createCanvas('bikepiece', 5, 5);
+    var rt = scene.textures.createCanvas(this.name + '-bikepieces', 5, 5);
     rt.context.fillStyle = this.color.rgba;
     rt.context.fillRect(0,0,5,5);
     rt.refresh();
 
     // Explosion particles
-    var expl = scene.add.particles('bikepiece');
+    var expl = scene.add.particles(this.name + '-bikepieces');
     this.explosion = expl.createEmitter({
       speed: { min: -800, max: 800 },
       alpha: { start: 1.0, end: 0},
@@ -79,6 +80,8 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     // Set color
     this.setColors();
+
+    this.score = 0;
   };
 
   // Inheritance, Bike extends Phaser.GameObjects.Sprite
@@ -104,8 +107,9 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   Bike.prototype.setColors = function() {
     var tx = this.texture;
     var img = tx.getSourceImage();
+    var textureName = this.name + '-texture';
 
-    var ct = this.scene.textures.createCanvas(this.name, img.width, img.height);
+    var ct = this.scene.textures.createCanvas(textureName, img.width, img.height);
     ct.context.drawImage(img, 0, 0);
 
     var pixelsData = ct.context.getImageData(0, 0, ct.width, ct.height);
@@ -125,7 +129,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     }
     ct.context.putImageData(pixelsData, 0, 0);
     ct.refresh();
-    this.setTexture(this.name);
+    this.setTexture(textureName);
   };
 
   /**
@@ -153,6 +157,9 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       this.x - this.directionVector.x * this.trailOffset,
       this.y - this.directionVector.y * this.trailOffset
     );
+
+    this.score = Math.trunc(this.trail.getLength() * 0.1);
+    this.scene.events.emit('score', this.score);
   };
 
   /**
