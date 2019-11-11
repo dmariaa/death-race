@@ -22,7 +22,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     Phaser.GameObjects.GameObject.call(this, scene, "level");
 
     this.walls = scene.physics.add.group();
-
+    this.margin = 5;
     this.levels = [
       {
         name: "Level 1",
@@ -175,6 +175,35 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       wallLine.setTo(wall.x1, wall.y1, wall.x2, wall.y2);
       wallLine.body.setOffset(wall.x1, wall.y1);
       wallLine.body.setSize(wall.x2 - wall.x1, wall.y2 - wall.y1, false);
+    }
+  };
+
+  Level.prototype.breakWall=function(level){
+      var wallLine = this.scene.add.line();
+      var level = this.levels[level];
+
+   // if(this.scene.bike.horn){
+      //  console.log(level.walls.length);
+        for (var i =0; i <  level.walls.length; ++i) {
+          if(this.scene.bike.position === level.walls[i].position){
+             var aux = level.walls.splice(i,1);
+            this.walls.add(wallLine);
+            wallLine.setOrigin(0, 0);
+            wallLine.setStrokeStyle(1, 0x00ff00);
+            wallLine.setLineWidth(1);
+            wallLine.setTo(aux.x1, aux.y1, this.scene.bike.sizeX - this.margin, this.scene.bike.sizeY
+                - this.margin);
+              this.walls.add(wallLine);
+            wallLine.setOrigin(0, 0);
+            wallLine.setStrokeStyle(1, 0x00ff00);
+            wallLine.setLineWidth(1);
+            wallLine.setTo(this.scene.bike.sizeX + this.margin, this.scene.bike.sizeY + this.margin,
+                aux.x2, aux.y2);
+              console.log("funciona");
+             //this.scene.bike.ghost = false;
+             //
+          // }
+        }
     }
   };
 

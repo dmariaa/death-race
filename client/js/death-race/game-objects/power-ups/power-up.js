@@ -45,7 +45,10 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
       SHARP_KNIFE: 4,
       POISON_OF_WISDOM: 5,
       LASER_SHOT: 6,
-      COMMANDED_MISSILE: 7
+        GHOST_COAT: 7,
+        DRILL_HORN: 8,
+        FRIENDSHIP_PRESENT: 9,
+        TIME_WIZARD: 10
     });
   };
 
@@ -68,10 +71,13 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     SHARP_KNIFE: 4,
     POISON_OF_WISDOM: 5,
     LASER_SHOT: 6,
-    COMMANDED_MISSILE: 7,
+    GHOST_COAT: 7,
+    DRILL_HORN: 8,
+    FRIENDSHIP_PRESENT: 9,
+    TIME_WIZARD: 10,
 
     randomType: function() {
-      return Math.trunc(Math.random() * 8);
+      return Math.trunc(Math.random() * 11);
     },
 
     nameFromValue: function(value) {
@@ -87,26 +93,37 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
         return new deathrace.gameobjects.powerups.SparkDrink(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.GUMMY_BOMB:
-        console.error("Gummy Bomb Powerup not implemented");
+          return new deathrace.gameobjects.powerups.GummyBomb(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.MIRROR_SHIELD:
-        console.error("Mirror Shield Powerup not implemented");
+          return new deathrace.gameobjects.powerups.MirrorShield(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.STRINGS_PUPPET:
-        console.error("String Puppet Powerup not implemented");
+          return new deathrace.gameobjects.powerups.StringsPuppet(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.SHARP_KNIFE:
-        console.error("Sharp Knife Powerup not implemented");
+          return new deathrace.gameobjects.powerups.SharpKnife(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.POISON_OF_WISDOM:
-        console.error("Poison of Wisdom Powerup not implemented");
+          return new deathrace.gameobjects.powerups.PoisonofWisdom(scene, x, y);
         break;
       case deathrace.gameobjects.powerups.Types.LASER_SHOT:
-        console.error("Laser Shot Powerup not implemented");
+          return new deathrace.gameobjects.powerups.LaserShot(scene, x, y);
         break;
-      case deathrace.gameobjects.powerups.Types.COMMANDED_MISSILE:
-        console.error("Commanded Missile Powerup not implemented");
-        break;
+
+        case deathrace.gameobjects.powerups.Types.GHOST_COAT:
+            return new deathrace.gameobjects.powerups.GhostCoat(scene, x, y);
+            break;
+        case deathrace.gameobjects.powerups.Types.DRILL_HORN:
+            return new deathrace.gameobjects.powerups.DrillHorn(scene, x, y);
+            break;
+        case deathrace.gameobjects.powerups.Types.FRIENDSHIP_PRESENT:
+            return new deathrace.gameobjects.powerups.FriendshipPresent(scene, x, y);
+            break;
+        case deathrace.gameobjects.powerups.Types.TIME_WIZARD:
+            return new deathrace.gameobjects.powerups.TimeWizard(scene, x, y);
+            break;
+
       default:
         throw new Error("PowerUp type does not exist");
     }
@@ -114,5 +131,9 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     return new PowerUp(scene, x, y);
   };
 
+  PowerUp.prototype.launch = function(bike) {};
+
   deathrace.gameobjects.powerups.PowerUpFactory = PowerUpFactory;
-})();
+})
+();
+

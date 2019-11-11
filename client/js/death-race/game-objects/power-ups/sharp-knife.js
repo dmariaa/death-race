@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 dmariaa
+ * Copyright 2019 NITROPC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,34 +14,34 @@
  * limitations under the License.
  */
 
+
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
-  var SparkDrink = function(scene, x, y) {
-    deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SD");
-    this.name = "spark-drink";
-  };
+    var SharpKnife = function(scene, x, y) {
+        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SK");
+        this.name = "sharp-knife";
+        this.cont = 1;
+    };
 
-  SparkDrink.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
-  SparkDrink.prototype.constructor = SparkDrink;
+    SharpKnife.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
+    SharpKnife.prototype.constructor = SharpKnife;
 
 
 
-   SparkDrink.prototype.launch = function (bike) {
-       console.log("Spark Drink Launched");
-         var currentSpeed = bike.speed;
-          bike.speed = bike.speed * 1.5;
+    SharpKnife.prototype.launch=function (bike) {
+        if(this.cont===1){
+            console.log("Sharp Knife launched");
+            bike.spawnKnife();
+            this.cont--;
+        }else{
+            this.destroy();
+        }
 
-       window.setTimeout(function() {
-           bike.speed = currentSpeed;
 
-           this.destroy();
-           }, 3000);
-   };
+    };
+    deathrace.gameobjects.powerups.SharpKnife = SharpKnife;
 
-    deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
 })();
-
-

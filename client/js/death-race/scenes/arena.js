@@ -70,8 +70,8 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.image('yellow-bike', 'img/sprites/yellowbike.png');
     this.load.audio('bike-engine', 'sounds/bike-engine.wav');
     this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-
-    this.load.image('powerups.CM', 'img/sprites/powerups/CM.png');
+    this.load.image('Shot', 'img/sprites/powerups/Shot.png');
+    this.load.image('Knife', 'img/sprites/powerups/Knife.png');
     this.load.image('powerups.GB', 'img/sprites/powerups/GB.png');
     this.load.image('powerups.LS', 'img/sprites/powerups/LS.png');
     this.load.image('powerups.MS', 'img/sprites/powerups/MS.png');
@@ -79,7 +79,14 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.image('powerups.SD', 'img/sprites/powerups/SD.png');
     this.load.image('powerups.SK', 'img/sprites/powerups/SK.png');
     this.load.image('powerups.SP', 'img/sprites/powerups/SP.png');
+    this.load.image('powerups.DH', 'img/sprites/powerups/DH.png');
+    this.load.image('powerups.FP', 'img/sprites/powerups/FP.png');
+    this.load.image('powerups.TW', 'img/sprites/powerups/TW.png');
+    this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
     this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
+
+
+
   };
 
   /**
@@ -98,18 +105,22 @@ deathrace.scenes = deathrace.scenes || {};
     this.northWall = this.add.rectangle(this.margin, this.margin , this.horzLength, this.wallWidth, 0x00ff00);
     this.northWall.setOrigin(0, 0);
     this.northWall.name = "north";
+    this.northWall.isExternalWall=true;
 
     this.southWall = this.add.rectangle(this.margin, this.vertLength + this.margin - this.wallWidth, this.horzLength, this.wallWidth, 0x00ff00);
     this.southWall.setOrigin(0, 0);
     this.southWall.name = "south";
+    this.southWall.isExternalWall=true;
 
-    this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+     this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.eastWall.setOrigin(0, 0);
     this.eastWall.name = "east";
+    this.eastWall.isExternalWall=true;
 
-    this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+      this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.westWall.setOrigin(0, 0);
     this.westWall.name = "west";
+    this.westWall.isExternalWall=true;
 
     this.wallGroup.add(this.northWall);
     this.wallGroup.add(this.southWall);
@@ -120,20 +131,28 @@ deathrace.scenes = deathrace.scenes || {};
     this.level = this.add.level();
     this.level.loadLevel(4);
 
-    // Building red bike
+    // Building yellow bike
+
     this.bike = this.add.bike(74, 74, 'yellow-bike', new Phaser.Display.Color(255, 255, 0));
 
     // Generate power ups
     this.powerUps = this.add.group();
-    this.spawnRandomPowerUps();
+
+    this.shots = this.add.group();
+    this.knifes = this.add.group();
+
+
+      this.spawnRandomPowerUps();
 
     // Bike - walls collider
     this.physics.add.overlap(this.bike, this.wallGroup, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bike, this.bike.trail.walls, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bike, this.level.walls, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bike, this.powerUps, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bike, this.bike.rectangle, this.bikeCollision, null, this);
 
-    // Input
+
+      // Input
     this.input.keyboard.on('keydown', this.handleInput, this);
     this.input.keyboard.on('keyup', this.handleInput, this);
 
@@ -171,16 +190,32 @@ deathrace.scenes = deathrace.scenes || {};
    * @param body Gameobject, the bike
    * @param other
    */
-  Arena.prototype.bikeCollision = function(body, other) {
+
+    Arena.prototype.bikeCollision = function(body, other) {
     if(other instanceof deathrace.gameobjects.powerups.PowerUp) {
       console.log("Powerup '" + other.name + "'picked up");
+      body.addPowerUp(other);
       this.powerUps.remove(other, true);
+
     } else {
-      if(this.bike.active) {
-        this.bike.setActive(false);
-        this.bike.explode();
-      }
-    }
+        this.bike.puppet = true;
+        if(this.bike.horn){
+            this.bike.ghost = true;
+            this.level.breakWall(4);
+            if(this.bike.ghost === false){
+                if(this.bike.active) {
+                    this.bike.setActive(false);
+                    this.bike.explode();
+
+                }
+             }
+        }
+        if(this.bike.ghost === false || other.isExternalWall || other instanceof deathrace.gameobjects.proyectile.Projectile){
+                this.bike.setActive(false);
+                this.bike.explode();}
+        }
+
+
   };
 
   Arena.prototype.spawnRandomPowerUps = function() {
@@ -213,6 +248,15 @@ deathrace.scenes = deathrace.scenes || {};
           break;
         case 'ArrowDown':
           this.bike.toggleBreak(true);
+          break;
+        case 'KeyQ':
+          this.bike.launchPowerUp(0);
+          break;
+        case 'KeyW':
+          this.bike.launchPowerUp(1);
+          break;
+        case 'KeyE':
+          this.bike.launchPowerUp(2);
           break;
       }
     } else if(e.type=='keyup') {
