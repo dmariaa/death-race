@@ -83,7 +83,16 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.image('powerups.SD', 'img/sprites/powerups/SD.png');
     this.load.image('powerups.SK', 'img/sprites/powerups/SK.png');
     this.load.image('powerups.SP', 'img/sprites/powerups/SP.png');
+    this.load.image('powerups.DH', 'img/sprites/powerups/DH.png');
+    this.load.image('powerups.FP', 'img/sprites/powerups/FP.png');
+    this.load.image('powerups.TW', 'img/sprites/powerups/TW.png');
+    this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
     this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
+
+
+      this.load.image('knife', 'img/sprites/powerups/Knife.png');
+
+
   };
 
   /**
@@ -122,7 +131,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Building level
     this.level = this.add.level();
-    this.level.loadLevel(1);
+    this.level.loadLevel(4);
 
     // Building red bike
     this.bike = this.add.bike(   74, 74, 'yellow', new Phaser.Display.Color(255, 255, 0));
@@ -223,13 +232,19 @@ deathrace.scenes = deathrace.scenes || {};
   Arena.prototype.bikeCollision = function(bike, other) {
     if(other instanceof deathrace.gameobjects.powerups.PowerUp) {
       console.log("Powerup '" + other.name + "'picked up");
+      bike.addPowerUp(other);
       this.powerUps.remove(other, true);
+
     } else {
-      if(bike.active) {
-        bike.setActive(false);
-        bike.explode();
-      }
+        //this.bike.collided = true;
+        if(bike.ghost == false){
+          if(bike.active) {
+            bike.setActive(false);
+            bike.explode();
+          }
+        }
     }
+
   };
 
   Arena.prototype.spawnRandomPowerUps = function() {
@@ -243,6 +258,45 @@ deathrace.scenes = deathrace.scenes || {};
       this.powerUps.add(powerUp);
     }
   };
+
+  /**
+   * Input handler
+   * @param e
+   *
+  Arena.prototype.handleInput = function(e) {
+    if(!this.bike.active) return;
+
+    console.log("Key pressed: " + e.code);
+    if(e.type=='keydown') {
+      switch (e.code) {
+        case 'ArrowLeft':
+          this.bike.turnLeft();
+          break;
+        case 'ArrowRight':
+          this.bike.turnRight();
+          break;
+        case 'ArrowDown':
+          this.bike.toggleBreak(true);
+          break;
+        case 'KeyQ':
+          this.bike.launchPowerUp(0);
+          break;
+        case 'KeyW':
+          this.bike.launchPowerUp(1);
+          break;
+        case 'KeyE':
+          this.bike.launchPowerUp(2);
+          break;
+      }
+    } else if(e.type=='keyup') {
+      switch (e.code) {
+        case 'ArrowDown':
+          this.bike.toggleBreak(false);
+          break;
+      }
+    }
+  };
+   */
 
   // Add to namespace
   deathrace.scenes.Arena = Arena;

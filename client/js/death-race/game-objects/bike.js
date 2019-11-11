@@ -36,13 +36,14 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     scene.physics.add.existing(this);
 
     this.name = name + '-bike';
-
     this.speed = 0.25;
     this.color = color;
     this.directionVector = new Phaser.Math.Vector2(0, 1);
     this.trail = this.scene.add.trail(this);
     this.active = true;
     this.rotation = 0;
+    this.ghost = false;
+    this.collided = false;
 
     this.body.syncBounds = true;
     this.setDisplayOrigin(6, 6.5);
@@ -82,6 +83,15 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.setColors();
 
     this.score = 0;
+
+    //PowerUps
+      this.inventory = {
+        slot1: undefined,
+        slot2: undefined,
+        slot3: undefined
+      };
+
+
   };
 
   // Inheritance, Bike extends Phaser.GameObjects.Sprite
@@ -99,6 +109,48 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.explosion.explode();
     this.destroy();
   };
+    /**
+     * Adds three PowerUp
+     */
+  Bike.prototype.addPowerUp=function(other){
+      if(this.inventory.slot1 == undefined){
+          this.inventory.slot1 = other;
+      }else  if(this.inventory.slot2 == undefined){
+          this.inventory.slot2 = other;
+      }else  if(this.inventory.slot3 == undefined){
+          this.inventory.slot3 = other;
+      }
+      console.log(this.inventory);
+  };
+
+    /**
+     *Use a PowerUp with a determinated index
+     *
+     */
+
+  Bike.prototype.launchPowerUp = function(index){
+    if(index==0){
+      if( this.inventory.slot1 != undefined){
+          this.inventory.slot1.launch(this);
+          this.inventory.slot1 = undefined;
+      }
+
+    }else if(index == 1){
+        if( this.inventory.slot2 != undefined){
+        this.inventory.slot2.launch(this);
+        this.inventory.slot2 = undefined;}
+    }else{
+        if( this.inventory.slot3 != undefined){
+        this.inventory.slot3.launch(this);
+        this.inventory.slot3 = undefined;}
+    }
+
+
+
+      //this.inventory.pop(this.inventory[index]);
+
+  };
+
 
   /**
    * Replaces this bike colors
@@ -162,6 +214,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.scene.events.emit('score', this.score);
   };
 
+  Bike.prototype.getPosX=function(){
+    return this.x;
+  };
+  Bike.prototype.getPosY=function(){
+        return this.y;
+  };
   /**
    * Toggles breaks
    * @param breaking true to break, false to release brake
