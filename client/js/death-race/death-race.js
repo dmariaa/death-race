@@ -31,18 +31,13 @@ var loadPhaser = function() {
     pixelArt: true,
     width: arenaWidth,
     height: arenaHeight,
-    // scale: {
-    //   width: arenaWidth,
-    //   height: arenaHeight,
-    //   expandParent: true,
-    //   mode: Phaser.Scale.ScaleModes.NONE
-    // },
     scene: [
       deathrace.scenes.MainMenu,
       deathrace.scenes.PlayMenu,
       deathrace.scenes.Arena,
       deathrace.scenes.Loading,
-      deathrace.scenes.PressAnyKey
+      deathrace.scenes.PressAnyKey,
+      deathrace.scenes.Hud
     ],
     plugins: {
       global: [
@@ -54,3 +49,22 @@ var loadPhaser = function() {
     }
   });
 };
+
+if(!String.prototype.format) {
+  /**
+   * Modificación de string para añadir función format
+   * Fuente: https://www.iteramos.com/pregunta/1176/javascript-equivalente-a-printfstringformat
+   * @return {String}
+   * @constructor
+   */
+  String.prototype.format = function() {
+    var formatted = this;
+
+    for (var i = 0; i < arguments.length; i++) {
+      var regexp = new RegExp('\\{'+i+'\\}', 'gi');
+      formatted = formatted.replace(regexp, arguments[i]);
+    }
+
+    return formatted;
+  };
+}

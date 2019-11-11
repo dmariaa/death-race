@@ -19,7 +19,10 @@ deathrace.scenes = deathrace.scenes || {};
 
 (function() {
   var PressAnyKey = function() {
-    Phaser.Scene.call(this, "PressAnyKey");
+    Phaser.Scene.call(this, {
+      key: "PressAnyKey",
+      input: { gamepad: true }
+    });
   };
 
   PressAnyKey.prototype = Object.create(Phaser.Scene.prototype);
@@ -36,6 +39,7 @@ deathrace.scenes = deathrace.scenes || {};
     text.setOrigin(0.5, 0.5);
 
     this.input.keyboard.on('keydown', this.handleInput, this);
+    this.input.gamepad.on('down', this.handleInput, this);
   };
 
   PressAnyKey.prototype.handleInput = function() {
