@@ -135,6 +135,9 @@ deathrace.scenes = deathrace.scenes || {};
       this.level = this.add.level();
       this.level.loadLevel(4);
 
+      // Bike trails
+      this.bikeTrails = this.add.group();
+
       // Building red bike
       this.bike = this.add.bike(74, 74, 'yellow', new Phaser.Display.Color(255, 255, 0));
       this.bike2 = this.add.bike(1154, 74, 'red', new Phaser.Display.Color(255, 255, 0));
@@ -155,7 +158,7 @@ deathrace.scenes = deathrace.scenes || {};
 
       // Bike - walls collider
       this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.bike.trail.walls, this.bikeCollision, null, this);
+      this.physics.add.overlap(this.bikeGroup, this.bikeTrails, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.bike.rectangle, this.bikeCollision, null, this);
@@ -244,6 +247,7 @@ deathrace.scenes = deathrace.scenes || {};
      * @param other
      */
     Arena.prototype.bikeCollision = function (bike, other) {
+      console.log("Collision");
       if (other instanceof deathrace.gameobjects.powerups.PowerUp) {
         console.log("Powerup '" + other.name + "'picked up");
         bike.addPowerUp(other);

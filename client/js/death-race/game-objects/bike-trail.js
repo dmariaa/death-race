@@ -73,6 +73,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     this._currentWall = wall;
     this.walls.splice(0, 0, this._currentWall);
+    this.scene.bikeTrails.add(this._currentWall);
   };
 
   /**
