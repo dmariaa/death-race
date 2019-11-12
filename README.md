@@ -242,3 +242,25 @@ Esta es la pantalla del juego. Además de las motos y demás elementos del juego
 
 
 
+# Fase 2
+
+## Cambios realizados
+
+Al finalizar el primero, teníamos un prototipo que consistía en una moto que circulaba en un escenario con dos niveles posibles, donde cada nivel establecía una composición de muros contra los que chocarse, y dejaba una estela de color amarillo por donde circulaba. 
+
+En la fase actual, hay una variedad de hasta 5 escenarios con composiciones diferentes cada uno de ellos. Actualmente hay dos motos pero se puede extender hasta 4 haciendo un simple cambio en el código. Estas motos se controlan con las flechas direccionales y con A y D, aunque también se pueden controlar con mando. 
+
+Además de esto, como se dijo, se han añadido diferentes Power Ups a lo largo del escenario con un Sprite personalizado para cada uno de los once y creados por nosotros mismos. Estos Power Ups, dan ciertos potenciadores que, normalmente duran un tiempo determinado o tienen un número limitado. Junto a esto se encuentran las trampas colocadas por todo el escenario, que serán un impedimento más y te matarán si te chocas con ellas.
+
+#### Power-Ups
+![ASSETS_FINAL_V1](https://user-images.githubusercontent.com/45218480/68715916-5a3d5b00-05a3-11ea-9031-a39620935048.png)
+
+
+A la hora de comenzar el juego, hay un menú con diferentes opciones que te permite jugar, ver la pantalla de puntuación con los jugadores que más puntos hayan obtenido, hacer ciertos ajustes o salir del juego. Una vez se de a *jugar* se deberá crear una partida, cosa que nos será útil en fases posteriores para el juego en línea.
+
+#### Pantalla de Menú
+
+
+El sistema de físicas que utilizamos es el propio de Phaser 3 y, principalmente usamos es el overlap para detectar colisiones y poder actuar entre ellas. Las motos se mueven con un método Update que llama Phaser, actualizando de esta manera su rotación y su posición. Este método también es usado por los Power Ups que son lanzados.
+
+Se cargan los niveles a través de un cargador que ordena las coordenadas y permite saber el orden necesario para las colisiones. El choque contra los muros, tanto exteriores como interiores, son gestionados por, como se ha mencionado antes, un único método que destruye la moto y genera una animación de partículas.
