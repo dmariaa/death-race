@@ -19,29 +19,19 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
-    var GhostCoat = function(scene, x, y) {
-        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.GC");
-        this.name = "ghost-coat";
+    var CommandedMissile = function(scene, x, y) {
+        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.CM");
+        this.name = "commanded-missile";
     };
 
-    GhostCoat.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
-    GhostCoat.prototype.constructor = GhostCoat;
+    CommandedMissile.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
+    CommandedMissile.prototype.constructor = CommandedMissile;
 
-
-    GhostCoat.prototype.launch = function (bike) {
-        console.log("Ghost Coat launched");
-      bike.ghost=true;
-      window.setTimeout(function() {
-            bike.ghost=false; }, 5000);
-      console.log("Ghost Coat launched");
-      bike.ghost=true;
-      window.setTimeout(function() {
-            bike.ghost=false;
-          this.destroy();
-          }, 5000);
-        this.destroy();
+    CommandedMissile.prototype.launch=function (bike) {
+        console.log("CommandedMissile launched");
     };
+    deathrace.gameobjects.powerups.CommandedMissile = CommandedMissile;
 
-    deathrace.gameobjects.powerups.GhostCoat = GhostCoat;
+
 
 })();

@@ -30,6 +30,9 @@ deathrace.scenes = deathrace.scenes || {};
         arcade: {
           debug: false
         }
+      },
+      input: {
+        gamepad: true
       }
     });
   };
@@ -68,6 +71,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     this.load.image('bike', 'img/sprites/blackbike.png');
     this.load.image('yellow-bike', 'img/sprites/yellowbike.png');
+
     this.load.audio('bike-engine', 'sounds/bike-engine.wav');
     this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
     this.load.image('Shot', 'img/sprites/powerups/Shot.png');
@@ -85,8 +89,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
     this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
 
-
-
+    this.load.image('knife', 'img/sprites/powerups/Knife.png');
   };
 
   /**
@@ -112,12 +115,12 @@ deathrace.scenes = deathrace.scenes || {};
     this.southWall.name = "south";
     this.southWall.isExternalWall=true;
 
-     this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+    this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.eastWall.setOrigin(0, 0);
     this.eastWall.name = "east";
     this.eastWall.isExternalWall=true;
 
-      this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+    this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.westWall.setOrigin(0, 0);
     this.westWall.name = "west";
     this.westWall.isExternalWall=true;
@@ -131,9 +134,14 @@ deathrace.scenes = deathrace.scenes || {};
     this.level = this.add.level();
     this.level.loadLevel(4);
 
-    // Building yellow bike
+    // Building red bike
+    this.bike = this.add.bike(   74, 74, 'yellow', new Phaser.Display.Color(255, 255, 0));
+    this.bike2 = this.add.bike(1154, 74, 'red', new Phaser.Display.Color(255, 255, 0));
 
-    this.bike = this.add.bike(74, 74, 'yellow-bike', new Phaser.Display.Color(255, 255, 0));
+    this.bikeGroup = this.add.group([
+      this.bike,
+      this.bike2
+    ]);
 
     // Generate power ups
     this.powerUps = this.add.group();
@@ -145,16 +153,18 @@ deathrace.scenes = deathrace.scenes || {};
       this.spawnRandomPowerUps();
 
     // Bike - walls collider
-    this.physics.add.overlap(this.bike, this.wallGroup, this.bikeCollision, null, this);
-    this.physics.add.overlap(this.bike, this.bike.trail.walls, this.bikeCollision, null, this);
-    this.physics.add.overlap(this.bike, this.level.walls, this.bikeCollision, null, this);
-    this.physics.add.overlap(this.bike, this.powerUps, this.bikeCollision, null, this);
-    this.physics.add.overlap(this.bike, this.bike.rectangle, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.bike.trail.walls, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.bike.rectangle, this.bikeCollision, null, this);
 
+    this.input.gamepad.once('down', function(gamepad) {
+      this.setupGamePad(gamepad, this.bike);
+    }, this);
 
-      // Input
-    this.input.keyboard.on('keydown', this.handleInput, this);
-    this.input.keyboard.on('keyup', this.handleInput, this);
+    this.setupKeyboard1(this.bike);
+    this.setupKeyboard2(this.bike2);
 
     // Load press-any-key scene
     this.scene.get('PressAnyKey').parentScene = this;
@@ -163,6 +173,41 @@ deathrace.scenes = deathrace.scenes || {};
 
     this.events.on('pause', this.pause, this);
     this.events.on('resume', this.resume, this);
+
+  };
+
+  Arena.prototype.setupGamePad = function(gamepad, bike) {
+    this.controller1 = new deathrace.inputhandler.GamepadController();
+    this.controller1.setGamepad(gamepad);
+    this.controller1.setCommands([
+      { key: this.controller1.actions.CURSOR_LEFT, command: new deathrace.inputhandler.CommandSteerLeft(bike) },
+      { key: this.controller1.actions.CURSOR_RIGHT, command: new deathrace.inputhandler.CommandSteerRight(bike) },
+      { key: this.controller1.actions.X_BUTTON, command: new deathrace.inputhandler.CommandToggleBreak(bike, true) }
+    ]);
+  };
+
+  Arena.prototype.setupKeyboard1 = function(bike) {
+    var KeyCodes = Phaser.Input.Keyboard.KeyCodes;
+    this.keyboard1 = new deathrace.inputhandler.KeyboardController();
+    this.keyboard1.setKeyboard(this.input.keyboard);
+    this.keyboard1.setCommands([
+      { key: KeyCodes.LEFT, type: 'keydown', command: new deathrace.inputhandler.CommandSteerLeft(bike) },
+      { key: KeyCodes.RIGHT, type: 'keydown', command: new deathrace.inputhandler.CommandSteerRight(bike) },
+      { key: KeyCodes.DOWN, type: 'keydown', command: new deathrace.inputhandler.CommandToggleBreak(bike, true) },
+      { key: KeyCodes.DOWN, type: 'keyup', command: new deathrace.inputhandler.CommandToggleBreak(bike, false) }
+    ]);
+  };
+
+  Arena.prototype.setupKeyboard2 = function(bike) {
+    var KeyCodes = Phaser.Input.Keyboard.KeyCodes;
+    this.keyboard1 = new deathrace.inputhandler.KeyboardController();
+    this.keyboard1.setKeyboard(this.input.keyboard);
+    this.keyboard1.setCommands([
+      { key: KeyCodes.A, type: 'keydown', command: new deathrace.inputhandler.CommandSteerLeft(bike) },
+      { key: KeyCodes.D, type: 'keydown', command: new deathrace.inputhandler.CommandSteerRight(bike) },
+      { key: KeyCodes.S, type: 'keydown', command: new deathrace.inputhandler.CommandToggleBreak(bike, true) },
+      { key: KeyCodes.S, type: 'keyup', command: new deathrace.inputhandler.CommandToggleBreak(bike, false) }
+    ]);
   };
 
   /**
@@ -177,6 +222,7 @@ deathrace.scenes = deathrace.scenes || {};
    */
   Arena.prototype.resume = function() {
     this.sound.setMute(false);
+    this.scene.launch('HUD');
   };
 
   /**
@@ -190,29 +236,29 @@ deathrace.scenes = deathrace.scenes || {};
    * @param body Gameobject, the bike
    * @param other
    */
-
     Arena.prototype.bikeCollision = function(body, other) {
+  Arena.prototype.bikeCollision = function(bike, other) {
     if(other instanceof deathrace.gameobjects.powerups.PowerUp) {
       console.log("Powerup '" + other.name + "'picked up");
-      body.addPowerUp(other);
+      bike.addPowerUp(other);
       this.powerUps.remove(other, true);
 
     } else {
-        this.bike.puppet = true;
-        if(this.bike.horn){
-            this.bike.ghost = true;
+        bike.puppet = true;
+        if(bike.horn){
+            bike.ghost = true;
             this.level.breakWall(4);
-            if(this.bike.ghost === false){
-                if(this.bike.active) {
-                    this.bike.setActive(false);
-                    this.bike.explode();
+            if(bike.ghost === false){
+                if(bike.active) {
+                    bike.setActive(false);
+                    bike.explode();
 
                 }
              }
         }
-        if(this.bike.ghost === false || other.isExternalWall || other instanceof deathrace.gameobjects.proyectile.Projectile){
-                this.bike.setActive(false);
-                this.bike.explode();}
+        if(bike.ghost === false || other.isExternalWall || other instanceof deathrace.gameobjects.proyectile.Projectile){
+                bike.setActive(false);
+                bike.explode();}
         }
 
 
@@ -233,7 +279,7 @@ deathrace.scenes = deathrace.scenes || {};
   /**
    * Input handler
    * @param e
-   */
+   *
   Arena.prototype.handleInput = function(e) {
     if(!this.bike.active) return;
 
@@ -267,6 +313,7 @@ deathrace.scenes = deathrace.scenes || {};
       }
     }
   };
+   */
 
   // Add to namespace
   deathrace.scenes.Arena = Arena;

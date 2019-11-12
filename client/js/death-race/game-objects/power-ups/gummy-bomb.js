@@ -29,6 +29,7 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     GummyBomb.prototype.launch=function (bike) {
+
         console.log("GummyBomb launched");
 
 

@@ -16,7 +16,6 @@
 
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
-deathrace.gameobjects.projectile = deathrace.gameobjects.projectile || {};
 
 (function(){
 
@@ -28,5 +27,5 @@ deathrace.gameobjects.projectile = deathrace.gameobjects.projectile || {};
     Knife.prototype.constructor = Knife;
 
     deathrace.gameobjects.projectile.Knife = Knife;
-    
+
 })();

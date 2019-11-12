@@ -30,6 +30,11 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     DrillHorn.prototype.launch=function (bike) {
+        //console.log("Drill Horn launched");
+        var wallLine = bike.scene.add.line();
+
+       // if(bike.collided){
+            console.log("Drill Horn launched");
 
 
        /* var wallLine = bike.scene.add.line();
@@ -39,6 +44,7 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
             wallLine.setTo(bike.walls.x1, bike.walls.y1, bike.x-bike.sizeX,bike.y-bike.sizeY);
             wallLine.setTo(bike.x+bike.sizeX,bike.y+bike.sizeY,bike.walls.x2, bike.walls.y2);
             bike.ghost = false;
+      //  }
       //  }*/
        if(this.cont > 0){
            console.log("Drill Horn launched");

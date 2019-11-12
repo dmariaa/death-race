@@ -57,8 +57,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     return powerup;
   };
 
-
-
  GameObjectsPlugin.prototype.createKnife = function(x,y, directionVector, texture){
     var knife = new deathrace.gameobjects.projectile.Projectile(this.scene, x, y, directionVector,texture);
     this.scene.add.existing(knife);
@@ -72,7 +70,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         this.scene.physics.add.existing(shot);
         return shot;
   };
-
 
     deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;
 })();
