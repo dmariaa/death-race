@@ -32,9 +32,9 @@ var loadPhaser = function() {
     width: arenaWidth,
     height: arenaHeight,
     scene: [
+      deathrace.scenes.Arena,
       deathrace.scenes.MainMenu,
       deathrace.scenes.PlayMenu,
-      deathrace.scenes.Arena,
       deathrace.scenes.Loading,
       deathrace.scenes.PressAnyKey,
       deathrace.scenes.Hud

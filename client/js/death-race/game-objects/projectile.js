@@ -25,7 +25,7 @@ var PI = Math.PI;
 (function(){
 
     var Projectile = function (scene, x, y, directionVector, texture) {
-        Phaser.GameObjects.Sprite.call(this, scene, x, y, directionVector, texture);
+        Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
         this.rotation;
         this.directionVector = directionVector;
         this.speed = 0.5;
