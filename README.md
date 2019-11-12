@@ -238,3 +238,7 @@ Esta es la pantalla del juego. Además de las motos y demás elementos del juego
 #### Power-Ups
 
 ![Power_ups_beta_1](https://user-images.githubusercontent.com/5584976/66428634-bfd38000-ea16-11e9-9bd7-24e711b9b85d.png)
+
+
+
+
