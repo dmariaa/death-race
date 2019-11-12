@@ -74,8 +74,9 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.load.audio('bike-engine', 'sounds/bike-engine.wav');
       this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-      this.load.image('Shot', 'img/sprites/powerups/Shot.png');
-      this.load.image('Knife', 'img/sprites/powerups/Knife.png');
+
+      this.load.image('shot', 'img/sprites/shot.png');
+      this.load.image('knife', 'img/sprites/knife.png');
 
       this.load.image('powerups.GB', 'img/sprites/powerups/GB.png');
       this.load.image('powerups.LS', 'img/sprites/powerups/LS.png');
@@ -89,8 +90,6 @@ deathrace.scenes = deathrace.scenes || {};
       this.load.image('powerups.TW', 'img/sprites/powerups/TW.png');
       this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
       this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
-
-      this.load.image('knife', 'img/sprites/powerups/Knife.png');
     };
 
     /**
@@ -142,6 +141,9 @@ deathrace.scenes = deathrace.scenes || {};
       this.bike = this.add.bike(74, 74, 'yellow', new Phaser.Display.Color(255, 255, 0));
       this.bike2 = this.add.bike(1154, 74, 'red', new Phaser.Display.Color(255, 255, 0));
 
+      this.scene.get('HUD').attach(0, this.bike);
+      this.scene.get('HUD').attach(1, this.bike2);
+
       this.bikeGroup = this.add.group([
         this.bike,
         this.bike2
@@ -149,12 +151,11 @@ deathrace.scenes = deathrace.scenes || {};
 
       // Generate power ups
       this.powerUps = this.add.group();
-
       this.shots = this.add.group();
       this.knifes = this.add.group();
 
 
-      this.spawnRandomPowerUps();
+      this.spawnRandomPowerUps(5, 15);
 
       // Bike - walls collider
       this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
@@ -199,6 +200,7 @@ deathrace.scenes = deathrace.scenes || {};
         {key: KeyCodes.RIGHT, type: 'keydown', command: new deathrace.inputhandler.CommandSteerRight(bike)},
         {key: KeyCodes.DOWN, type: 'keydown', command: new deathrace.inputhandler.CommandToggleBreak(bike, true)},
         {key: KeyCodes.DOWN, type: 'keyup', command: new deathrace.inputhandler.CommandToggleBreak(bike, false)},
+
         {key: KeyCodes.COMMA, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 0)},
         {key: KeyCodes.COLON, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 1)},
         {key: KeyCodes.MINUS, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 2)}
@@ -214,6 +216,7 @@ deathrace.scenes = deathrace.scenes || {};
         {key: KeyCodes.D, type: 'keydown', command: new deathrace.inputhandler.CommandSteerRight(bike)},
         {key: KeyCodes.S, type: 'keydown', command: new deathrace.inputhandler.CommandToggleBreak(bike, true)},
         {key: KeyCodes.S, type: 'keyup', command: new deathrace.inputhandler.CommandToggleBreak(bike, false)},
+
         {key: KeyCodes.Q, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 0)},
         {key: KeyCodes.W, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 1)},
         {key: KeyCodes.E, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 2)}
@@ -247,22 +250,21 @@ deathrace.scenes = deathrace.scenes || {};
      * @param other
      */
     Arena.prototype.bikeCollision = function (bike, other) {
-      console.log("Collision");
       if (other instanceof deathrace.gameobjects.powerups.PowerUp) {
-        console.log("Powerup '" + other.name + "'picked up");
-        bike.addPowerUp(other);
-        this.powerUps.remove(other, true);
-
+        if(bike.addPowerUp(other)) {
+          this.powerUps.remove(other, true);
+        }
       } else {
         bike.puppet = true;
+
         if (bike.horn) {
           bike.ghost = true;
           this.level.breakWall(4);
+
           if (bike.ghost === false) {
             if (bike.active) {
               bike.setActive(false);
               bike.explode();
-
             }
           }
         }
@@ -274,8 +276,10 @@ deathrace.scenes = deathrace.scenes || {};
       }
     };
 
-    Arena.prototype.spawnRandomPowerUps = function () {
-      var numberOfPowerUps = Math.trunc(Math.random() * 7 + 3);
+    Arena.prototype.spawnRandomPowerUps = function (min, max) {
+      min = min || 3;
+      max = max || 7;
+      var numberOfPowerUps = Math.trunc(Math.random() * (max-min) + min);
       this.powerUps.clear(true);
 
       for (var i = 0; i < numberOfPowerUps; ++i) {
@@ -285,45 +289,6 @@ deathrace.scenes = deathrace.scenes || {};
         this.powerUps.add(powerUp);
       }
     };
-
-    /**
-     * Input handler
-     * @param e
-     *
-     Arena.prototype.handleInput = function(e) {
-    if(!this.bike.active) return;
-
-    console.log("Key pressed: " + e.code);
-    if(e.type=='keydown') {
-      switch (e.code) {
-        case 'ArrowLeft':
-          this.bike.turnLeft();
-          break;
-        case 'ArrowRight':
-          this.bike.turnRight();
-          break;
-        case 'ArrowDown':
-          this.bike.toggleBreak(true);
-          break;
-        case 'KeyQ':
-          this.bike.launchPowerUp(0);
-          break;
-        case 'KeyW':
-          this.bike.launchPowerUp(1);
-          break;
-        case 'KeyE':
-          this.bike.launchPowerUp(2);
-          break;
-      }
-    } else if(e.type=='keyup') {
-      switch (e.code) {
-        case 'ArrowDown':
-          this.bike.toggleBreak(false);
-          break;
-      }
-    }
-  };
-     */
 
     // Add to namespace
     deathrace.scenes.Arena = Arena;

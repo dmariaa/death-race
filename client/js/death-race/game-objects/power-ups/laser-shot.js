@@ -30,18 +30,12 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     LaserShot.prototype.launch=function (bike) {
-
-        if(this.cont > 0){
-            console.log("Laser shot launched");
-            bike.spawnShot();
-            this.cont--;
-        }
-        else{
+        bike.spawnShot();
+        this.cont--;
+        if(this.cont == 0){
             this.destroy();
         }
-
     };
+
     deathrace.gameobjects.powerups.LaserShot = LaserShot;
-
-
 })();

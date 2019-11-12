@@ -23,16 +23,12 @@ var PI = Math.PI;
 
 
 (function(){
-
     var Shot = function (scene, x, y, directionVector) {
-        deathrace.gameobjects.projectile.Projectile.call(this, scene, x, y, directionVector, "Shot");
-
+        deathrace.gameobjects.projectile.Projectile.call(this, scene, x, y, directionVector, "shot");
     };
+
     Shot.prototype = Object.create(deathrace.gameobjects.projectile.Projectile.prototype);
     Shot.prototype.constructor = Shot;
 
-
-
     deathrace.gameobjects.projectile.Shot = Shot;
-
 })();

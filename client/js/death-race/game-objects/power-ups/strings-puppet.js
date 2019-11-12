@@ -29,10 +29,9 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     StringsPuppet.prototype.launch = function (bike) {
-        console.log("StringsPuppet launched");
         var direction = Math.trunc(Math.random()*2+1);
-        //console.log(direction);
         bike.inRadius();
+
         if(bike.puppet){
             if(direction===1){
                 bike.setRotation(bike.directionVector.x * -1);

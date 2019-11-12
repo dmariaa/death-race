@@ -23,7 +23,6 @@ var HALF_PI = Math.PI / 2;
 var PI = Math.PI;
 
 (function(){
-
     var Projectile = function (scene, x, y, directionVector, texture) {
         Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
         this.rotation;
@@ -31,6 +30,7 @@ var PI = Math.PI;
         this.speed = 0.5;
         this.setRotation(this.directionVector.x * HALF_PI + (Math.abs(this.directionVector.x) + 1 - this.directionVector.y) * HALF_PI);
     };
+
     Projectile.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
     Projectile.prototype.constructor = Projectile;
 
@@ -49,5 +49,4 @@ var PI = Math.PI;
     };
 
     deathrace.gameobjects.projectile.Projectile = Projectile;
-
 })();
