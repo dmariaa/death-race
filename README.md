@@ -271,3 +271,8 @@ El sistema de físicas que utilizamos es el propio de Phaser 3 y, principalmente
 Se cargan los niveles a través de un cargador que ordena las coordenadas y permite saber el orden necesario para las colisiones. El choque contra los muros, tanto exteriores como interiores, son gestionados por, como se ha mencionado antes, un único método que destruye la moto y genera una animación de partículas.
 
 Por último, si hablamos en lo referente al apartado sonoro, el videojuego reproduce el sonido del motor cuando la moto circula y si se choca, suena un gran sonido de explosión. En el menú, tenemos una música que te pone en tensión y una canción rock durante la partida.
+
+#### Referencias
+
+web libre de derechos para música de fondo: https://www.1001fonts.com/free-fonts-for-commercial-use.html?page=2&items=10
+
