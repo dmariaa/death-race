@@ -31,6 +31,10 @@ var loadPhaser = function() {
     pixelArt: true,
     width: arenaWidth,
     height: arenaHeight,
+    scale: {
+      mode: Phaser.Scale.FIT,
+      autoCenter: Phaser.Scale.CENTER_BOTH
+    },
     scene: [
       deathrace.scenes.Arena,
       deathrace.scenes.MainMenu,
