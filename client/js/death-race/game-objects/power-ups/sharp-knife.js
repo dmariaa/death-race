@@ -23,25 +23,15 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     var SharpKnife = function(scene, x, y) {
         deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SK");
         this.name = "sharp-knife";
-        this.cont = 1;
     };
 
     SharpKnife.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
     SharpKnife.prototype.constructor = SharpKnife;
 
-
-
     SharpKnife.prototype.launch=function (bike) {
-        if(this.cont===1){
-            console.log("Sharp Knife launched");
-            bike.spawnKnife();
-            this.cont--;
-        }else{
-            this.destroy();
-        }
-
-
+        bike.spawnKnife();
+        this.destroy();
     };
-    deathrace.gameobjects.powerups.SharpKnife = SharpKnife;
 
+    deathrace.gameobjects.powerups.SharpKnife = SharpKnife;
 })();

@@ -17,7 +17,7 @@
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
-(function() {
+(function () {
   var HALF_PI = Math.PI / 2;
   var PI = Math.PI;
 
@@ -30,13 +30,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param color Bike color
    * @constructor
    */
-  var Bike = function(scene, x, y, name, color) {
+  var Bike = function (scene, x, y, name, color) {
     texture = 'yellow-bike';
     Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
     scene.physics.add.existing(this);
 
     this.name = name + '-bike';
-    this.speed = 0.25;
+    this.speed = 0.15;
     this.color = color;
     this.directionVector = new Phaser.Math.Vector2(0, 1);
     this.trail = this.scene.add.trail(this);
@@ -59,15 +59,15 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     // Explosion texture
     var rt = scene.textures.createCanvas(this.name + '-bikepieces', 5, 5);
     rt.context.fillStyle = this.color.rgba;
-    rt.context.fillRect(0,0,5,5);
+    rt.context.fillRect(0, 0, 5, 5);
     rt.refresh();
 
     // Explosion particles
     var expl = scene.add.particles(this.name + '-bikepieces');
     this.explosion = expl.createEmitter({
-      speed: { min: -800, max: 800 },
-      alpha: { start: 1.0, end: 0},
-      angle: { min: 0, max: 360},
+      speed: {min: -800, max: 800},
+      alpha: {start: 1.0, end: 0},
+      angle: {min: 0, max: 360},
       blendMode: Phaser.BlendModes.NORMAL,
       radial: true,
       quantity: 100,
@@ -91,11 +91,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.score = 0;
 
     //PowerUps
-      this.inventory = {
-        slot1: undefined,
-        slot2: undefined,
-        slot3: undefined
-      };
+    this.inventory = {
+      0: undefined,
+      1: undefined,
+      2: undefined
+    };
   };
 
   // Inheritance, Bike extends Phaser.GameObjects.Sprite
@@ -105,7 +105,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   /**
    * Destroys bike, with explosion particle system and sounds
    */
-  Bike.prototype.explode = function() {
+  Bike.prototype.explode = function () {
     this.engineSound.stop();
     this.explosionSound.play();
     this.explosion.setPosition(this.x, this.y);
@@ -113,98 +113,63 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.explosion.explode();
     this.destroy();
   };
-    /**
-     * Adds three PowerUp
-     */
-  Bike.prototype.addPowerUp=function(other){
-      if(this.inventory.slot1 == undefined){
-          this.inventory.slot1 = other;
-      }else  if(this.inventory.slot2 == undefined){
-          this.inventory.slot2 = other;
-      }else  if(this.inventory.slot3 == undefined){
-          this.inventory.slot3 = other;
+
+  /**
+   * Adds three PowerUp
+   */
+  Bike.prototype.addPowerUp = function (powerup) {
+    for(var i=0; i<3; ++i) {
+      if(!this.inventory[i]) {
+        this.inventory[i] = powerup;
+        this.scene.events.emit('powerup-attached', this, powerup, i);
+        return true;
       }
-      console.log(this.inventory);
-  };
-
-    /**
-     *Use a PowerUp with a determinated index
-     *
-     */
-
-  Bike.prototype.launchPowerUp = function(index){
-    if(index==0){
-      if( this.inventory.slot1 != undefined){
-          this.inventory.slot1.launch(this);
-          this.inventory.slot1 = undefined;
-      }
-
-    }else if(index == 1){
-        if( this.inventory.slot2 != undefined){
-        this.inventory.slot2.launch(this);
-        this.inventory.slot2 = undefined;}
-    }else{
-        if( this.inventory.slot3 != undefined){
-        this.inventory.slot3.launch(this);
-        this.inventory.slot3 = undefined;}
     }
 
-
-
-      //this.inventory.pop(this.inventory[index]);
-
+    return false;
   };
 
-    /**
-     * Adds three PowerUp
-     */
-  Bike.prototype.addPowerUp=function(other){
-      if(this.inventory.slot1 == undefined){
-          this.inventory.slot1 = other;
-      }else  if(this.inventory.slot2 == undefined){
-          this.inventory.slot2 = other;
-      }else  if(this.inventory.slot3 == undefined){
-          this.inventory.slot3 = other;
-      }
-      console.log(this.inventory);
-  };
-
-    /**
-     *Use a PowerUp with a determinated index
-     *
-     */
-
-  Bike.prototype.launchPowerUp = function(index){
-    if(index==0){
-      if( this.inventory.slot1 != undefined){
-          this.inventory.slot1.launch(this);
-      }
-    }else if(index == 1){
-        if( this.inventory.slot2 != undefined){
-        this.inventory.slot2.launch(this);}
-    }else{
-        if( this.inventory.slot3 != undefined){
-        this.inventory.slot3.launch(this);}
+  /**
+   * Launch powerup in given slot
+   * @param index Slot
+   */
+  Bike.prototype.launchPowerUp = function (slot) {
+    if(this.inventory[slot]) {
+      this.inventory[slot].on('powerup-finished', this.removePowerUp.bind(this, slot));
+      this.inventory[slot].launch(this);
     }
-
   };
 
-  Bike.prototype.inRadius =function(){
+  /**
+   * Removes powerup from spot and destroy it
+   * @param index
+   */
+  Bike.prototype.removePowerUp = function(slot) {
+    if(this.inventory[slot]) {
+      this.inventory[slot].destroy;
+      this.inventory[slot] = undefined;
+      this.scene.events.emit('powerup-released', this, slot);
+    }
+  };
+
+  Bike.prototype.inRadius = function () {
     this.rectangle = this.scene.add.rectangle(this.x, this.y, this.radius, this.radius);
     console.log("se crea");
   };
 
-  Bike.prototype.spawnKnife = function(){
-      this.scene.knifes.add(this.scene.add.knife(this.x, this.y, this.directionVector.clone()));
+  Bike.prototype.spawnKnife = function () {
+    var knife = this.scene.add.knife(this.x, this.y, this.directionVector.clone());
+    this.scene.knifes.add(knife);
   };
-  Bike.prototype.spawnShot=function(){
-      this.scene.shots.add(this.scene.add.shot(this.x, this.y, this.directionVector.clone()));
+
+  Bike.prototype.spawnShot = function () {
+    this.scene.shots.add(this.scene.add.shot(this.x, this.y, this.directionVector.clone()));
   };
   /**
    * Replaces this bike colors
    * with selected color palette.
    */
-  Bike.prototype.setColors = function() {
+  Bike.prototype.setColors = function () {
     var tx = this.texture;
     var img = tx.getSourceImage();
     var textureName = this.name + '-texture';
@@ -214,17 +179,17 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     var pixelsData = ct.context.getImageData(0, 0, ct.width, ct.height);
     var pixels = pixelsData.data;
-    for(var i = 0, length = pixels.length; i < length - 4; i += 4) {
+    for (var i = 0, length = pixels.length; i < length - 4; i += 4) {
       var r = pixels[i],
-          g = pixels[i+1],
-          b = pixels[i+2],
-          a = pixels[i+3];
+        g = pixels[i + 1],
+        b = pixels[i + 2],
+        a = pixels[i + 3];
 
-      if(r===148 & g===148 & b===148 & a===255) {
+      if (r === 148 & g === 148 & b === 148 & a === 255) {
         pixels[i] = this.color.red;
-        pixels[i+1] = this.color.green;
-        pixels[i+2] = this.color.blue;
-        pixels[i+3] = this.color.alpha;
+        pixels[i + 1] = this.color.green;
+        pixels[i + 2] = this.color.blue;
+        pixels[i + 3] = this.color.alpha;
       }
     }
     ct.context.putImageData(pixelsData, 0, 0);
@@ -237,7 +202,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param time
    * @param delta
    */
-  Bike.prototype.preUpdate = function(time, delta) {
+  Bike.prototype.preUpdate = function (time, delta) {
     Phaser.GameObjects.Sprite.prototype.preUpdate.call(this, time, delta);
     this.update(time, delta);
   };
@@ -247,7 +212,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param time
    * @param delta
    */
-  Bike.prototype.update = function(time, delta) {
+  Bike.prototype.update = function (time, delta) {
     this.setPosition(
       this.x + this.directionVector.x * this.speed * delta,
       this.y + this.directionVector.y * this.speed * delta
@@ -259,21 +224,21 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     );
 
     this.score = Math.trunc(this.trail.getLength() * 0.1);
-    this.scene.events.emit('score', this.score);
+    this.scene.events.emit('score', this, this.score);
   };
 
-  Bike.prototype.getPosX=function(){
+  Bike.prototype.getPosX = function () {
     return this.x;
   };
-  Bike.prototype.getPosY=function(){
-        return this.y;
+  Bike.prototype.getPosY = function () {
+    return this.y;
   };
   /**
    * Toggles breaks
    * @param breaking true to break, false to release brake
    */
-  Bike.prototype.toggleBreak = function(breaking) {
-    if(breaking) {
+  Bike.prototype.toggleBreak = function (breaking) {
+    if (breaking) {
       this.speed = 0.15;
       this.engineSound.setDetune(-50);
     } else {
@@ -285,14 +250,14 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   /**
    * Turns bike left
    */
-  Bike.prototype.turnLeft = function() {
+  Bike.prototype.turnLeft = function () {
     this.turnBikeAndTrail(this.directionVector.y, -this.directionVector.x);
   };
 
   /**
    * Turns bike right
    */
-  Bike.prototype.turnRight = function() {
+  Bike.prototype.turnRight = function () {
     this.turnBikeAndTrail(-this.directionVector.y, this.directionVector.x);
   };
 
@@ -301,7 +266,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param newVectorX Direction vector X
    * @param newVectorY Direction vector Y
    */
-  Bike.prototype.turnBikeAndTrail = function(newVectorX, newVectorY) {
+  Bike.prototype.turnBikeAndTrail = function (newVectorX, newVectorY) {
     // End current trail
     this.trail.set(
       this.x,

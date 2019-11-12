@@ -18,14 +18,12 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 
 (function(){
-
     var Knife = function (scene, x, y, directionVector) {
-        deathrace.gameobjects.projectile.Projectile.call(this, scene, x, y, directionVector, "Knife");
-
+        deathrace.gameobjects.projectile.Projectile.call(this, scene, x, y, directionVector, "knife");
     };
+
     Knife.prototype = Object.create(deathrace.gameobjects.projectile.Projectile.prototype);
     Knife.prototype.constructor = Knife;
 
     deathrace.gameobjects.projectile.Knife = Knife;
-
 })();

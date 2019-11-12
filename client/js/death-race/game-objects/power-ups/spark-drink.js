@@ -18,8 +18,8 @@ var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
 deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
-(function() {
-  var SparkDrink = function(scene, x, y) {
+(function () {
+  var SparkDrink = function (scene, x, y) {
     deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SD");
     this.name = "spark-drink";
   };
@@ -27,21 +27,19 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
   SparkDrink.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
   SparkDrink.prototype.constructor = SparkDrink;
 
+  SparkDrink.prototype.launch = function (bike, slot) {
+    console.log("Spark Drink Launched");
+    var currentSpeed = bike.speed;
+    bike.speed = bike.speed * 1.5;
 
+    window.setTimeout(function () {
+        bike.speed = currentSpeed;
+        this.destroy();
+      }.bind(this),
+      3000);
+  };
 
-   SparkDrink.prototype.launch = function (bike) {
-       console.log("Spark Drink Launched");
-         var currentSpeed = bike.speed;
-          bike.speed = bike.speed * 1.5;
-
-       window.setTimeout(function() {
-           bike.speed = currentSpeed;
-
-           this.destroy();
-           }, 3000);
-   };
-
-    deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
+  deathrace.gameobjects.powerups.SparkDrink = SparkDrink;
 })();
 
 
