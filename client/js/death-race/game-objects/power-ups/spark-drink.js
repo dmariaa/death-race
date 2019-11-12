@@ -36,7 +36,9 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
        window.setTimeout(function() {
            bike.speed = currentSpeed;
-       }, 3000);
+
+           this.destroy();
+           }, 3000);
    };
 
     deathrace.gameobjects.powerups.SparkDrink = SparkDrink;

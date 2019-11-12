@@ -26,6 +26,8 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     pluginManager.registerGameObject('powerUp', this.createPowerUp);
 
     pluginManager.registerGameObject('knife', this.createKnife);
+    pluginManager.registerGameObject('shot', this.createShot);
+
   };
 
   GameObjectsPlugin.prototype = Object.create(Phaser.Plugins.BasePlugin.prototype);
@@ -55,14 +57,19 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     return powerup;
   };
 
-
-
- GameObjectsPlugin.prototype.createKnife = function(x,y,texture){
-    var knife = new deathrace.gameobjects.Bike(this.scene, x, y, texture);
-      this.scene.add.existing(knife);
-      this.scene.physics.add.existing(knife);
+ GameObjectsPlugin.prototype.createKnife = function(x,y, directionVector, texture){
+    var knife = new deathrace.gameobjects.projectile.Projectile(this.scene, x, y, directionVector,texture);
+    this.scene.add.existing(knife);
+    this.scene.physics.add.existing(knife);
     return knife;
   };
 
-  deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;
+  GameObjectsPlugin.prototype.createShot = function(x,y, directionVector, texture){
+        var shot = new deathrace.gameobjects.projectile.Projectile(this.scene, x, y, directionVector, texture);
+        this.scene.add.existing(shot);
+        this.scene.physics.add.existing(shot);
+        return shot;
+  };
+
+    deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;
 })();

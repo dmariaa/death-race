@@ -16,18 +16,23 @@
 
 var deathrace = deathrace || {};
 deathrace.gameobjects = deathrace.gameobjects || {};
+deathrace.gameobjects.projectile = deathrace.gameobjects.projectile || {};
+
+var HALF_PI = Math.PI / 2;
+var PI = Math.PI;
+
 
 (function(){
 
-    var Shot = function (scene, x, y) {
-        Phaser.GameObjects.Sprite.call(this, scene, x, y);
+    var Shot = function (scene, x, y, directionVector) {
+        deathrace.gameobjects.projectile.Projectile.call(this, scene, x, y, directionVector, "Shot");
 
     };
-    Shot.prototype = Object.create(Phaser.GameObjects.Sprite.prototype);
+    Shot.prototype = Object.create(deathrace.gameobjects.projectile.Projectile.prototype);
     Shot.prototype.constructor = Shot;
 
 
 
-    deathrace.gameobjects.Shot=Shot;
+    deathrace.gameobjects.projectile.Shot = Shot;
 
 })();

@@ -74,8 +74,8 @@ deathrace.scenes = deathrace.scenes || {};
 
     this.load.audio('bike-engine', 'sounds/bike-engine.wav');
     this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-
-    this.load.image('powerups.CM', 'img/sprites/powerups/CM.png');
+    this.load.image('Shot', 'img/sprites/powerups/Shot.png');
+    this.load.image('Knife', 'img/sprites/powerups/Knife.png');
     this.load.image('powerups.GB', 'img/sprites/powerups/GB.png');
     this.load.image('powerups.LS', 'img/sprites/powerups/LS.png');
     this.load.image('powerups.MS', 'img/sprites/powerups/MS.png');
@@ -89,10 +89,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
     this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
 
-
-      this.load.image('knife', 'img/sprites/powerups/Knife.png');
-
-
+    this.load.image('knife', 'img/sprites/powerups/Knife.png');
   };
 
   /**
@@ -111,18 +108,22 @@ deathrace.scenes = deathrace.scenes || {};
     this.northWall = this.add.rectangle(this.margin, this.margin , this.horzLength, this.wallWidth, 0x00ff00);
     this.northWall.setOrigin(0, 0);
     this.northWall.name = "north";
+    this.northWall.isExternalWall=true;
 
     this.southWall = this.add.rectangle(this.margin, this.vertLength + this.margin - this.wallWidth, this.horzLength, this.wallWidth, 0x00ff00);
     this.southWall.setOrigin(0, 0);
     this.southWall.name = "south";
+    this.southWall.isExternalWall=true;
 
     this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.eastWall.setOrigin(0, 0);
     this.eastWall.name = "east";
+    this.eastWall.isExternalWall=true;
 
     this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
     this.westWall.setOrigin(0, 0);
     this.westWall.name = "west";
+    this.westWall.isExternalWall=true;
 
     this.wallGroup.add(this.northWall);
     this.wallGroup.add(this.southWall);
@@ -144,13 +145,19 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Generate power ups
     this.powerUps = this.add.group();
-    this.spawnRandomPowerUps();
+
+    this.shots = this.add.group();
+    this.knifes = this.add.group();
+
+
+      this.spawnRandomPowerUps();
 
     // Bike - walls collider
     this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bikeGroup, this.bike.trail.walls, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
     this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
+    this.physics.add.overlap(this.bikeGroup, this.bike.rectangle, this.bikeCollision, null, this);
 
     this.input.gamepad.once('down', function(gamepad) {
       this.setupGamePad(gamepad, this.bike);
@@ -229,6 +236,7 @@ deathrace.scenes = deathrace.scenes || {};
    * @param body Gameobject, the bike
    * @param other
    */
+    Arena.prototype.bikeCollision = function(body, other) {
   Arena.prototype.bikeCollision = function(bike, other) {
     if(other instanceof deathrace.gameobjects.powerups.PowerUp) {
       console.log("Powerup '" + other.name + "'picked up");
@@ -236,14 +244,23 @@ deathrace.scenes = deathrace.scenes || {};
       this.powerUps.remove(other, true);
 
     } else {
-        //this.bike.collided = true;
-        if(bike.ghost == false){
-          if(bike.active) {
-            bike.setActive(false);
-            bike.explode();
-          }
+        bike.puppet = true;
+        if(bike.horn){
+            bike.ghost = true;
+            this.level.breakWall(4);
+            if(bike.ghost === false){
+                if(bike.active) {
+                    bike.setActive(false);
+                    bike.explode();
+
+                }
+             }
         }
-    }
+        if(bike.ghost === false || other.isExternalWall || other instanceof deathrace.gameobjects.proyectile.Projectile){
+                bike.setActive(false);
+                bike.explode();}
+        }
+
 
   };
 

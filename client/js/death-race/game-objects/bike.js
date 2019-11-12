@@ -44,6 +44,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.rotation = 0;
     this.ghost = false;
     this.collided = false;
+    this.ghost = false;
+    this.horn = false;
+    this.radius = 150;
+    this.puppet = false;
+    this.rectangle;
+
 
     this.body.syncBounds = true;
     this.setDisplayOrigin(6, 6.5);
@@ -90,8 +96,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         slot2: undefined,
         slot3: undefined
       };
-
-
   };
 
   // Inheritance, Bike extends Phaser.GameObjects.Sprite
@@ -151,7 +155,51 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
   };
 
+    /**
+     * Adds three PowerUp
+     */
+  Bike.prototype.addPowerUp=function(other){
+      if(this.inventory.slot1 == undefined){
+          this.inventory.slot1 = other;
+      }else  if(this.inventory.slot2 == undefined){
+          this.inventory.slot2 = other;
+      }else  if(this.inventory.slot3 == undefined){
+          this.inventory.slot3 = other;
+      }
+      console.log(this.inventory);
+  };
 
+    /**
+     *Use a PowerUp with a determinated index
+     *
+     */
+
+  Bike.prototype.launchPowerUp = function(index){
+    if(index==0){
+      if( this.inventory.slot1 != undefined){
+          this.inventory.slot1.launch(this);
+      }
+    }else if(index == 1){
+        if( this.inventory.slot2 != undefined){
+        this.inventory.slot2.launch(this);}
+    }else{
+        if( this.inventory.slot3 != undefined){
+        this.inventory.slot3.launch(this);}
+    }
+
+  };
+
+  Bike.prototype.inRadius =function(){
+    this.rectangle = this.scene.add.rectangle(this.x, this.y, this.radius, this.radius);
+    console.log("se crea");
+  };
+
+  Bike.prototype.spawnKnife = function(){
+      this.scene.knifes.add(this.scene.add.knife(this.x, this.y, this.directionVector.clone()));
+  };
+  Bike.prototype.spawnShot=function(){
+      this.scene.shots.add(this.scene.add.shot(this.x, this.y, this.directionVector.clone()));
+  };
   /**
    * Replaces this bike colors
    * with selected color palette.

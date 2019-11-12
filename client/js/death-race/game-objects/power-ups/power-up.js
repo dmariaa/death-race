@@ -45,11 +45,10 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
       SHARP_KNIFE: 4,
       POISON_OF_WISDOM: 5,
       LASER_SHOT: 6,
-      COMMANDED_MISSILE: 7,
-        GHOST_COAT: 8,
-        DRILL_HORN: 9,
-        FRIENDSHIP_PRESENT: 10,
-        TIME_WIZARD: 11
+        GHOST_COAT: 7,
+        DRILL_HORN: 8,
+        FRIENDSHIP_PRESENT: 9,
+        TIME_WIZARD: 10
     });
   };
 
@@ -72,14 +71,13 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     SHARP_KNIFE: 4,
     POISON_OF_WISDOM: 5,
     LASER_SHOT: 6,
-    COMMANDED_MISSILE: 7,
-    GHOST_COAT: 8,
-    DRILL_HORN: 9,
-    FRIENDSHIP_PRESENT: 10,
-    TIME_WIZARD: 11,
+    GHOST_COAT: 7,
+    DRILL_HORN: 8,
+    FRIENDSHIP_PRESENT: 9,
+    TIME_WIZARD: 10,
 
     randomType: function() {
-      return Math.trunc(Math.random() * 12);
+      return Math.trunc(Math.random() * 11);
     },
 
     nameFromValue: function(value) {
@@ -112,9 +110,7 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
       case deathrace.gameobjects.powerups.Types.LASER_SHOT:
           return new deathrace.gameobjects.powerups.LaserShot(scene, x, y);
         break;
-      case deathrace.gameobjects.powerups.Types.COMMANDED_MISSILE:
-          return new deathrace.gameobjects.powerups.CommandedMissile(scene, x, y);
-        break;
+
         case deathrace.gameobjects.powerups.Types.GHOST_COAT:
             return new deathrace.gameobjects.powerups.GhostCoat(scene, x, y);
             break;

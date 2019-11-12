@@ -30,6 +30,8 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
     PoisonofWisdom.prototype.launch=function (bike) {
         console.log("PoisonofWisdom launched");
+
+        this.destroy();
     };
     deathrace.gameobjects.powerups.PoisonofWisdom = PoisonofWisdom;
 

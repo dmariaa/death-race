@@ -34,6 +34,7 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
             var powerUpX = Math.trunc(Math.random() * arena.horzLength + arena.margin);
             var powerUpY = Math.trunc(Math.random() * arena.vertLength + arena.margin);
             arena.powerUps.add(arena.add.powerUp(powerUpX,powerUpY));
+            this.destroy();
 
     };
     deathrace.gameobjects.powerups.FriendshipPresent = FriendshipPresent;

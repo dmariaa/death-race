@@ -33,6 +33,13 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
       bike.ghost=true;
       window.setTimeout(function() {
             bike.ghost=false; }, 5000);
+      console.log("Ghost Coat launched");
+      bike.ghost=true;
+      window.setTimeout(function() {
+            bike.ghost=false;
+          this.destroy();
+          }, 5000);
+        this.destroy();
     };
 
     deathrace.gameobjects.powerups.GhostCoat = GhostCoat;

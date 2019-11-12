@@ -21,8 +21,9 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 (function() {
     var SharpKnife = function(scene, x, y) {
-        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SF");
+        deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.SK");
         this.name = "sharp-knife";
+        this.cont = 1;
     };
 
     SharpKnife.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
@@ -31,44 +32,15 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     SharpKnife.prototype.launch=function (bike) {
-        //falta poner que si se choca con otro, lo mate. No avanza.
-        var x = bike.x;
-        var y = bike.y;
-
-        //cuchillo.setRotate(bike);
-
-        //
-        // bike.scene.add.knife(bike.x,bike.y,'knife');
-
-        /*
-        if(x < bike.getPosX()){
-            console.log(this);
-                this.setPosition(
-                    cuchillo.position.x + bike.directionVector.x * bike.speed
-                );
-
-        }else if((x > bike.getPosX())){
-            console.log(this);
-                this.setPosition(
-                    cuchillo.position.x - bike.directionVector.x * bike.speed
-                );
-
+        if(this.cont===1){
+            console.log("Sharp Knife launched");
+            bike.spawnKnife();
+            this.cont--;
+        }else{
+            this.destroy();
         }
-        if(y < bike.getPosY()){
-            console.log(this);
-
-                this.setPosition(
-                    cuchillo.position.y + bike.directionVector.y * bike.speed
-                );
-
-        }else if(y > bike.getPosY()){
-            console.log(this);
-
-                this.setPosition(
-                    cuchillo.position.y - bike.directionVector.y * bike.speed);
 
 
-        }*/
     };
     deathrace.gameobjects.powerups.SharpKnife = SharpKnife;
 

@@ -28,8 +28,20 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     StringsPuppet.prototype.constructor = StringsPuppet;
 
 
-    StringsPuppet.prototype.launch=function (bike) {
-            console.log("StringsPuppet launched");
+    StringsPuppet.prototype.launch = function (bike) {
+        console.log("StringsPuppet launched");
+        var direction = Math.trunc(Math.random()*2+1);
+        //console.log(direction);
+        bike.inRadius();
+        if(bike.puppet){
+            if(direction===1){
+                bike.setRotation(bike.directionVector.x * -1);
+            }else{
+                bike.setRotation(bike.directionVector.y * -1);
+            }
+        }
+
+        this.destroy();
     };
     deathrace.gameobjects.powerups.StringsPuppet = StringsPuppet;
 

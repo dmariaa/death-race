@@ -31,6 +31,8 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
     MirrorShield.prototype.launch=function (bike) {
         console.log("MirrorShield launched");
+
+        this.destroy();
     };
     deathrace.gameobjects.powerups.MirrorShield = MirrorShield;
 

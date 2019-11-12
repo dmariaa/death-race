@@ -29,8 +29,15 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     TimeWizard.prototype.constructor = TimeWizard;
 
 
-    TimeWizard.prototype.launch=function (bike) {
+    TimeWizard.prototype.launch = function (bike) {
         console.log("TimeWizard launched");
+        var bikeRandom;
+        var currentSpeed = bikeRandom.speed;
+        bikeRandom.speed = bikeRandom.speed * 0.5;
+        window.setTimeout(function () {
+            bikeRandom.speed = currentSpeed;
+            this.destroy();
+        },5000);
 
     };
     deathrace.gameobjects.powerups.TimeWizard = TimeWizard;

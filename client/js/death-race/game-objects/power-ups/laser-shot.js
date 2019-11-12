@@ -22,6 +22,7 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     var LaserShot = function(scene, x, y) {
         deathrace.gameobjects.powerups.PowerUp.call(this, scene, x, y, "powerups.LS");
         this.name = "laser-shot";
+        this.cont = 3;
     };
 
     LaserShot.prototype = Object.create(deathrace.gameobjects.powerups.PowerUp.prototype);
@@ -29,32 +30,16 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
 
     LaserShot.prototype.launch=function (bike) {
-        var cont = 0;
-        var x = bike.x;
-        var y = bike.y;
-       /* var cuchillo =  deathrace.gameobjects.powerups.PowerUp.call(this, bike.scene, x, y, "powerups.Knife");
-        if(cont< 3){
 
-        if(x < bike.x){
-            while(cuchillo.position.x == bike.scene.wallWidth){
-                cuchillo.position.x++;
-            }
-        }else{
-            while(cuchillo.position.x == 0){
-                cuchillo.position.x--;
-            }
+        if(this.cont > 0){
+            console.log("Laser shot launched");
+            bike.spawnShot();
+            this.cont--;
         }
-        if(y < bike.y){
-            while(cuchillo.position.y == bike.scene.horzLength){
-                cuchillo.position.y++;
-            }
-        }else{
-            while(cuchillo.position.y == 0){
-                cuchillo.position.y--;
-            }
+        else{
+            this.destroy();
         }
 
-        }*/
     };
     deathrace.gameobjects.powerups.LaserShot = LaserShot;
 

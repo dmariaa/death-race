@@ -32,6 +32,8 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
 
         console.log("GummyBomb launched");
 
+
+        this.destroy();
     };
     deathrace.gameobjects.powerups.GummyBomb = GummyBomb;
 
