@@ -281,5 +281,4 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 
 #### Referencias
 
-web libre de derechos para música de fondo: https://www.1001fonts.com/free-fonts-for-commercial-use.html?page=2&items=10
-
+web libre de derechos para música de fondo: https://patrickdearteaga.com/es/chiptune-8-bit-retro-es/
