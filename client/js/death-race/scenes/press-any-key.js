@@ -29,7 +29,7 @@ deathrace.scenes = deathrace.scenes || {};
   PressAnyKey.constructor = PressAnyKey;
 
   PressAnyKey.prototype.create = function(data) {
-    var textString = "Pulsa cualquier tecla para comenzar.";
+    var textString = data.text || "Pulsa cualquier tecla para comenzar.";
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 2);
 
     var text = this.add.text(textPosition.x, textPosition.y, textString, {
@@ -51,6 +51,12 @@ deathrace.scenes = deathrace.scenes || {};
       this.scene.stop();
       this.parentScene.scene.resume();
     }
+  };
+
+  /**
+   * @override Phaser.scene.update
+   */
+  PressAnyKey.prototype.update = function (time, delta) {
   };
 
   deathrace.scenes.PressAnyKey = PressAnyKey;

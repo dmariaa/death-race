@@ -48,8 +48,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.horn = false;
     this.radius = 150;
     this.puppet = false;
-    this.rectangle;
-
 
     this.body.syncBounds = true;
     this.setDisplayOrigin(6, 6.5);
@@ -153,8 +151,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   };
 
   Bike.prototype.inRadius = function () {
-    this.rectangle = this.scene.add.rectangle(this.x, this.y, this.radius, this.radius);
-    console.log("se crea");
+    console.log("Bike.inRadius");
   };
 
   Bike.prototype.spawnKnife = function () {
@@ -238,11 +235,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param breaking true to break, false to release brake
    */
   Bike.prototype.toggleBreak = function (breaking) {
-    if (breaking) {
-      this.speed = 0.15;
+    if (breaking && !this.breaking) {
+      this.speed = this.speed * 0.85;
       this.engineSound.setDetune(-50);
-    } else {
-      this.speed = 0.35;
+      this.breaking = true;
+    } else if(!breaking && this.breaking) {
+      this.breaking = false;
+      this.speed = this.speed * 1.15;
       this.engineSound.setDetune(50);
     }
   };

@@ -52,7 +52,7 @@ deathrace.inputhandler = deathrace.inputhandler || {};
   };
 
   KeyboardController.prototype.handleInput = function(event) {
-    console.log(event.type);
+    console.log("Tipo: {0} - KeyCode: {1}".format(event.type, event.keyCode));
 
      var command = this.commands.find(function(data) {
        return data.key==event.keyCode && data.type==event.type;
