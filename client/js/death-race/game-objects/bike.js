@@ -31,10 +31,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @constructor
    */
   var Bike = function (scene, x, y, name, color) {
-    texture = 'yellow-bike';
+    texture = 'bike';
     Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
     scene.physics.add.existing(this);
 
+    this.genericColor = 0xff0000;
     this.name = name + '-bike';
     this.speed = 0.15;
     this.color = color;
@@ -182,7 +183,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         b = pixels[i + 2],
         a = pixels[i + 3];
 
-      if (r === 148 & g === 148 & b === 148 & a === 255) {
+      if (r === 255 & g === 0 & b === 0 & a === 255) {
         pixels[i] = this.color.red;
         pixels[i + 1] = this.color.green;
         pixels[i + 2] = this.color.blue;
