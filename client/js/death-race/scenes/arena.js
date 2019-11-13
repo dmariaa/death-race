@@ -69,8 +69,7 @@ deathrace.scenes = deathrace.scenes || {};
        */
       this.vertLength = this.game.canvas.height - 2 * this.margin;
 
-      this.load.image('bike', 'img/sprites/blackbike.png');
-      this.load.image('yellow-bike', 'img/sprites/yellowbike.png');
+      this.load.image('bike', 'img/sprites/bike.png');
 
       this.load.audio('bike-engine', 'sounds/bike-engine.wav');
       this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
