@@ -73,6 +73,7 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.load.audio('bike-engine', 'sounds/bike-engine.wav');
       this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
+      this.load.audio('background-sound', 'sounds/background-sound.wav');
 
       this.load.image('shot', 'img/sprites/shot.png');
       this.load.image('knife', 'img/sprites/knife.png');
@@ -182,6 +183,14 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.events.on('pause', this.pause, this);
       this.events.on('resume', this.resume, this);
+
+
+      this.engineSound = this.sound.add('background-sound');
+
+        this.engineSound.play({
+            volume: .08,
+            loop: true
+        });
 
     };
 

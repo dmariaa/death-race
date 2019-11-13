@@ -29,6 +29,8 @@ deathrace.scenes = deathrace.scenes || {};
 
   MainMenu.prototype.preload = function () {
     this.load.image('background', 'img/backgrounds/start_screen.png');
+    this.load.audio('menu-sound', 'sounds/menu-sound.wav');
+
   };
 
   MainMenu.prototype.create = function() {
@@ -36,6 +38,16 @@ deathrace.scenes = deathrace.scenes || {};
     this.background = this.add.image(0, 0, 'background');
     this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height);
     this.background.setOrigin(0);
+
+    this.scene.get('LoadPlayers').parentScene = this;
+
+    this.engineSound = this.sound.add('menu-sound');
+
+    this.engineSound.play({
+          volume: .3,
+          loop: true
+    });
+
 
     this.showTitle();
 
