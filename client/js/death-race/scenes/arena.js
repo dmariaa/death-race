@@ -261,7 +261,7 @@ deathrace.scenes = deathrace.scenes || {};
           bike.breakWall(other);
         } else if (bike.ghost === false
           || other.isExternalWall
-          || other instanceof deathrace.gameobjects.proyectile.Projectile)
+          || other instanceof deathrace.gameobjects.projectile.Projectile)
         {
           bike.setActive(false);
           bike.explode();
