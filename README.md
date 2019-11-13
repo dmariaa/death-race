@@ -281,4 +281,4 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 
 #### Referencias
 
-web libre de derechos para música de fondo: https://patrickdearteaga.com/es/chiptune-8-bit-retro-es/
+Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
