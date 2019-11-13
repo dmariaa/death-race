@@ -200,12 +200,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     for(var i=0; i < level.walls.length; ++i) {
       var wall = level.walls[i];
-      var wallLine = this.scene.add.line();
-
-      this.walls.add(wallLine);
-      wallLine.setOrigin(0, 0);
-      wallLine.setStrokeStyle(1, 0x0feeff);
-      wallLine.setLineWidth(1);
 
       // Swap wall x coordinates if needed
       if(wall.x1 > wall.x2) {
@@ -221,39 +215,42 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         wall.y2 = tmp;
       }
 
-      wallLine.setTo(wall.x1, wall.y1, wall.x2, wall.y2);
-      wallLine.body.setOffset(wall.x1, wall.y1);
-      wallLine.body.setSize(wall.x2 - wall.x1, wall.y2 - wall.y1, false);
+      var wallLine = this.createWall(wall.x1, wall.y1, wall.x2, wall.y2);
+      this.walls.add(wallLine);
     }
   };
 
-  Level.prototype.breakWall=function(level){
-      var wallLine = this.scene.add.line();
-      var level = this.levels[level];
+  Level.prototype.breakWall=function(wall, x, y) {
+    var brokenWalls = [];
 
-   // if(this.scene.bike.horn){
-      //  console.log(level.walls.length);
-        for (var i =0; i <  level.walls.length; ++i) {
-          if(this.scene.bike.position === level.walls[i].position){
-             var aux = level.walls.splice(i,1);
-            this.walls.add(wallLine);
-            wallLine.setOrigin(0, 0);
-            wallLine.setStrokeStyle(1, 0x00ff00);
-            wallLine.setLineWidth(1);
-            wallLine.setTo(aux.x1, aux.y1, this.scene.bike.sizeX - this.margin, this.scene.bike.sizeY
-                - this.margin);
-              this.walls.add(wallLine);
-            wallLine.setOrigin(0, 0);
-            wallLine.setStrokeStyle(1, 0x00ff00);
-            wallLine.setLineWidth(1);
-            wallLine.setTo(this.scene.bike.sizeX + this.margin, this.scene.bike.sizeY + this.margin,
-                aux.x2, aux.y2);
-              console.log("funciona");
-             //this.scene.bike.ghost = false;
-             //
-          // }
-        }
+    if(wall.geom.x2 - wall.geom.x1 === 0) {   // vertical wall
+      var newWall = this.createWall(wall.geom.x1, wall.geom.y1, wall.geom.x2, y - 20);
+      brokenWalls.push(newWall);
+      newWall = this.createWall(wall.geom.x1, y + 20, wall.geom.x2, wall.geom.y2);
+      brokenWalls.push(newWall);
+    } else if(wall.geom.y2 - wall.geom.y1 === 0) {              // horizontal wall
+      var newWall = this.createWall(wall.geom.x1, wall.geom.y1, x - 20, wall.geom.y2);
+      brokenWalls.push(newWall);
+      newWall = this.createWall(x + 20, wall.geom.y1, wall.geom.x2, wall.geom.y2);
+      brokenWalls.push(newWall);
     }
+
+    this.walls.remove(wall, true, true);
+    this.walls.addMultiple(brokenWalls);
+  };
+
+  Level.prototype.createWall = function(x1, y1, x2, y2) {
+    var wallLine = this.scene.add.line();
+    wallLine.isLevelWall = true;
+    wallLine.setOrigin(0, 0);
+    wallLine.setStrokeStyle(1, 0x0feeff);
+    wallLine.setLineWidth(1);
+    wallLine.setTo(x1, y1, x2, y2);
+
+    this.scene.physics.add.existing(wallLine);
+    wallLine.body.setOffset(x1, y1);
+    wallLine.body.setSize(x2 - x1, y2 - y1, false);
+    return wallLine;
   };
 
   deathrace.gameobjects.Level = Level;

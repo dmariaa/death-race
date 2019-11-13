@@ -255,21 +255,14 @@ deathrace.scenes = deathrace.scenes || {};
           this.powerUps.remove(other, true);
         }
       } else {
-        bike.puppet = true;
-
-        if (bike.horn) {
-          bike.ghost = true;
-          this.level.breakWall(4);
-
-          if (bike.ghost === false) {
-            if (bike.active) {
-              bike.setActive(false);
-              bike.explode();
-            }
-          }
-        }
-
-        if (bike.ghost === false || other.isExternalWall || other instanceof deathrace.gameobjects.proyectile.Projectile) {
+        if(bike.horn
+          && !other.isExternalWall
+          && !other.isTrail) {
+          bike.breakWall(other);
+        } else if (bike.ghost === false
+          || other.isExternalWall
+          || other instanceof deathrace.gameobjects.proyectile.Projectile)
+        {
           bike.setActive(false);
           bike.explode();
         }

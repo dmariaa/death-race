@@ -163,6 +163,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   Bike.prototype.spawnShot = function () {
     this.scene.shots.add(this.scene.add.shot(this.x, this.y, this.directionVector.clone()));
   };
+
+  Bike.prototype.breakWall = function(wall) {
+    this.scene.level.breakWall(wall, this.x, this.y);
+    this.emit('break-wall');
+  };
+
   /**
    * Replaces this bike colors
    * with selected color palette.

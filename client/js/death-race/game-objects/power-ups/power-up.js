@@ -63,7 +63,6 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     TIME_WIZARD: 10,
 
     randomType: function () {
-      // return 6;
       return Math.trunc(Math.random() * 11);
     },
 
