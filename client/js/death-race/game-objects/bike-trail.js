@@ -64,6 +64,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    */
   BikeTrail.prototype.add = function(x, y) {
     var wall = this.scene.add.line();
+    wall.isTrail = true;
     this.scene.physics.add.existing(wall);
     wall.setOrigin(0, 0);
     wall.setStrokeStyle(1, this.color.color);
