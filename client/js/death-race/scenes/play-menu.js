@@ -27,13 +27,21 @@ deathrace.scenes = deathrace.scenes || {};
   PlayMenu.prototype = Object.create(Phaser.Scene.prototype);
   PlayMenu.prototype.constructor = PlayMenu;
 
+  PlayMenu.prototype.preload = function () {
+    this.load.image('background', 'img/backgrounds/general_background.png');
+  };
+
   PlayMenu.prototype.create = function() {
+    this.background = this.add.image(0, 0, 'background');
+    this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height);
+    this.background.setOrigin(0);
+
     this.menu.create({
       title: "Play Menu",
         marginLeft: 100,
         marginBottom: 100,
         options: [
-          { id: 'create', label: 'Crear partida' },
+          { id: 'local', label: 'Jugar en local' },
           { id: 'exit', label: 'Volver' }
         ]
       }
@@ -44,7 +52,7 @@ deathrace.scenes = deathrace.scenes || {};
 
   PlayMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
-      case 'create':
+      case 'local':
         this.scene.switch("ArenaScene");
         break;
       case 'exit':

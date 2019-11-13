@@ -27,8 +27,16 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype = Object.create(Phaser.Scene.prototype);
   MainMenu.prototype.constructor = MainMenu;
 
+  MainMenu.prototype.preload = function () {
+    this.load.image('background', 'img/backgrounds/start_screen.png');
+  };
+
   MainMenu.prototype.create = function() {
     // Show main title
+    this.background = this.add.image(0, 0, 'background');
+    this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height);
+    this.background.setOrigin(0);
+
     this.showTitle();
 
     this.menu.create({
@@ -37,10 +45,10 @@ deathrace.scenes = deathrace.scenes || {};
         marginBottom: 100,
         options: [
           { id: 'play', label: 'Jugar' },
-          { id: 'settings', label: 'Opciones' },
+          { id: 'settings', label: 'Ajustes' },
           { id: 'scores', label: 'Puntuaciones' },
           { id: 'credits', label: 'Créditos' },
-          { id: 'exit', label: 'Exit' }
+          { id: 'exit', label: 'Salir' }
         ]
       }
     );
@@ -51,7 +59,7 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.showTitle = function() {
     this.textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 4);
     var title = this.add.text(this.textPosition.x, this.textPosition.y, "Death Race", {
-      fontFamily: "Orbitron", fontSize: 50
+      fontFamily: "Orbitron", fontSize: 100
     });
     title.setOrigin(0.5, 0.5);
   };
@@ -59,7 +67,7 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
       case 'play':
-        this.scene.switch('PlayMenu');
+        this.scene.switch('LoadPlayers');
         break;
       case 'exit':
         game.destroy(true);

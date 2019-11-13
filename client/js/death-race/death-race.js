@@ -36,12 +36,14 @@ var loadPhaser = function() {
       autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
-      deathrace.scenes.Arena,
       deathrace.scenes.MainMenu,
+      deathrace.scenes.LoadPlayers,
+      deathrace.scenes.Arena,
       deathrace.scenes.PlayMenu,
       deathrace.scenes.Loading,
       deathrace.scenes.PressAnyKey,
-      deathrace.scenes.Hud
+      deathrace.scenes.Hud,
+      deathrace.scenes.Countdown
     ],
     plugins: {
       global: [

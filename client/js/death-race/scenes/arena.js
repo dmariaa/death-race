@@ -95,10 +95,11 @@ deathrace.scenes = deathrace.scenes || {};
     /**
      * Scene create callback
      */
-    Arena.prototype.create = function () {
+    Arena.prototype.create = function (players) {
       console.log("ArenaScene loaded");
 
       // Building grid
+      this.gridColor = 0x000040;
       this.grid = this.add.grid(this.margin, this.margin, this.horzLength, this.vertLength, 32, 32, 0x000000, 1, this.gridColor, 1);
       this.grid.setOrigin(0, 0);
 
@@ -137,17 +138,25 @@ deathrace.scenes = deathrace.scenes || {};
       // Bike trails
       this.bikeTrails = this.add.group();
 
-      // Building red bike
-      this.bike = this.add.bike(74, 74, 'yellow', new Phaser.Display.Color(255, 255, 0));
-      this.bike2 = this.add.bike(1154, 74, 'red', new Phaser.Display.Color(255, 255, 0));
+      var spawnPoints = this.level.bikeSpawnPoints;
+      this.bikeGroup = this.add.group();
 
-      this.scene.get('HUD').attach(0, this.bike);
-      this.scene.get('HUD').attach(1, this.bike2);
+      for(var i=0, length = players.length; i < length; ++i) {
+        var player = players[i];
+        var bike = this.add.bike(spawnPoints[i].x, spawnPoints[i].y, player.name, player.color.value);
+        this.scene.get('HUD').attach(i, bike);
+        if(player.gamepad) {
+          this.setupGamePad(player.gamepad, bike);
+        } else {
+          if(player.keyboard===Phaser.Input.Keyboard.KeyCodes.A) {
+            this.setupKeyboard2(bike);
+          } else if(player.keyboard===Phaser.Input.Keyboard.KeyCodes.LEFT) {
+            this.setupKeyboard1(bike);
+          }
+        }
 
-      this.bikeGroup = this.add.group([
-        this.bike,
-        this.bike2
-      ]);
+        this.bikeGroup.add(bike);
+      }
 
       // Generate power ups
       this.powerUps = this.add.group();
@@ -162,18 +171,10 @@ deathrace.scenes = deathrace.scenes || {};
       this.physics.add.overlap(this.bikeGroup, this.bikeTrails, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.bike.rectangle, this.bikeCollision, null, this);
-
-      this.input.gamepad.once('down', function (gamepad) {
-        this.setupGamePad(gamepad, this.bike);
-      }, this);
-
-      this.setupKeyboard1(this.bike);
-      this.setupKeyboard2(this.bike2);
 
       // Load press-any-key scene
-      this.scene.get('PressAnyKey').parentScene = this;
-      this.scene.launch('PressAnyKey');
+      this.scene.get('Countdown').parentScene = this;
+      this.scene.launch('Countdown');
       this.scene.pause();
 
       this.events.on('pause', this.pause, this);
@@ -202,7 +203,7 @@ deathrace.scenes = deathrace.scenes || {};
         {key: KeyCodes.DOWN, type: 'keyup', command: new deathrace.inputhandler.CommandToggleBreak(bike, false)},
 
         {key: KeyCodes.COMMA, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 0)},
-        {key: KeyCodes.COLON, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 1)},
+        {key: KeyCodes.PERIOD, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 1)},
         {key: KeyCodes.MINUS, type: 'keydown', command: new deathrace.inputhandler.CommandUseInventoryItem(bike, 2)}
       ]);
     };

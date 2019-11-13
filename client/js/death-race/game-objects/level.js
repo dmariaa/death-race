@@ -23,9 +23,17 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     this.walls = scene.physics.add.group();
     this.margin = 5;
+    this.bikeSpawnPoints;
+
     this.levels = [
       {
         name: "Level 1",
+        bikeSpawnPoints: [
+          { x: 112,  y: 112 },
+          { x: 1254, y: 112 },
+          { x: 112,  y: 760 },
+          { x: 1254, y: 760 }
+        ],
         walls: [
           { x1: 298, y1: 269, x2: 298, y2: 631 },
           { x1:1098, y1: 269, x2:1098, y2: 631 },
@@ -38,6 +46,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       },
       {
         name: "Level 2",
+        bikeSpawnPoints: [
+          { x: 112,  y: 112 },
+          { x: 1254, y: 112 },
+          { x: 112,  y: 760 },
+          { x: 1254, y: 760 }
+        ],
         walls: [
           { x1: 320, y1: 220, x2: 520, y2: 220 },
           { x1: 320, y1: 220, x2: 320, y2: 320 },
@@ -74,6 +88,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       },
       {
         name: "Level 3",
+        bikeSpawnPoints: [
+          { x: 112,  y: 112 },
+          { x: 1254, y: 112 },
+          { x: 112,  y: 760 },
+          { x: 1254, y: 760 }
+        ],
         walls:[
           { x1: 317, y1: 13, x2: 317, y2: 297 },
           { x1: 317, y1: 547, x2: 317, y2: 890 },
@@ -104,6 +124,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       },
       {
         name: "Level 4",
+        bikeSpawnPoints: [
+          { x: 112,  y: 112 },
+          { x: 1254, y: 112 },
+          { x: 112,  y: 760 },
+          { x: 1254, y: 760 }
+        ],
         walls: [
           { x1: 171, y1: 125, x2: 171, y2: 244 },
           { x1: 171, y1: 125, x2: 528, y2: 125 },
@@ -141,6 +167,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       },
       {
         name: "Level 5",
+        bikeSpawnPoints: [
+          { x: 112,  y: 112 },
+          { x: 1254, y: 112 },
+          { x: 112,  y: 760 },
+          { x: 1254, y: 760 }
+        ],
         walls: [
           { x1: 289, y1: 322, x2: 668, y2: 322 },
           { x1: 725, y1: 322, x2: 1093, y2: 322 },
@@ -164,14 +196,31 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     var level = this.levels[level];
 
+    this.bikeSpawnPoints = level.bikeSpawnPoints;
+
     for(var i=0; i < level.walls.length; ++i) {
       var wall = level.walls[i];
       var wallLine = this.scene.add.line();
 
       this.walls.add(wallLine);
       wallLine.setOrigin(0, 0);
-      wallLine.setStrokeStyle(1, 0x00ff00);
+      wallLine.setStrokeStyle(1, 0x0feeff);
       wallLine.setLineWidth(1);
+
+      // Swap wall x coordinates if needed
+      if(wall.x1 > wall.x2) {
+        var tmp = wall.x1;
+        wall.x1 = wall.x2;
+        wall.x2 = tmp;
+      }
+
+      // Swap wall y coordinates if needed
+      if(wall.y1 > wall.y2) {
+        var tmp = wall.y1;
+        wall.y1 = wall.y2;
+        wall.y2 = tmp;
+      }
+
       wallLine.setTo(wall.x1, wall.y1, wall.x2, wall.y2);
       wallLine.body.setOffset(wall.x1, wall.y1);
       wallLine.body.setSize(wall.x2 - wall.x1, wall.y2 - wall.y1, false);
