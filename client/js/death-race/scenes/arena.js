@@ -279,15 +279,48 @@ deathrace.scenes = deathrace.scenes || {};
     Arena.prototype.spawnRandomPowerUps = function (min, max) {
       min = min || 3;
       max = max || 7;
+
       var numberOfPowerUps = Math.trunc(Math.random() * (max-min) + min);
       this.powerUps.clear(true);
 
       for (var i = 0; i < numberOfPowerUps; ++i) {
-        var powerUpX = Math.trunc(Math.random() * this.horzLength + this.margin);
-        var powerUpY = Math.trunc(Math.random() * this.vertLength + this.margin);
-        var powerUp = this.add.powerUp(powerUpX, powerUpY);
+        var randomPosition = this.calculateRandomPosition();
+        var powerUp = this.add.powerUp(randomPosition.x, randomPosition.y);
         this.powerUps.add(powerUp);
       }
+    };
+
+    Arena.prototype.calculateRandomPosition = function() {
+      var margin = this.margin + 16;
+      var position;
+
+      var squared_radius = 10000; // 81 pixels squared
+
+      do {
+        position = new Phaser.Math.Vector2(
+          Math.random() * (this.horzLength - margin) + margin,
+          Math.random() * (this.vertLength - margin) + margin
+        );
+
+        var valid = true;
+
+        for(var i=0, length=this.powerUps.children.entries.length; i < length; ++i) {
+          var other = this.powerUps.children.entries[i];
+          var otherPosition = new Phaser.Math.Vector2(other.x, other.y);
+
+          if(position.distanceSq(otherPosition) <= squared_radius) {
+            console.log("Position ({0},{1}) conflicts with ({2},{3})".format(position.x, position.y, otherPosition.x, otherPosition.y));
+            valid = false;
+            break;
+          }
+        }
+
+        if(valid) {
+          console.log("Position ({0},{1}) is Valid!!".format(position.x, position.y));
+        }
+      } while(!valid);
+
+      return position;
     };
 
     // Add to namespace
