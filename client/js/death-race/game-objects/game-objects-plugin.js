@@ -27,6 +27,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     pluginManager.registerGameObject('knife', this.createKnife);
     pluginManager.registerGameObject('shot', this.createShot);
+      pluginManager.registerGameObject('trap', this.createTrap);
 
   };
 
@@ -70,6 +71,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         this.scene.physics.add.existing(shot);
         return shot;
   };
+
+    GameObjectsPlugin.prototype.createTrap = function (x, y, texture) {
+        var trap = new deathrace.gameobjects.Trap (this.scene, x, y, texture);
+        return trap;
+    };
 
     deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;
 })();
