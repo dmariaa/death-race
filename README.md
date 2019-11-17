@@ -285,3 +285,6 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 #### Referencias
 
 Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
+Efectos de sonido:
+-http://soundbible.com/1722-Cordless-Drill-2.html
+-https://www.findsounds.com/ISAPI/search.dll?keywords=laser
