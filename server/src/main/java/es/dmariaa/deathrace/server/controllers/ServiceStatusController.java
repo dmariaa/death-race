@@ -1,4 +1,4 @@
-package es.dmariaa.deathrace.server;
+package es.dmariaa.deathrace.server.controllers;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

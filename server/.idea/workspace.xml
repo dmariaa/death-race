@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1UW26tkvLwQOOqt8yYKMmzyi7Rl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="es.dmariaa.deathrace.server.App" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="es.dmariaa.deathrace.server.App" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="" />
+      <created>1575457858981</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575457858981</updated>
+      <workItem from="1575457861645" duration="16000" />
+      <workItem from="1575457890761" duration="1776000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Notifications" timestamp="1575459091511">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1575459091511" />
+    <state x="414" y="170" width="1092" height="870" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575458328817">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="170" width="1092" height="870" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458328817" />
+    <state x="689" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1575458224346">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458224346" />
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1575458098652">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458098652" />
+    <state width="1218" height="282" key="GridCell.Tab.0.bottom" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.0.center" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.0.left" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.0.right" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.1.bottom" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.1.center" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.1.left" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1218" height="282" key="GridCell.Tab.1.right" timestamp="1575459671632">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1218" height="282" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state x="461" y="162" key="SettingsEditor" timestamp="1575459116232">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575459116232" />
+  </component>
+</project>
