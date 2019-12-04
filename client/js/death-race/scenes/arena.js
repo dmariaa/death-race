@@ -73,9 +73,11 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.load.audio('bike-engine', 'sounds/bike-engine.wav');
       this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
+      this.load.audio('background-sound', 'sounds/background-sound.wav');
 
       this.load.image('shot', 'img/sprites/shot.png');
       this.load.image('knife', 'img/sprites/knife.png');
+      this.load.image('trap', 'img/sprites/TRAP.png');
 
       this.load.image('powerups.GB', 'img/sprites/powerups/GB.png');
       this.load.image('powerups.LS', 'img/sprites/powerups/LS.png');
@@ -161,15 +163,18 @@ deathrace.scenes = deathrace.scenes || {};
       this.powerUps = this.add.group();
       this.shots = this.add.group();
       this.knifes = this.add.group();
-
+      this.traps = this.add.group();
 
       this.spawnRandomPowerUps(5, 15);
+      this.spawnRandomTraps();
 
       // Bike - walls collider
       this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.bikeTrails, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
       this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
+      this.physics.add.overlap(this.bikeGroup, this.traps, this.bikeCollision, null, this);
+
 
       // Load press-any-key scene
       this.scene.get('Countdown').parentScene = this;
@@ -178,6 +183,14 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.events.on('pause', this.pause, this);
       this.events.on('resume', this.resume, this);
+
+
+      this.engineSound = this.sound.add('background-sound');
+
+        this.engineSound.play({
+            volume: .08,
+            loop: true
+        });
 
     };
 
@@ -261,7 +274,8 @@ deathrace.scenes = deathrace.scenes || {};
           bike.breakWall(other);
         } else if (bike.ghost === false
           || other.isExternalWall
-          || other instanceof deathrace.gameobjects.projectile.Projectile)
+          || other instanceof deathrace.gameobjects.projectile.Projectile
+          || other instanceof deathrace.gameobjects.Trap)
         {
           bike.setActive(false);
           bike.explode();
@@ -282,6 +296,32 @@ deathrace.scenes = deathrace.scenes || {};
         this.powerUps.add(powerUp);
       }
     };
+
+     Arena.prototype.spawnRandomTraps = function() {
+         //min = min || 1;
+        // max = max || 4;
+            var numberOfTraps = Math.trunc(Math.random() * 3 + 1);
+            this.traps.clear(true);
+
+            for(var i=0; i<numberOfTraps; ++i) {
+                var trapsX = Math.trunc(Math.random() * this.horzLength);
+                var trapsY = Math.trunc(Math.random() * this.vertLength);
+
+                if((this.horzLength/2)<trapsX){
+                    trapsX = trapsX - (this.margin+32);
+                }else{
+                    trapsX = trapsX + (this.margin+32);
+                }
+                if((this.vertLength/2)<trapsY){
+                    trapsY = trapsY - (this.margin+32);
+                }else{
+                    trapsY = trapsY + (this.margin+32);
+                }
+
+                var trap = this.add.trap(trapsX, trapsY);
+                this.traps.add(trap);
+            }
+      };
 
     Arena.prototype.calculateRandomPosition = function() {
       var margin = this.margin + 16;
@@ -315,6 +355,8 @@ deathrace.scenes = deathrace.scenes || {};
 
       return position;
     };
+
+
 
     // Add to namespace
     deathrace.scenes.Arena = Arena;

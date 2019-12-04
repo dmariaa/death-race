@@ -81,6 +81,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       loop: true
     });
 
+
     // Explosion sound
     this.explosionSound = scene.sound.add('bike-explosion');
 
