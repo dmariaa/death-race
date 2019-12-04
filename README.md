@@ -14,6 +14,9 @@ Equipo de desarrollo:
 * Dilan Steven Rodríguez Triana
 * Alejandro Vera López
 
+# Demo jugable del último master
+https://death-race.dmariaa.es
+
 # Documento de diseño del videojuego
 
 ## Análisis del videojuego
@@ -281,4 +284,7 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 
 #### Referencias
 
-web libre de derechos para música de fondo: https://patrickdearteaga.com/es/chiptune-8-bit-retro-es/
+Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
+Efectos de sonido:
+-http://soundbible.com/1722-Cordless-Drill-2.html
+-https://www.findsounds.com/ISAPI/search.dll?keywords=laser
