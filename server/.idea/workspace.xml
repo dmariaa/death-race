@@ -1,7 +1,172 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="" />
+    <list default="true" id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../client/js/death-race/scenes/high-scores.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/controllers/RestException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/controllers/RestExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/HighScoresList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/../client/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/js/death-race/death-race.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/js/death-race/death-race.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/js/death-race/scenes/loadplayers.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/js/death-race/scenes/loadplayers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../client/js/death-race/scenes/main-menu.js" beforeDir="false" afterPath="$PROJECT_DIR$/../client/js/death-race/scenes/main-menu.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/controllers/HighScoresController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/controllers/HighScoresController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/HighScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/HighScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/css/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/fonts/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/fonts/Orbitron-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/fonts/Orbitron-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/fonts/Orbitron-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/fonts/Orbitron-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/backgrounds/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/backgrounds/general_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/backgrounds/start_screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/bike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/knife.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/DH.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/FP.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/GB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/GC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/LS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/MS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/PW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/SD.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/SK.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/SP.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/TW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/powerups/unknown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/img/sprites/shot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/death-race.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/bike-trail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/bike.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/game-objects-plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/knife.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/level.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/commanded-missile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/drill-horn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/friendship-present.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/ghost-coat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/gummy-bomb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/laser-shot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/mirror-shield.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/poison-of-wisdom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/power-up.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/sharp-knife.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/spark-drink.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/strings-puppet.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/power-ups/time-wizard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/projectile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/game-objects/shot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/input-handler/commands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/input-handler/gamepad-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/input-handler/keyboard-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/arena.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/countdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/hud.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/loading.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/loadplayers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/main-menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/play-menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/plugins/menu-scene-plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/death-race/scenes/press-any-key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser-arcade-physics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser-arcade-physics.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser.3.19.0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser.3.19.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/js/libs/phaser.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/sounds/bike-engine.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/client/sounds/explosion-05.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/es/dmariaa/deathrace/server/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/es/dmariaa/deathrace/server/ServiceStatusController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/css/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/fonts/OFL.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/fonts/Orbitron-Black.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/fonts/Orbitron-Bold.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/fonts/Orbitron-Medium.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/fonts/Orbitron-Regular.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/backgrounds/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/backgrounds/general_background.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/backgrounds/start_screen.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/bike.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/knife.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/DH.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/FP.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/GB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/GC.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/LS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/MS.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/PW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/SD.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/SK.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/SP.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/TW.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/powerups/unknown.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/img/sprites/shot.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/death-race.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/bike-trail.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/bike.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/game-objects-plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/knife.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/level.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/commanded-missile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/drill-horn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/friendship-present.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/ghost-coat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/gummy-bomb.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/laser-shot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/mirror-shield.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/poison-of-wisdom.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/power-up.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/sharp-knife.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/spark-drink.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/strings-puppet.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/power-ups/time-wizard.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/projectile.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/game-objects/shot.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/input-handler/commands.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/input-handler/gamepad-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/input-handler/keyboard-controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/arena.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/countdown.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/hud.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/loading.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/loadplayers.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/main-menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/play-menu.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/plugins/menu-scene-plugin.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/death-race/scenes/press-any-key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser-arcade-physics.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser-arcade-physics.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser.3.19.0.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser.3.19.0.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/js/libs/phaser.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/sounds/bike-engine.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/static/client/sounds/explosion-05.wav" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/es/dmariaa/deathrace/server/AppTest.class" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -17,6 +182,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
   <component name="ProjectId" id="1UW26tkvLwQOOqt8yYKMmzyi7Rl" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -25,6 +198,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
     <property name="RequestMappingsPanelOrder0" value="0" />
     <property name="RequestMappingsPanelOrder1" value="1" />
@@ -33,14 +207,47 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
   </component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/data" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.App">
+    <configuration name="server [validate]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="validate" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
     <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="server" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="es.dmariaa.deathrace.server.App" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="validate" />
         <option name="Make" enabled="true" />
       </method>
     </configuration>
@@ -52,6 +259,10 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Maven.server [validate]" />
+      <item itemvalue="Spring Boot.App" />
+    </list>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -77,6 +288,7 @@
       <updated>1575457858981</updated>
       <workItem from="1575457861645" duration="16000" />
       <workItem from="1575457890761" duration="1776000" />
+      <workItem from="1575482722253" duration="17767000" />
     </task>
     <servers />
   </component>
@@ -88,10 +300,15 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="552" y="178" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1575459091511" />
-    <state x="414" y="170" width="1092" height="870" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575458328817">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="151" y="34" width="1092" height="880" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575652512238">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state x="151" y="34" width="1092" height="880" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575652512238" />
     <state x="414" y="170" width="1092" height="870" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458328817" />
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser" timestamp="1575634894170">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575634894170" />
     <state x="689" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1575458224346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -100,41 +317,85 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458098652" />
-    <state width="1218" height="282" key="GridCell.Tab.0.bottom" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="734" y="291" key="#xdebugger.XInspectDialog" timestamp="1575638149831">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state x="734" y="291" key="#xdebugger.XInspectDialog/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575638149831" />
+    <state width="434" height="438" key="DebuggerActiveHint" timestamp="1575639739455">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="434" height="438" key="DebuggerActiveHint/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575639739455" />
+    <state width="1878" height="315" key="GridCell.Tab.0.bottom" timestamp="1575657351257">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575657351257" />
     <state width="1218" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.0.center" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.0.center" timestamp="1575657351256">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575657351256" />
     <state width="1218" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.0.left" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.0.left" timestamp="1575657351254">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575657351254" />
     <state width="1218" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.0.right" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.0.right" timestamp="1575657351257">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575657351257" />
     <state width="1218" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.1.bottom" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.1.bottom" timestamp="1575653568465">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575653568465" />
     <state width="1218" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.1.center" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.1.center" timestamp="1575653568465">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575653568465" />
     <state width="1218" height="282" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.1.left" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.1.left" timestamp="1575653568464">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575653568464" />
     <state width="1218" height="282" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state width="1218" height="282" key="GridCell.Tab.1.right" timestamp="1575459671632">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="315" key="GridCell.Tab.1.right" timestamp="1575653568465">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575653568465" />
     <state width="1218" height="282" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
-    <state x="461" y="162" key="SettingsEditor" timestamp="1575459116232">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state width="1878" height="237" key="GridCell.Tab.2.bottom" timestamp="1575640225267">
+      <screen x="0" y="23" width="1920" height="1014" />
     </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225267" />
+    <state width="1878" height="237" key="GridCell.Tab.2.center" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state width="1878" height="237" key="GridCell.Tab.2.left" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state width="1878" height="237" key="GridCell.Tab.2.right" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state x="461" y="181" key="SettingsEditor" timestamp="1575652402777">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="461" y="181" key="SettingsEditor/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575652402777" />
     <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575459116232" />
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup" timestamp="1575636000446">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575636000446" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="(new ClassPathResource(&quot;data/HighScores.json&quot;)).getPath()" language="JAVA" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

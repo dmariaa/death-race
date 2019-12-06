@@ -19,6 +19,8 @@ var arenaWidth = 1400;
 var arenaHeight = 900;
 
 window.addEventListener('load', function() {
+  moment.locale('es');
+
   WebFont.load({
     google: { families: [ 'Orbitron:400,500,700,900' ] },
     active: loadPhaser
@@ -43,7 +45,8 @@ var loadPhaser = function() {
       deathrace.scenes.Loading,
       deathrace.scenes.PressAnyKey,
       deathrace.scenes.Hud,
-      deathrace.scenes.Countdown
+      deathrace.scenes.Countdown,
+      deathrace.scenes.HighScores
     ],
     plugins: {
       global: [
