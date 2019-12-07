@@ -122,7 +122,7 @@ deathrace.scenes = deathrace.scenes || {};
         event.keyCode === Phaser.Input.Keyboard.KeyCodes.LEFT) {
         var last = this.players.length;
         for(var i=0; i < last; ++i) {
-          if(this.players[i].keyboard && this.players[i].keyboard==event.keyCode) {
+          if(this.players[i].keyboard && this.players[i].keyboard===event.keyCode) {
             return;
           }
         }
@@ -136,6 +136,8 @@ deathrace.scenes = deathrace.scenes || {};
         this.updatePlayers();
       } else if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         if(this.players.length >= 2) {
+          console.log(this.parentScene);
+          this.parentScene.engineSound.pause(this.parentScene.engineSound);
           this.scene.start("ArenaScene", this.players);
         } else {
           console.log("Cannot launch with less than 2 players");
