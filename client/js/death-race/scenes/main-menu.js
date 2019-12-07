@@ -29,6 +29,7 @@ deathrace.scenes = deathrace.scenes || {};
 
   MainMenu.prototype.preload = function () {
     this.load.image('background', 'img/backgrounds/start_screen.png');
+    this.load.image('general-background', 'img/backgrounds/general_background.png');
     this.load.audio('menu-sound', 'sounds/menu-sound.wav');
 
   };
@@ -80,6 +81,9 @@ deathrace.scenes = deathrace.scenes || {};
     switch(menuName) {
       case 'play':
         this.scene.switch('LoadPlayers');
+        break;
+      case 'scores':
+        this.scene.switch('HighScores');
         break;
       case 'exit':
         game.destroy(true);

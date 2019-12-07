@@ -34,7 +34,6 @@ deathrace.scenes = deathrace.scenes || {};
   LoadPlayers.prototype.constructor = LoadPlayers;
 
   LoadPlayers.prototype.preload = function () {
-    this.load.image('background', 'img/backgrounds/general_background.png');
   };
 
   LoadPlayers.prototype.updatePlayers = function() {
@@ -81,7 +80,7 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   LoadPlayers.prototype.create = function() {
-    this.background = this.add.image(0, 0, 'background');
+    this.background = this.add.image(0, 0, 'general-background');
     this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height);
     this.background.setOrigin(0);
 

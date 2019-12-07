@@ -69,3 +69,9 @@ fabric.properties
 
 # Nodejs modules
 node_modules/
+
+src/main/resources/data/
+src/main/resources/static/
+client/js/death-race/game-objects/backgrounds/
+server/src/main/resources/data/
+server/src/main/resources/static/

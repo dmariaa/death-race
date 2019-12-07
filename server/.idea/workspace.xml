@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_harawata_appdirs_1_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_java_dev_jna_jna_4_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_java_dev_jna_jna_platform_4_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/DataUtilities.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/HighScoresList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/dmariaa/deathrace/server/data/HighScoresList.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="importingSettings">
+      <MavenImportingSettings>
+        <option name="importAutomatically" value="true" />
+        <option name="vmOptionsForImporter" value="-Xmx768m" />
+      </MavenImportingSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UW26tkvLwQOOqt8yYKMmzyi7Rl" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ExpandSpringBootJavaOptionsPanel" value="true" />
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="preferences.externalDependencies" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/data" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Spring Boot.App">
+    <configuration name="server [package]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="package" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="server [validate]" type="MavenRunConfiguration" factoryName="Maven" nameIsGenerated="true">
+      <MavenSettings>
+        <option name="myGeneralSettings" />
+        <option name="myRunnerSettings" />
+        <option name="myRunnerParameters">
+          <MavenRunnerParameters>
+            <option name="profiles">
+              <set />
+            </option>
+            <option name="goals">
+              <list>
+                <option value="validate" />
+              </list>
+            </option>
+            <option name="pomFileName" />
+            <option name="profilesMap">
+              <map />
+            </option>
+            <option name="resolveToWorkspace" value="false" />
+            <option name="workingDirPath" value="$PROJECT_DIR$" />
+          </MavenRunnerParameters>
+        </option>
+      </MavenSettings>
+      <method v="2" />
+    </configuration>
+    <configuration name="App" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="es.dmariaa.deathrace.server.App" />
+      <option name="WORKING_DIRECTORY" value="file://$MODULE_WORKING_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Maven.BeforeRunTask" enabled="true" file="$PROJECT_DIR$/pom.xml" goal="validate" />
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="es.dmariaa.deathrace.server.App" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Maven.server [package]" />
+      <item itemvalue="Maven.server [validate]" />
+      <item itemvalue="Spring Boot.App" />
+    </list>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="40f0dae1-ec13-45af-8dc9-0787d5744c41" name="Default Changelist" comment="" />
+      <created>1575457858981</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575457858981</updated>
+      <workItem from="1575457861645" duration="16000" />
+      <workItem from="1575457890761" duration="1776000" />
+      <workItem from="1575482722253" duration="24002000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="552" y="178" key="#Notifications" timestamp="1575459091511">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="178" key="#Notifications/0.0.1920.1040@0.0.1920.1040" timestamp="1575459091511" />
+    <state x="151" y="34" width="1092" height="880" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1575708129920">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="151" y="34" width="1092" height="880" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575708129920" />
+    <state x="414" y="170" width="1092" height="870" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458328817" />
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser" timestamp="1575634894170">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="773" y="253" key="#com.intellij.ide.util.MemberChooser/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575634894170" />
+    <state x="689" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1575458224346">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="689" y="303" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458224346" />
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1575458098652">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="808" y="408" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575458098652" />
+    <state x="734" y="291" key="#xdebugger.XInspectDialog" timestamp="1575638149831">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="734" y="291" key="#xdebugger.XInspectDialog/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575638149831" />
+    <state width="434" height="438" key="DebuggerActiveHint" timestamp="1575639739455">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="434" height="438" key="DebuggerActiveHint/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575639739455" />
+    <state width="1878" height="315" key="GridCell.Tab.0.bottom" timestamp="1575743613884">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613884" />
+    <state width="1218" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.0.center" timestamp="1575743613883">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613883" />
+    <state width="1218" height="282" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.0.left" timestamp="1575743613882">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613882" />
+    <state width="1218" height="282" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.0.right" timestamp="1575743613883">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.0.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613883" />
+    <state width="1218" height="282" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.1.bottom" timestamp="1575743613879">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613879" />
+    <state width="1218" height="282" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.1.center" timestamp="1575743613879">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613879" />
+    <state width="1218" height="282" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.1.left" timestamp="1575743613878">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613878" />
+    <state width="1218" height="282" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="315" key="GridCell.Tab.1.right" timestamp="1575743613879">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="315" key="GridCell.Tab.1.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575743613879" />
+    <state width="1218" height="282" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575459671632" />
+    <state width="1878" height="237" key="GridCell.Tab.2.bottom" timestamp="1575640225267">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.bottom/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225267" />
+    <state width="1878" height="237" key="GridCell.Tab.2.center" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.center/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state width="1878" height="237" key="GridCell.Tab.2.left" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.left/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state width="1878" height="237" key="GridCell.Tab.2.right" timestamp="1575640225266">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state width="1878" height="237" key="GridCell.Tab.2.right/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575640225266" />
+    <state x="461" y="181" key="SettingsEditor" timestamp="1575652402777">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="461" y="181" key="SettingsEditor/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575652402777" />
+    <state x="461" y="162" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1575459116232" />
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup" timestamp="1575742757890">
+      <screen x="0" y="23" width="1920" height="1014" />
+    </state>
+    <state x="625" y="247" width="670" height="676" key="search.everywhere.popup/-1920.23.1920.1057/0.23.1920.1014@0.23.1920.1014" timestamp="1575742757890" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="SpringBootApplicationConfigurationType">
+        <watch expression="(new ClassPathResource(&quot;data/HighScores.json&quot;)).getPath()" language="JAVA" />
+      </configuration>
+    </watches-manager>
+  </component>
+</project>
