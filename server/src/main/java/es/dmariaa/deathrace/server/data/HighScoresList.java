@@ -3,17 +3,18 @@ package es.dmariaa.deathrace.server.data;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
+
 public class HighScoresList {
-    private String highScoreFile = "data/HighScores.json";
+    Logger logger = LoggerFactory.getLogger(HighScoresList.class);
+
+    private String highScoreFile = "HighScores.json";
 
     private ArrayList<HighScore> list;
     private ObjectMapper objectMapper;
@@ -33,9 +34,7 @@ public class HighScoresList {
     }
 
     private String GetHighScoresFileName() throws IOException {
-        Resource resourcePath = new ClassPathResource(highScoreFile);
-        Path file = Paths.get(resourcePath.getURI());
-        String fileName = file.toString();
+        String fileName = DataUtilities.getInstance().getDataLocation(highScoreFile);
         return fileName;
     }
 
@@ -43,6 +42,7 @@ public class HighScoresList {
             File highScoresJSONFile = new File(GetHighScoresFileName());
 
             if(!highScoresJSONFile.exists()) {
+                highScoresJSONFile.getParentFile().mkdirs();
                 highScoresJSONFile.createNewFile();
             }
 
@@ -74,7 +74,7 @@ public class HighScoresList {
         return objectMapper.writeValueAsString(list);
     }
 
-    public String Add(HighScore highScore) throws IOException {
+    public synchronized String Add(HighScore highScore) throws IOException {
         list.add(highScore);
         Collections.sort(list);
         WriteToFile();
