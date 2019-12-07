@@ -85,7 +85,10 @@ deathrace.scenes = deathrace.scenes || {};
       case 'scores':
         this.scene.switch('HighScores');
         break;
-      case 'exit':
+        case 'credits':
+          this.scene.switch('CreditMenu');
+          break;
+        case 'exit':
         game.destroy(true);
       default:
         console.log("Menu " + menuName + " not handled");
