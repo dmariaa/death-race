@@ -45,6 +45,7 @@ var loadPhaser = function() {
       deathrace.scenes.login.LoginScene,
       deathrace.scenes.MainMenu,
       deathrace.scenes.LoadPlayers,
+      deathrace.scenes.CreditMenu,
       deathrace.scenes.Arena,
       deathrace.scenes.PlayMenu,
       deathrace.scenes.Loading,
