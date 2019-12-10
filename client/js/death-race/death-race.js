@@ -33,11 +33,16 @@ var loadPhaser = function() {
     pixelArt: true,
     width: arenaWidth,
     height: arenaHeight,
+    parent: "container",
+    dom: {
+      createContainer: true
+    },
     scale: {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
+      deathrace.scenes.login.LoginScene,
       deathrace.scenes.MainMenu,
       deathrace.scenes.LoadPlayers,
       deathrace.scenes.Arena,
@@ -46,7 +51,8 @@ var loadPhaser = function() {
       deathrace.scenes.PressAnyKey,
       deathrace.scenes.Hud,
       deathrace.scenes.Countdown,
-      deathrace.scenes.HighScores
+      deathrace.scenes.HighScores,
+      deathrace.scenes.PlayerLoading
     ],
     plugins: {
       global: [
@@ -77,3 +83,25 @@ if(!String.prototype.format) {
     return formatted;
   };
 }
+
+var deathrace = deathrace || {};
+deathrace.utils = deathrace.utils || {};
+
+(function(namespace) {
+  namespace.playerArrayToObject = function(players) {
+    var obj = players.reduce(function(obj, player) {
+      obj[player.uuid] = player;
+      return obj;
+    }, {});
+    return obj;
+  };
+
+  namespace.saveToLocalStorage = function(players) {
+    var playersList = [];
+    var keys = Object.keys(players);
+    for(var i=0, length=keys.length; i < length; ++i) {
+      playersList.push(players[keys[i]].uuid);
+    }
+    window.localStorage.setItem('last-players', playersList);
+  };
+})(deathrace.utils);

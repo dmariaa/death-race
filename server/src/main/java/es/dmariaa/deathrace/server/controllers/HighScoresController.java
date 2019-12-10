@@ -6,7 +6,10 @@ import es.dmariaa.deathrace.server.data.HighScore;
 import es.dmariaa.deathrace.server.data.HighScoresList;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.unbrokendome.jackson.beanvalidation.BeanValidationModule;
 
+import javax.validation.Validation;
+import javax.validation.ValidatorFactory;
 import java.io.IOException;
 
 @RestController
@@ -14,7 +17,14 @@ public class HighScoresController {
     private ObjectMapper objectMapper;
 
     public HighScoresController() {
-        this.objectMapper = new ObjectMapper();
+        ValidatorFactory validatorFactory = Validation.byDefaultProvider()
+                .configure()
+                .buildValidatorFactory();
+
+        BeanValidationModule module = new BeanValidationModule(validatorFactory);
+
+        this.objectMapper = new ObjectMapper()
+            .registerModule(module);
     }
 
     @GetMapping(value = "/high-scores")

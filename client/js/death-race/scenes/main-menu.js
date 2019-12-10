@@ -41,7 +41,6 @@ deathrace.scenes = deathrace.scenes || {};
     this.background.setOrigin(0);
 
     this.scene.get('LoadPlayers').parentScene = this;
-
     this.engineSound = this.sound.add('menu-sound');
 
     this.engineSound.play({
@@ -49,8 +48,9 @@ deathrace.scenes = deathrace.scenes || {};
           loop: true
     });
 
-
     this.showTitle();
+
+    this.showUser();
 
     this.menu.create({
       title: "Main menu",
@@ -69,6 +69,16 @@ deathrace.scenes = deathrace.scenes || {};
     this.events.on('menuselected', this.handleMenuSelected, this);
   };
 
+  MainMenu.prototype.showUser = function() {
+    var users = this.registry.get('players');
+    var currentUserUuid = this.registry.get('current-player');
+    var currentUser = users[currentUserUuid];
+
+    this.userName = this.add.text(30, 10, currentUser.name, {
+      fontFamily: "Orbitron", fontSize: 50
+    });
+  };
+
   MainMenu.prototype.showTitle = function() {
     this.textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 4);
     var title = this.add.text(this.textPosition.x, this.textPosition.y, "Death Race", {
@@ -80,7 +90,7 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
       case 'play':
-        this.scene.switch('LoadPlayers');
+        this.scene.switch('PlayerLoading');
         break;
       case 'scores':
         this.scene.switch('HighScores');
