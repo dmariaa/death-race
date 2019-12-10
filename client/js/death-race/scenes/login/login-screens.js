@@ -29,11 +29,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
   LoginScene.prototype.constructor = LoginScene;
 
   LoginScene.prototype.preload = function () {
-    this.load.image('background', 'img/backgrounds/start_screen.png');
-    this.load.image('general-background', 'img/backgrounds/general_background.png');
-    this.load.audio('menu-sound', 'sounds/menu-sound.wav');
-    this.load.html('login-form', 'html/login.html');
-    this.load.css('login-form-css', 'css/login.css');
+    // Resources loaded by game manager
   };
 
   LoginScene.prototype.create = function () {
@@ -65,7 +61,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
     var x = halfWidth - (width / 2);
     var y = halfHeight - (height / 2) - 50;
 
-    var loginForm = this.add.dom(x,y).createFromCache('login-form');
+    var loginForm = this.add.dom(x,y).createFromCache('login-form-html');
     var node = loginForm.node;
     $(node).addClass('login-form');
     $(node).width(width);
@@ -141,7 +137,6 @@ deathrace.scenes.login = deathrace.scenes.login || {};
     };
 
     var node = this.loginForm.node;
-    var scene = this;
 
     $.ajax({
       url: '/players',
@@ -151,13 +146,16 @@ deathrace.scenes.login = deathrace.scenes.login || {};
       data: JSON.stringify(data)
     })
       .done(function(data) {
-        var players = scene.registry.get('players') || {};
+        var players = this.registry.get('players') || {};
         players[data.uuid] = data;
+
         deathrace.utils.saveToLocalStorage(players);
-        scene.registry.set('players', players);
-        scene.registry.set('current-player', data.uuid);
-        scene.scene.start('MainMenu');
-      })
+        this.registry.set('players', players);
+        this.registry.set('current-player', data);
+
+        this.scene.start('MainMenu');
+        this.scene.stop();
+      }.bind(this))
       .fail(function(jqXHR, textStatus, errorThrown) {
         var response = jqXHR.responseJSON;
 
@@ -188,13 +186,17 @@ deathrace.scenes.login = deathrace.scenes.login || {};
       data: JSON.stringify(data)
     })
       .done(function(data) {
-        var players = scene.registry.get('players') || {};
+        var players = this.registry.get('players') || {};
         players[data.uuid] = data;
+
         deathrace.utils.saveToLocalStorage(players);
-        scene.registry.set('players', players);
-        scene.registry.set('current-player', data.uuid);
-        scene.scene.start('MainMenu');
-      })
+
+        this.registry.set('players', players);
+        this.registry.set('current-player', data);
+
+        this.scene.start('MainMenu');
+        this.scene.stop();
+      }.bind(this))
       .fail(function(jqXHR, textStatus, errorThrown) {
 
       });

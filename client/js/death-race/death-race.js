@@ -42,8 +42,10 @@ var loadPhaser = function() {
       autoCenter: Phaser.Scale.CENTER_BOTH
     },
     scene: [
+      deathrace.scenes.GameManager,
       deathrace.scenes.login.LoginScene,
       deathrace.scenes.MainMenu,
+      deathrace.scenes.Settings,
       deathrace.scenes.LoadPlayers,
       deathrace.scenes.CreditMenu,
       deathrace.scenes.Arena,

@@ -34,6 +34,7 @@ deathrace.scenes = deathrace.scenes || {};
   LoadPlayers.prototype.constructor = LoadPlayers;
 
   LoadPlayers.prototype.preload = function () {
+    // Resources loaded by game manager
   };
 
   LoadPlayers.prototype.updatePlayers = function() {
@@ -136,14 +137,14 @@ deathrace.scenes = deathrace.scenes || {};
         this.updatePlayers();
       } else if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         if(this.players.length >= 2) {
-          console.log(this.parentScene);
-          this.parentScene.engineSound.pause(this.parentScene.engineSound);
+          this.scene.get('GameManager').stopMusic('menu-sound');
           this.scene.start("ArenaScene", this.players);
         } else {
           console.log("Cannot launch with less than 2 players");
         }
       } else if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.ESC) {
-        this.scene.switch('MainMenu');
+        this.scene.wake('MainMenu');
+        this.scene.stop();
       }
     }, this);
   };

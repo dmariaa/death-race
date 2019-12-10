@@ -28,10 +28,7 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.constructor = MainMenu;
 
   MainMenu.prototype.preload = function () {
-    this.load.image('background', 'img/backgrounds/start_screen.png');
-    this.load.image('general-background', 'img/backgrounds/general_background.png');
-    this.load.audio('menu-sound', 'sounds/menu-sound.wav');
-
+    // Resources loaded by game manager
   };
 
   MainMenu.prototype.create = function() {
@@ -41,12 +38,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.background.setOrigin(0);
 
     this.scene.get('LoadPlayers').parentScene = this;
-    this.engineSound = this.sound.add('menu-sound');
-
-    this.engineSound.play({
-          volume: .3,
-          loop: true
-    });
+    this.scene.get('GameManager').playMusic('menu-sound', true);
 
     this.showTitle();
 
@@ -71,8 +63,7 @@ deathrace.scenes = deathrace.scenes || {};
 
   MainMenu.prototype.showUser = function() {
     var users = this.registry.get('players');
-    var currentUserUuid = this.registry.get('current-player');
-    var currentUser = users[currentUserUuid];
+    var currentUser = this.registry.get('current-player');
 
     this.userName = this.add.text(30, 10, currentUser.name, {
       fontFamily: "Orbitron", fontSize: 50
@@ -90,16 +81,21 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
       case 'play':
-        this.scene.switch('PlayerLoading');
+        this.scene.switch('LoadPlayers');
         break;
       case 'scores':
         this.scene.switch('HighScores');
         break;
-        case 'credits':
-          this.scene.switch('CreditMenu');
-          break;
-        case 'exit':
-        game.destroy(true);
+      case 'settings':
+        this.scene.switch('Settings');
+        break;
+      case 'credits':
+        this.scene.switch('CreditMenu');
+        break;
+      case 'exit':
+        this.scene.get('GameManager').stopMusic('menu-sound');
+        this.scene.start('LoginScene');
+        break;
       default:
         console.log("Menu " + menuName + " not handled");
     }
