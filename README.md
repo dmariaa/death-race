@@ -286,17 +286,25 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 
 ## Navegación
 Se ha puesto una pantalla para iniciar sesión o crear la cuenta si no tienes una cuenta creada. Si se tiene una cuenta creada se mostrará por pantalla y se podrá iniciar sesión.
+
 ![Captura](https://user-images.githubusercontent.com/45218480/70569094-87c4f680-1b99-11ea-868f-2644fb7d33ac.PNG)
 ![95abfece3becddce17043b9ae4adba80](https://user-images.githubusercontent.com/45218480/70570817-ed66b200-1b9c-11ea-9dbc-c4cbd321a3af.png)
 
 El juego vendrá con tu nombre de usuario asociado una vez iniciada la partida. Con tu usuario irán asignadas las características que desees. 
+
 ![Captura](https://user-images.githubusercontent.com/45218480/70573885-1ee27c00-1ba3-11ea-92a5-44c00d4159db.PNG)
 
 Por ejemplo, si en ajustes desactivas la música, nueva opción implementada, cada vez que inicies sesión la partida estará por defecto con el sonido desactivado.
+
 ![Captura](https://user-images.githubusercontent.com/45218480/70573917-2dc92e80-1ba3-11ea-9ca1-7baae121c113.PNG)
+
+Tras esto se podrá jugar al videojuego que ya vimos, pero ahora con trampas y con música de fondo. 
+
+![Captura](https://user-images.githubusercontent.com/45218480/70574125-a4fec280-1ba3-11ea-92f4-acb5ebe9aa49.PNG)
 
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
+
 ![Captura](https://user-images.githubusercontent.com/45218480/70568594-7af3d300-1b98-11ea-9acc-648eaef9e4d5.PNG)
 
 ## Instrucciones precisas para ejecutar la aplicación
