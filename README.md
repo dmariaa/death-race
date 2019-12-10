@@ -282,6 +282,18 @@ Se cargan los niveles a través de un cargador que ordena las coordenadas y perm
 
 Por último, si hablamos en lo referente al apartado sonoro, el videojuego reproduce el sonido del motor cuando la moto circula y si se choca, suena un gran sonido de explosión. En el menú, tendremos una música que te pone en tensión y una canción rock durante la partida.
 
+# Fase 3
+
+## Navegación
+
+## Diagrama de clases y API REST
+No hemos utilizado templates por lo que no están.
+![Captura](https://user-images.githubusercontent.com/45218480/70568594-7af3d300-1b98-11ea-9acc-648eaef9e4d5.PNG)
+## Instrucciones precisas para ejecutar la aplicación
+1. 
+2. 
+3. 
+
 #### Referencias
 
 Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
