@@ -302,6 +302,11 @@ Tras esto se podrá jugar al videojuego que ya vimos, pero ahora con trampas y c
 
 ![Captura](https://user-images.githubusercontent.com/45218480/70574125-a4fec280-1ba3-11ea-92f4-acb5ebe9aa49.PNG)
 
+Por último, podremos ver un ranking de puntuación con el usuario de quien haya logrado dicha puntuación.
+
+![Captura](https://user-images.githubusercontent.com/45218480/70574689-f491be00-1ba4-11ea-9f07-5ef79d3e275c.PNG)
+
+
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
 
