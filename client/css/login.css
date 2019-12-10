@@ -1,0 +1,132 @@
+/*
+ * Copyright 2019 dmariaa
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+.login-form {
+    height: 330px;
+}
+
+.login-form-container {
+    display: flex;
+    flex-direction: column;
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 330px;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: rgba(255,255,255,0.2);
+    transition: transform 0.56s;
+    pointer-events: none;
+}
+
+.login-form-title {
+    text-align: center;
+    font-size: 25px;
+    margin: 30px 0px;
+}
+
+.current-user {
+}
+
+.current-user span:hover,
+.other-account span:hover {
+    background-color: rgba(0,0,0,0.5);
+}
+
+.current-user span,
+.other-account span {
+    padding: 10px 6%;
+    display: block;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.current-user:after {
+    content: "";
+    width: 88%;
+    display: block;
+    height: 2px;
+    background-color: #c0c0c0;
+    margin-left: 6%;
+    opacity: 1;
+}
+
+.other-account {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.select-player-panel {
+    transform: translate(0%, 0%);
+}
+
+.set-password-panel {
+    transform: translate(100%, 0%);
+}
+
+.panel2 .select-player-panel {
+    transform: translate(-100%, 0%);
+}
+
+.panel2 .set-password-panel {
+    transform: translate(0%, 0%);
+}
+
+.login-form-container input {
+    border: none;
+    background-color: rgba(0,0,0,0.5);
+    display: block;
+    width: 86%;
+    margin: 0 5%;
+    height: 30px;
+    pointer-events: all;
+    color: #fff;
+    font-size: 20px;
+    font-family: "Orbitron", sans-serif;
+    padding: 6px;
+}
+
+.login-form-container label {
+    margin-left: 6%;
+    font-size: 12px;
+}
+
+.login-form-container .error-message {
+    margin-left: 6%;
+    font-size: 12px;
+    color: red;
+    height: 20px;
+}
+
+.login-form-container .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 6%;
+}
+
+.login-form-container .buttons .button {
+    padding: 10px;
+    cursor: pointer;
+    pointer-events: all;
+}
+
+.login-form-container .buttons .button.default {
+    background-color: rgba(0,100,255,0.8);
+}

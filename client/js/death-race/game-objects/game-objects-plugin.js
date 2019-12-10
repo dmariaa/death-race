@@ -27,7 +27,9 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     pluginManager.registerGameObject('knife', this.createKnife);
     pluginManager.registerGameObject('shot', this.createShot);
-      pluginManager.registerGameObject('trap', this.createTrap);
+    pluginManager.registerGameObject('trap', this.createTrap);
+
+    pluginManager.registerGameObject('playerLoadingPanel', this.createPlayerLoadingPanel);
 
   };
 
@@ -75,6 +77,13 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     GameObjectsPlugin.prototype.createTrap = function (x, y, texture) {
         var trap = new deathrace.gameobjects.Trap (this.scene, x, y, texture);
         return trap;
+    };
+
+    GameObjectsPlugin.prototype.createPlayerLoadingPanel = function(x, y, width, height) {
+        var playerLoadingPanel = new deathrace.gameobjects.PlayerLoadingPanel(this.scene, x, y, width, height);
+        // this.scene.add.existing(playerLoadingPanel);
+        // playerLoadingPanel.drawPanel();
+        return playerLoadingPanel;
     };
 
     deathrace.gameobjects.GameObjectsPlugin = GameObjectsPlugin;

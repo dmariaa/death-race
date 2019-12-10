@@ -55,7 +55,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
   // Inheritance, BikeTrail extends Phaser.GameObjects.GameObject
   BikeTrail.prototype = Object.create(Phaser.GameObjects.GameObject.prototype);
-  BikeTrail.constructor = BikeTrail;
+  BikeTrail.prototype.constructor = BikeTrail;
 
   /**
    * Adds a trail at position to the trails list
