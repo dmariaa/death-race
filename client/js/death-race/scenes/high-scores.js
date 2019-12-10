@@ -28,6 +28,7 @@ deathrace.scenes = deathrace.scenes || {};
   HighScores.prototype.constructor = HighScores;
 
   HighScores.prototype.preload = function() {
+    // Resources loaded by game manager
   };
 
   HighScores.prototype.create = function() {
@@ -43,7 +44,6 @@ deathrace.scenes = deathrace.scenes || {};
 
     textPosition.y += 100;
 
-
     $.ajax('/high-scores')
       .done(this.drawCredits.bind(this));
 
@@ -52,7 +52,8 @@ deathrace.scenes = deathrace.scenes || {};
 
   HighScores.prototype.handleKeys = function(event) {
     if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.ESC) {
-      this.scene.switch('MainMenu');
+      this.scene.wake('MainMenu');
+      this.scene.stop();
     }
   };
 

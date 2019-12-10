@@ -72,7 +72,6 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
     this.scene.input.on('gameobjectdown', this.handleMenuClick, this);
     this.scene.input.on('gameobjectover', this.handleMenuOver, this);
     this.scene.input.on('gameobjectout', this.handleMenuOut, this);
-
     this.scene.input.keyboard.on('keydown', this.handleKeyDown, this);
   };
 
@@ -102,7 +101,7 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
 
   MenuPlugin.prototype.handleMenuOut = function(pointer, gameObject) {
     if(this.selectedMenu) {
-      this.selectedMenu.setFontStyle('');
+      this.selectedMenu.setFontStyle('normal');
       this.selectedMenu = undefined;
     }
   };
@@ -113,7 +112,7 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
 
   MenuPlugin.prototype.setSelected = function(gameObject) {
     if(this.selectedMenu) {
-      this.selectedMenu.setFontStyle('');
+      this.selectedMenu.setFontStyle('normal');
     }
     gameObject.setFontStyle('bold');
     this.selectedMenu = gameObject;

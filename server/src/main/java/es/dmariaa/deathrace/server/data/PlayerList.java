@@ -89,6 +89,12 @@ public class PlayerList {
         return player;
     }
 
+    public synchronized Player Replace(Player player) throws IOException {
+        list.remove(player);
+        list.add(player);
+        return player;
+    }
+
     public Player GetOne(String uuid) {
         UUID searchUUID;
         try {

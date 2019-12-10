@@ -69,28 +69,7 @@ deathrace.scenes = deathrace.scenes || {};
        */
       this.vertLength = this.game.canvas.height - 2 * this.margin;
 
-      this.load.image('bike', 'img/sprites/bike.png');
-
-      this.load.audio('bike-engine', 'sounds/bike-engine.wav');
-      this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-      this.load.audio('background-sound', 'sounds/background-sound.wav');
-
-      this.load.image('shot', 'img/sprites/shot.png');
-      this.load.image('knife', 'img/sprites/knife.png');
-      this.load.image('trap', 'img/sprites/TRAP.png');
-
-      this.load.image('powerups.GB', 'img/sprites/powerups/GB.png');
-      this.load.image('powerups.LS', 'img/sprites/powerups/LS.png');
-      this.load.image('powerups.MS', 'img/sprites/powerups/MS.png');
-      this.load.image('powerups.PW', 'img/sprites/powerups/PW.png');
-      this.load.image('powerups.SD', 'img/sprites/powerups/SD.png');
-      this.load.image('powerups.SK', 'img/sprites/powerups/SK.png');
-      this.load.image('powerups.SP', 'img/sprites/powerups/SP.png');
-      this.load.image('powerups.DH', 'img/sprites/powerups/DH.png');
-      this.load.image('powerups.FP', 'img/sprites/powerups/FP.png');
-      this.load.image('powerups.TW', 'img/sprites/powerups/TW.png');
-      this.load.image('powerups.GC', 'img/sprites/powerups/GC.png');
-      this.load.image('powerups.unknown', 'img/sprites/powerups/unknown.png');
+      // Resources loaded by game manager
     };
 
     /**
@@ -183,15 +162,8 @@ deathrace.scenes = deathrace.scenes || {};
 
       this.events.on('pause', this.pause, this);
       this.events.on('resume', this.resume, this);
-
-
-      this.engineSound = this.sound.add('background-sound');
-
-        this.engineSound.play({
-            volume: .08,
-            loop: true
-        });
-
+      
+      this.scene.get('GameManager').playMusic('background-sound', true);
     };
 
     Arena.prototype.setupGamePad = function (gamepad, bike) {

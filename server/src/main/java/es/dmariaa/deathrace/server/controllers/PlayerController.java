@@ -72,6 +72,25 @@ public class PlayerController {
         }
     }
 
+    @PutMapping("/players/{uuid}")
+    public String putPlayer(@PathVariable String uuid, @RequestBody String body) throws RestException {
+        try {
+            Player player = PlayerList.getInstance().GetOne(uuid);
+            if(player==null) {
+                throw new RestException("Player not found", HttpStatus.NOT_FOUND, null);
+            }
+            Player newPlayer = objectMapper.readValue(body, Player.class);
+            if(!newPlayer.getUuid().equals(player.getUuid())) {
+                throw new RestException("Player data not valid", HttpStatus.BAD_REQUEST, null);
+            }
+            player.setPreferences(newPlayer.getPreferences());
+            player.setName(newPlayer.getName());
+            return objectMapper.writeValueAsString(PlayerList.getInstance().Replace(player));
+        } catch (IOException e) {
+            throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, e);
+        }
+    }
+
     @PostMapping("/players/login")
     public String loginPlayer(@RequestBody LoginData body) throws RestException {
         try {
