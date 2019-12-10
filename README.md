@@ -285,6 +285,9 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 # Fase 3
 
 ## Navegación
+Se ha puesto una pantalla para iniciar sesión o crear la cuenta si no tienes una cuenta creada.
+![Captura](https://user-images.githubusercontent.com/45218480/70569094-87c4f680-1b99-11ea-868f-2644fb7d33ac.PNG)
+![95abfece3becddce17043b9ae4adba80](https://user-images.githubusercontent.com/45218480/70570817-ed66b200-1b9c-11ea-9dbc-c4cbd321a3af.png)
 
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
