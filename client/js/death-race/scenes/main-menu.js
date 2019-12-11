@@ -82,19 +82,24 @@ deathrace.scenes = deathrace.scenes || {};
     switch(menuName) {
       case 'play':
         this.scene.switch('LoadPlayers');
+        this.scene.bringToTop('LoadPlayers');
         break;
       case 'scores':
         this.scene.switch('HighScores');
+        this.scene.bringToTop('HighScores');
         break;
       case 'settings':
         this.scene.switch('Settings');
+        this.scene.bringToTop('Settings');
         break;
       case 'credits':
         this.scene.switch('CreditMenu');
+        this.scene.bringToTop('CreditMenu');
         break;
       case 'exit':
         this.scene.get('GameManager').stopMusic('menu-sound');
         this.scene.start('LoginScene');
+        this.scene.bringToTop('LoginScene');
         break;
       default:
         console.log("Menu " + menuName + " not handled");

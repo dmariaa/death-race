@@ -38,7 +38,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.players = players;
     this.arena = this.scene.get('ArenaScene');
 
-    this.add.rectangle(0, 0, this.game.canvas.width, this.game.canvas.height, 0x000000, 0.5)
+    this.add.rectangle(0, 0, this.game.canvas.width, this.game.canvas.height, 0x000000, 0.65)
       .setOrigin(0,0);
 
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 2 - 200);
@@ -61,8 +61,10 @@ deathrace.scenes = deathrace.scenes || {};
     this.input.keyboard.on('keydown', function(event) {
       if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
         this.input.keyboard.off('keydown');
+        this.saveScores();
         this.scene.stop('ArenaScene');
         this.scene.wake('MainMenu');
+        this.scene.bringToTop('MainMenu');
         this.scene.stop();
 
       } else if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.SPACE) {
@@ -74,18 +76,38 @@ deathrace.scenes = deathrace.scenes || {};
     }, this);
   };
 
+  ArenaManager.prototype.saveScores = function() {
+    for(var i=0, length=this.players.length; i < length; ++i) {
+      var player = this.players[i];
+      var date = moment().format('YYYY-MM-DD');
+      var data = {
+        "player-name": player.name,
+        "score": player.score,
+        "score-date": date
+      };
+
+      $.ajax({
+        url: '/high-scores',
+        method: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(data)
+      })
+    }
+  };
+
   ArenaManager.prototype.drawPlayersScore = function() {
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 2 - 100);
     var textStyle = { fontFamily: "Orbitron", fontSize: 40 };
 
     this.playersScores.clear(true, true);
 
-    this.players = this.players.sort(function(a, b) {
+    var sortedPlayers = this.players.sort(function(a, b) {
       return b.score - a.score;
     });
 
-    for(var i=0, length=this.players.length; i < length; ++i) {
-      var player = this.players[i];
+    for(var i=0, length=sortedPlayers.length; i < length; ++i) {
+      var player = sortedPlayers[i];
       var score = this.add.text(textPosition.x, textPosition.y, "{0} - {1}".format(player.name, player.score),
         textStyle).setOrigin(0.5, 0).setAlign('center');
       this.playersScores.add(score);
