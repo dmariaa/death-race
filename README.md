@@ -308,7 +308,7 @@ Tras finalizar cada ronda, te saldrá una opción que es pulsar el Espacio para 
 
 Por último, podremos ver un ranking de puntuación con el usuario de quien haya logrado dicha puntuación.
 
-![Captura](https://user-images.githubusercontent.com/45218480/70574689-f491be00-1ba4-11ea-9f07-5ef79d3e275c.PNG)
+![Captura](https://user-images.githubusercontent.com/45218480/70637687-ee005680-1c37-11ea-9a6d-30e201eaeefd.PNG)
 
 Como funcionalidades extras, hemos añadido una pequeña pantalla de juego en la que se nos muestra cómo se juega, las funciones básicas de los powerups y los controles.
 
