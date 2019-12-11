@@ -312,7 +312,7 @@ Por último, podremos ver un ranking de puntuación con el usuario de quien haya
 
 Como funcionalidades extras, hemos añadido una pequeña pantalla de juego en la que se nos muestra cómo se juega, las funciones básicas de los powerups y los controles.
 
-![help_screen](https://user-images.githubusercontent.com/45218480/70634517-a62b0080-1c32-11ea-8885-6670967f3bec.png)
+![Captura](https://user-images.githubusercontent.com/45218480/70637193-205d8400-1c37-11ea-8666-c2ce0f13fd53.PNG)
 
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
