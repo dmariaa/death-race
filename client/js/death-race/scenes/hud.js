@@ -32,7 +32,7 @@ deathrace.scenes = deathrace.scenes || {};
     });
 
     this.huds = {};
-    this.graphics;
+    this.graphics = undefined;
     this.scoreFormat = "Puntuación: {0}";
     this.textStyle = { fontFamily: 'Orbitron', fontSize: 30 };
   };
@@ -45,12 +45,21 @@ deathrace.scenes = deathrace.scenes || {};
     arena.events.on('score', this.updateScore, this);
     arena.events.on('powerup-attached', this.savePowerup, this);
     arena.events.on('powerup-released', this.releasePowerup, this);
+
+    this.events.on('shutdown', this.shutdown, this);
+  };
+
+  Hud.prototype.shutdown = function() {
+    console.log("HUD SHUTDOWN");
+    this.huds = {};
+    this.graphics = undefined;
   };
 
   Hud.prototype.createHud = function(hud) {
     if(!this.graphics) {
       this.graphics = this.add.graphics();
     }
+
     var coords = coordinates[hud];
     var xalign = coords.xalign;
     var yalign = coords.yalign;
@@ -86,6 +95,7 @@ deathrace.scenes = deathrace.scenes || {};
   Hud.prototype.attach = function(id, bike) {
     var hud = this.createHud(id);
     this.huds[bike.name] = hud;
+    console.log("HUD ATTACHED TO " + bike.name + " => " + JSON.stringify(this.huds));
   };
 
   Hud.prototype.updateScore = function(bike, score) {

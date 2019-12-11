@@ -82,7 +82,7 @@ deathrace.scenes = deathrace.scenes || {};
     var container = this.add.container(left, y);
     container.add(this.add.text(0, 0, highscore['player-name'], style).setOrigin(0.5, 0).setAlign('center'));
     container.add(this.add.text(300, 0, highscore['score'], style).setOrigin(0.5, 0).setAlign('center'));
-    container.add(this.add.text(600, 0, moment(highscore['score-date']).format("DD/MM/YYYY h:mm:ss a"), style).setOrigin(0.5, 0).setAlign('center'));
+    container.add(this.add.text(600, 0, moment(highscore['score-date']).format("DD/MM/YYYY"), style).setOrigin(0.5, 0).setAlign('center'));
     return container;
   };
 

@@ -220,6 +220,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     }
   };
 
+  Level.prototype.loadLevelAleatory = function() {
+    var min = 0;
+    var max = this.levels.length - 1;
+    return this.loadLevel(Math.floor(Math.random() * (max - min + 1)) + min);
+  };
+
   Level.prototype.breakWall=function(wall, x, y) {
     var brokenWalls = [];
 
