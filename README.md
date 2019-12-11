@@ -302,10 +302,17 @@ Tras esto se podrá jugar al videojuego que ya vimos, pero ahora con trampas y c
 
 ![Captura](https://user-images.githubusercontent.com/45218480/70574125-a4fec280-1ba3-11ea-92f4-acb5ebe9aa49.PNG)
 
+Tras finalizar cada ronda, te saldrá una opción que es pulsar el Espacio para continuar con la ronda siguiente o Esc para salir al menú. Tras cada ronda la puntuación se irá acumulando.
+
+
+
 Por último, podremos ver un ranking de puntuación con el usuario de quien haya logrado dicha puntuación.
 
 ![Captura](https://user-images.githubusercontent.com/45218480/70574689-f491be00-1ba4-11ea-9f07-5ef79d3e275c.PNG)
 
+Como funcionalidades extras, hemos añadido una pequeña pantalla de juego en la que se nos muestra cómo se juega, las funciones básicas de los powerups y los controles.
+
+![help_screen](https://user-images.githubusercontent.com/45218480/70634517-a62b0080-1c32-11ea-8885-6670967f3bec.png)
 
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
