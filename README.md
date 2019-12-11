@@ -285,7 +285,7 @@ Por último, si hablamos en lo referente al apartado sonoro, el videojuego repro
 # Fase 3
 
 ## Navegación
-Se ha puesto una pantalla para iniciar sesión o crear la cuenta si no tienes una cuenta creada. Si se tiene una cuenta creada se mostrará por pantalla y se podrá iniciar sesión.
+Se ha puesto una pantalla para iniciar sesión o crear la cuenta si no tienes una cuenta creada. Si se tiene una cuenta creada se mostrará por pantalla y se podrá iniciar sesión. Para crear una es necesario darle a añadir la cuenta y ahí se rellenan los datos de usuario y contraseña y se le da a crear cuenta.
 
 ![Captura](https://user-images.githubusercontent.com/45218480/70569094-87c4f680-1b99-11ea-868f-2644fb7d33ac.PNG)
 ![95abfece3becddce17043b9ae4adba80](https://user-images.githubusercontent.com/45218480/70570817-ed66b200-1b9c-11ea-9dbc-c4cbd321a3af.png)
@@ -314,6 +314,10 @@ Como funcionalidades extras, hemos añadido una pequeña pantalla de juego en la
 
 ![Captura](https://user-images.githubusercontent.com/45218480/70637193-205d8400-1c37-11ea-8666-c2ce0f13fd53.PNG)
 
+Por último, este juego fue hecho por: 
+
+![Captura](https://user-images.githubusercontent.com/45218480/70643865-15f4b780-1c42-11ea-866c-6214bdcdb4a6.PNG)
+
 ## Diagrama de clases y API REST
 No hemos utilizado templates por lo que no están.
 
@@ -322,7 +326,7 @@ No hemos utilizado templates por lo que no están.
 
 ## Instrucciones precisas para ejecutar la aplicación
 
-Intrucciones para ejecutar el juego
+Intrucciones para ejecutar el juego (recomendable):
 1. Descargar el .jar y ponerlo en una carpeta
 2. Abrir la consola de comandos e ir hasta la carpeta en la que se ha guardado el .jar
 3. Ejecutar el comando java -jar server-0.0.1-SNAPSHOT.jar
