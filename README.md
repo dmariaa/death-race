@@ -292,7 +292,7 @@ Se ha puesto una pantalla para iniciar sesión o crear la cuenta si no tienes un
 
 El juego vendrá con tu nombre de usuario asociado una vez iniciada la partida. Con tu usuario irán asignadas las características que desees. 
 
-![Captura](https://user-images.githubusercontent.com/45218480/70573885-1ee27c00-1ba3-11ea-92a5-44c00d4159db.PNG)
+![Captura](https://user-images.githubusercontent.com/45218480/70637479-995cdb80-1c37-11ea-9ea8-44d8cdcd5a3b.PNG)
 
 Por ejemplo, si en ajustes desactivas la música, nueva opción implementada, cada vez que inicies sesión la partida estará por defecto con el sonido desactivado.
 
