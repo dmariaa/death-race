@@ -121,7 +121,7 @@ deathrace.scenes = deathrace.scenes || {};
 
       // Building level
       this.level = this.add.level();
-      this.level.loadLevel(1);
+      this.level.loadLevelAleatory();
 
       // Bike trails
       this.bikeTrails = this.add.group();

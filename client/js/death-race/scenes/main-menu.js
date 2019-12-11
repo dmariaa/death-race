@@ -52,6 +52,7 @@ deathrace.scenes = deathrace.scenes || {};
           { id: 'play', label: 'Jugar' },
           { id: 'settings', label: 'Ajustes' },
           { id: 'scores', label: 'Puntuaciones' },
+          { id: 'help', label: 'Ayuda' },
           { id: 'credits', label: 'Créditos' },
           { id: 'exit', label: 'Salir' }
         ]
@@ -95,6 +96,10 @@ deathrace.scenes = deathrace.scenes || {};
       case 'credits':
         this.scene.switch('CreditMenu');
         this.scene.bringToTop('CreditMenu');
+        break;
+      case 'help':
+        this.scene.switch('Help');
+        this.scene.bringToTop('Help');
         break;
       case 'exit':
         this.scene.get('GameManager').stopMusic('menu-sound');

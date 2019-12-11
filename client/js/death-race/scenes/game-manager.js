@@ -33,6 +33,7 @@ deathrace.scenes = deathrace.scenes || {};
     // Backgrounds
     this.load.image('background', 'img/backgrounds/start_screen.png');
     this.load.image('general-background', 'img/backgrounds/general_background.png');
+    this.load.image('help-background', 'img/backgrounds/help_screen.png');
 
     // Menu music
     this.load.audio('menu-sound', 'sounds/menu-sound.wav');

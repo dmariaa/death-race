@@ -56,7 +56,8 @@ var loadPhaser = function() {
       deathrace.scenes.Hud,
       deathrace.scenes.Countdown,
       deathrace.scenes.HighScores,
-      deathrace.scenes.PlayerLoading
+      deathrace.scenes.PlayerLoading,
+      deathrace.scenes.Help
     ],
     plugins: {
       global: [
