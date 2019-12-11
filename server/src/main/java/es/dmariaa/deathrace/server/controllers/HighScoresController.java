@@ -24,7 +24,7 @@ public class HighScoresController {
         BeanValidationModule module = new BeanValidationModule(validatorFactory);
 
         this.objectMapper = new ObjectMapper()
-            .registerModule(module);
+                .registerModule(module);
     }
 
     @GetMapping(value = "/high-scores")

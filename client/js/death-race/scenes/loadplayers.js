@@ -25,9 +25,6 @@ deathrace.scenes = deathrace.scenes || {};
         gamepad: true
       }
     });
-
-    this.players = [];
-    this.renderedPlayers = [];
   };
 
   LoadPlayers.prototype = Object.create(Phaser.Scene.prototype);
@@ -35,6 +32,8 @@ deathrace.scenes = deathrace.scenes || {};
 
   LoadPlayers.prototype.preload = function () {
     // Resources loaded by game manager
+    this.players = [];
+    this.renderedPlayers = [];
   };
 
   LoadPlayers.prototype.updatePlayers = function() {
@@ -43,7 +42,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     for(var i=0, length=this.players.length; i < length; ++i) {
       if(this.players[i] && !this.players[i].rendered) {
-        this.add.text(xpos, ypos, "Jugador: {0} \t {1}".format(i, this.getPlayerInfo(this.players[i])),
+        this.add.text(xpos, ypos, "Jugador: {0} \t {1}".format(this.players[i].name, this.getPlayerInfo(this.players[i])),
           { fontFamily: "Orbitron", fontSize: 25 }).setOrigin(0, 0);
         this.players[i].rendered = true;
       }
@@ -97,7 +96,27 @@ deathrace.scenes = deathrace.scenes || {};
       "o cualquier boton del gamepad\npara entrar en la partida\n\n\n<ESC> para salir",
       { fontFamily: "Orbitron", fontSize: 25 }).setOrigin(0.5, 0).setAlign('center');
 
+    this.addCurrentPlayer();
     this.waitForPlayers();
+
+    this.events.on('shutdown', this.shutdown, this);
+  };
+
+  LoadPlayers.prototype.shutdown = function() {
+  };
+
+  LoadPlayers.prototype.addCurrentPlayer = function() {
+    var currentPlayer = this.registry.get('current-player');
+
+    this.players.push({
+      keyboard: Phaser.Input.Keyboard.KeyCodes.A,
+      player: 0,
+      name: currentPlayer.name,
+      color: colors[0],
+      score: 0
+    });
+
+    this.updatePlayers();
   };
 
   LoadPlayers.prototype.waitForPlayers = function() {
@@ -112,7 +131,8 @@ deathrace.scenes = deathrace.scenes || {};
         gamepad: gamepad,
         player: last,
         name: "Player {0}".format(last),
-        color: colors[last]
+        color: colors[last],
+        score: 0
       });
       this.updatePlayers();
       console.log(this.players);
@@ -131,14 +151,16 @@ deathrace.scenes = deathrace.scenes || {};
           keyboard: event.keyCode,
           player: last,
           name: "player{0}".format(last),
-          color: colors[last]
+          color: colors[last],
+          score: 0
         });
         console.log(this.players);
         this.updatePlayers();
       } else if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.SPACE) {
         if(this.players.length >= 2) {
           this.scene.get('GameManager').stopMusic('menu-sound');
-          this.scene.start("ArenaScene", this.players);
+          this.scene.start("ArenaManager", this.players);
+          this.scene.stop();
         } else {
           console.log("Cannot launch with less than 2 players");
         }

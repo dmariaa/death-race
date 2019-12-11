@@ -43,6 +43,7 @@ var loadPhaser = function() {
     },
     scene: [
       deathrace.scenes.GameManager,
+      deathrace.scenes.ArenaManager,
       deathrace.scenes.login.LoginScene,
       deathrace.scenes.MainMenu,
       deathrace.scenes.Settings,

@@ -96,6 +96,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       1: undefined,
       2: undefined
     };
+
+    this.once('destroy', function(bike) {
+      scene.textures.remove(this.name + '-bikepieces');
+      scene.textures.remove(this.name + '-texture');
+    }, this);
   };
 
   // Inheritance, Bike extends Phaser.GameObjects.Sprite
@@ -111,6 +116,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.explosion.setPosition(this.x, this.y);
     this.trail.set(this.x, this.y);
     this.explosion.explode();
+    this.player.score += this.score;
     this.destroy();
   };
 

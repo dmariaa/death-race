@@ -69,6 +69,12 @@ deathrace.scenes = deathrace.scenes || {};
        */
       this.vertLength = this.game.canvas.height - 2 * this.margin;
 
+      /**
+       * Array of bikes
+       * @type {*[]}
+       */
+      this.bikes = [];
+
       // Resources loaded by game manager
     };
 
@@ -77,6 +83,8 @@ deathrace.scenes = deathrace.scenes || {};
      */
     Arena.prototype.create = function (players) {
       console.log("ArenaScene loaded");
+
+      this.roundFinished = false;
 
       // Building grid
       this.gridColor = 0x000040;
@@ -113,7 +121,7 @@ deathrace.scenes = deathrace.scenes || {};
 
       // Building level
       this.level = this.add.level();
-      this.level.loadLevel(4);
+      this.level.loadLevel(1);
 
       // Bike trails
       this.bikeTrails = this.add.group();
@@ -121,21 +129,25 @@ deathrace.scenes = deathrace.scenes || {};
       var spawnPoints = this.level.bikeSpawnPoints;
       this.bikeGroup = this.add.group();
 
-      for(var i=0, length = players.length; i < length; ++i) {
+      // Restart HUD
+      for (var i = 0, length = players.length; i < length; ++i) {
         var player = players[i];
         var bike = this.add.bike(spawnPoints[i].x, spawnPoints[i].y, player.name, player.color.value);
+
+        bike.player = player;
         this.scene.get('HUD').attach(i, bike);
-        if(player.gamepad) {
+
+        if (player.gamepad) {
           this.setupGamePad(player.gamepad, bike);
         } else {
-          if(player.keyboard===Phaser.Input.Keyboard.KeyCodes.A) {
+          if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.A) {
             this.setupKeyboard2(bike);
-          } else if(player.keyboard===Phaser.Input.Keyboard.KeyCodes.LEFT) {
+          } else if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.LEFT) {
             this.setupKeyboard1(bike);
           }
         }
-
         this.bikeGroup.add(bike);
+        this.bikes.push(bike);
       }
 
       // Generate power ups
@@ -158,11 +170,13 @@ deathrace.scenes = deathrace.scenes || {};
       // Load press-any-key scene
       this.scene.get('Countdown').parentScene = this;
       this.scene.launch('Countdown');
+      this.scene.bringToTop('Countdown');
       this.scene.pause();
 
       this.events.on('pause', this.pause, this);
       this.events.on('resume', this.resume, this);
-      
+      this.events.on('shutdown', this.shutdown, this);
+
       this.scene.get('GameManager').playMusic('background-sound', true);
     };
 
@@ -220,13 +234,29 @@ deathrace.scenes = deathrace.scenes || {};
      */
     Arena.prototype.resume = function () {
       this.sound.setMute(false);
-      this.scene.launch('HUD');
+    };
+
+    Arena.prototype.shutdown = function() {
+      for(var i=0, length=this.bikes.length; i < length; i++) {
+        if(this.bikes[i]) {
+          this.bikes[i].destroy();
+        }
+      }
+      this.bikes = [];
     };
 
     /**
      * @override Phaser.scene.update
      */
     Arena.prototype.update = function (time, delta) {
+      if (this.bikeGroup.getLength() == 1 && !this.roundFinished) {
+        this.roundFinished = true;
+        var bikes = this.bikeGroup.getChildren();
+        var winner = bikes[0];
+        winner.player.score += winner.score + 100;
+        winner.setActive(false);
+        this.endRound(winner);
+      }
     };
 
     /**
@@ -236,30 +266,37 @@ deathrace.scenes = deathrace.scenes || {};
      */
     Arena.prototype.bikeCollision = function (bike, other) {
       if (other instanceof deathrace.gameobjects.powerups.PowerUp) {
-        if(bike.addPowerUp(other)) {
+        if (bike.addPowerUp(other)) {
           this.powerUps.remove(other, true);
         }
       } else {
-        if(bike.horn
+        if (bike.horn
           && !other.isExternalWall
           && !other.isTrail) {
           bike.breakWall(other);
         } else if (bike.ghost === false
           || other.isExternalWall
           || other instanceof deathrace.gameobjects.projectile.Projectile
-          || other instanceof deathrace.gameobjects.Trap)
-        {
+          || other instanceof deathrace.gameobjects.Trap) {
           bike.setActive(false);
           bike.explode();
+          this.bikeGroup.remove(bike);
         }
       }
+    };
+
+    Arena.prototype.endRound = function (winner) {
+      this.time.delayedCall(1000, function() {
+        console.log("Emitting round-end event");
+        this.events.emit('round-end', winner.player);
+      }, null, this);
     };
 
     Arena.prototype.spawnRandomPowerUps = function (min, max) {
       min = min || 3;
       max = max || 7;
 
-      var numberOfPowerUps = Math.trunc(Math.random() * (max-min) + min);
+      var numberOfPowerUps = Math.trunc(Math.random() * (max - min) + min);
       this.powerUps.clear(true);
 
       for (var i = 0; i < numberOfPowerUps; ++i) {
@@ -269,33 +306,31 @@ deathrace.scenes = deathrace.scenes || {};
       }
     };
 
-     Arena.prototype.spawnRandomTraps = function() {
-         //min = min || 1;
-        // max = max || 4;
-            var numberOfTraps = Math.trunc(Math.random() * 3 + 1);
-            this.traps.clear(true);
+    Arena.prototype.spawnRandomTraps = function () {
+      var numberOfTraps = Math.trunc(Math.random() * 3 + 1);
+      this.traps.clear(true);
 
-            for(var i=0; i<numberOfTraps; ++i) {
-                var trapsX = Math.trunc(Math.random() * this.horzLength);
-                var trapsY = Math.trunc(Math.random() * this.vertLength);
+      for (var i = 0; i < numberOfTraps; ++i) {
+        var trapsX = Math.trunc(Math.random() * this.horzLength);
+        var trapsY = Math.trunc(Math.random() * this.vertLength);
 
-                if((this.horzLength/2)<trapsX){
-                    trapsX = trapsX - (this.margin+32);
-                }else{
-                    trapsX = trapsX + (this.margin+32);
-                }
-                if((this.vertLength/2)<trapsY){
-                    trapsY = trapsY - (this.margin+32);
-                }else{
-                    trapsY = trapsY + (this.margin+32);
-                }
+        if ((this.horzLength / 2) < trapsX) {
+          trapsX = trapsX - (this.margin + 32);
+        } else {
+          trapsX = trapsX + (this.margin + 32);
+        }
+        if ((this.vertLength / 2) < trapsY) {
+          trapsY = trapsY - (this.margin + 32);
+        } else {
+          trapsY = trapsY + (this.margin + 32);
+        }
 
-                var trap = this.add.trap(trapsX, trapsY);
-                this.traps.add(trap);
-            }
-      };
+        var trap = this.add.trap(trapsX, trapsY);
+        this.traps.add(trap);
+      }
+    };
 
-    Arena.prototype.calculateRandomPosition = function() {
+    Arena.prototype.calculateRandomPosition = function () {
       var margin = this.margin + 16;
       var position;
 
@@ -309,25 +344,24 @@ deathrace.scenes = deathrace.scenes || {};
 
         var valid = true;
 
-        for(var i=0, length=this.powerUps.children.entries.length; i < length; ++i) {
+        for (var i = 0, length = this.powerUps.children.entries.length; i < length; ++i) {
           var other = this.powerUps.children.entries[i];
           var otherPosition = new Phaser.Math.Vector2(other.x, other.y);
 
-          if(position.distanceSq(otherPosition) <= squared_radius) {
-            console.log("Position ({0},{1}) conflicts with ({2},{3})".format(position.x, position.y, otherPosition.x, otherPosition.y));
+          if (position.distanceSq(otherPosition) <= squared_radius) {
+            // console.log("Position ({0},{1}) conflicts with ({2},{3})".format(position.x, position.y, otherPosition.x, otherPosition.y));
             valid = false;
             break;
           }
         }
 
-        if(valid) {
-          console.log("Position ({0},{1}) is Valid!!".format(position.x, position.y));
+        if (valid) {
+          // console.log("Position ({0},{1}) is Valid!!".format(position.x, position.y));
         }
-      } while(!valid);
+      } while (!valid);
 
       return position;
     };
-
 
 
     // Add to namespace
