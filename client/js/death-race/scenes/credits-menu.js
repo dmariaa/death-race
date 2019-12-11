@@ -31,7 +31,7 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   CreditMenu.prototype.create = function () {
-    this.background = this.add.image(0, 0, 'background');
+    this.background = this.add.image(0, 0, 'general-background');
     this.background.setDisplaySize(this.game.canvas.width, this.game.canvas.height);
     this.background.setOrigin(0);
 

@@ -52,7 +52,7 @@ deathrace.scenes = deathrace.scenes || {};
           { id: 'play', label: 'Jugar' },
           { id: 'settings', label: 'Ajustes' },
           { id: 'scores', label: 'Puntuaciones' },
-          { id: 'help', label: 'Ayuda' },
+          { id: 'help', label: 'Como jugar' },
           { id: 'credits', label: 'Créditos' },
           { id: 'exit', label: 'Salir' }
         ]
