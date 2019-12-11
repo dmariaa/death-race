@@ -75,15 +75,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     });
 
     // Engine sound
-    this.engineSound = scene.sound.add('bike-engine');
-    this.engineSound.play({
-      volume: .3,
-      loop: true
-    });
-
-
-    // Explosion sound
-    this.explosionSound = scene.sound.add('bike-explosion');
+    scene.scene.get('GameManager').playEffect('bike-engine', true);
 
     // Set color
     this.setColors();
@@ -111,13 +103,14 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * Destroys bike, with explosion particle system and sounds
    */
   Bike.prototype.explode = function () {
-    this.engineSound.stop();
-    this.explosionSound.play();
+    this.scene.scene.get('GameManager').stopEffect('bike-engine', true);
+    this.scene.scene.get('GameManager').playEffect('bike-explosion', true);
+
     this.explosion.setPosition(this.x, this.y);
     this.trail.set(this.x, this.y);
     this.explosion.explode();
     this.player.score += this.score;
-    this.destroy();
+    // this.destroy();
   };
 
   /**

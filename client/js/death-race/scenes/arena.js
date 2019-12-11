@@ -279,6 +279,7 @@ deathrace.scenes = deathrace.scenes || {};
           || other instanceof deathrace.gameobjects.projectile.Projectile
           || other instanceof deathrace.gameobjects.Trap) {
           bike.setActive(false);
+          bike.setVisible(false);
           bike.explode();
           this.bikeGroup.remove(bike);
         }

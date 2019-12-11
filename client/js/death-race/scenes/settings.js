@@ -75,7 +75,7 @@ deathrace.scenes = deathrace.scenes || {};
         'game-music': $(node).find('input[name="game-music"]').prop('checked'),
         'game-music-volume': $(node).find('input[name="game-music-volume"]').val() / 100,
         'game-sound': $(node).find('input[name="game-sound"]').prop('checked'),
-        'game-sound-volume': $(node).find('input[name="game-music-volume"]').val() / 100
+        'game-sound-volume': $(node).find('input[name="game-sound-volume"]').val() / 100
       };
 
       currentUser.preferences = preferences;

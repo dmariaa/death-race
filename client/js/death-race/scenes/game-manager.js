@@ -43,8 +43,6 @@ deathrace.scenes = deathrace.scenes || {};
     // Sound effects
     this.load.audio('bike-engine', 'sounds/bike-engine.wav');
     this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
-    this.load.audio('bike-engine', 'sounds/bike-engine.wav');
-    this.load.audio('bike-explosion', 'sounds/explosion-05.wav');
 
     // HTML AND CSS TEMPLATES
     this.load.html('settings-html', 'html/settings.html');
@@ -86,6 +84,7 @@ deathrace.scenes = deathrace.scenes || {};
       if(key=='current-player') {
         var preferences = value.preferences;
         this.setMusicPreferences(preferences);
+        this.setEffectsPreferences(preferences);
         this.saveUserPreferences();
       }
     }, this);
@@ -94,6 +93,7 @@ deathrace.scenes = deathrace.scenes || {};
       if(key=='current-player') {
         var preferences = value.preferences;
         this.setMusicPreferences(preferences);
+        this.setEffectsPreferences(preferences);
         this.saveUserPreferences();
       }
     }, this);
@@ -114,6 +114,20 @@ deathrace.scenes = deathrace.scenes || {};
     console.log("Music preferences set to: [{0},{1}]".format(mute ? 'muted' : 'not muted', volume));
   };
 
+  GameManager.prototype.setEffectsPreferences = function(preferences) {
+    var mute = !preferences['game-sound'];
+    var volume = preferences['game-sound-volume'];
+
+    var effectsKeys = Object.keys(this.effects);
+    for(var i=0, length=effectsKeys.length; i<length; ++i) {
+      var effect = this.effects[effectsKeys[i]];
+      effect.setMute(mute);
+      effect.setVolume(volume);
+    }
+
+    console.log("Effects preferences set to: [{0},{1}]".format(mute ? 'muted' : 'not muted', volume));
+  };
+
   GameManager.prototype.playMusic = function(name, loop = false) {
     if(this.music[name]) {
       console.log("Playing music: " + name);
@@ -125,6 +139,20 @@ deathrace.scenes = deathrace.scenes || {};
     if(this.music[name]) {
       console.log("Stopping music: " + name);
       this.music[name].stop();
+    }
+  };
+
+  GameManager.prototype.playEffect = function(name, loop = false) {
+    if(this.effects[name]) {
+      console.log("Playing effect: " + name);
+      this.effects[name].play({ loop: loop });
+    }
+  };
+
+  GameManager.prototype.stopEffect = function(name) {
+    if(this.effects[name]) {
+      console.log("Stopping effect: " + name);
+      this.effects[name].stop();
     }
   };
 
