@@ -36,7 +36,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.background.setOrigin(0);
 
     this.background = this.add.image(0, 0, 'help-background');
-    this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height - 110);
+    this.background.setDisplaySize(this.game.canvas.width,this.game.canvas.height);
     this.background.setOrigin(0);
 
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height - 100);
