@@ -32,7 +32,9 @@ deathrace.scenes = deathrace.scenes || {};
   PlayerLoading.prototype = Object.create(Phaser.Scene.prototype);
   PlayerLoading.prototype.constructor = PlayerLoading;
 
-  PlayerLoading.prototype.create = function() {
+  PlayerLoading.prototype.create = function(data) {
+    this.data = data;
+
     // Create background
     this.background = this.add.image(0, 0, 'general-background');
     this.background.setDisplaySize(this.game.canvas.width, this.game.canvas.height);
@@ -40,14 +42,73 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Create Title
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, 20);
-    this.title = this.add.text(textPosition.x, textPosition.y, "Esperando jugadores...", {
+    var gameName = this.add.text(textPosition.x, textPosition.y, data.game.name, {
       fontFamily: "Orbitron", fontSize: 50
+    }).setOrigin(0.5, 0).setAlign('center');
+
+    textPosition.y += 60
+
+    this.title = this.add.text(textPosition.x, textPosition.y, "Esperando jugadores...", {
+      fontFamily: "Orbitron", fontSize: 30
     }).setOrigin(0.5, 0).setAlign('center');
 
     // Reposition title
     var bounds = this.title.getBounds();
     this.title.setOrigin(0, 0).setAlign('left').setPosition(bounds.x, bounds.y);
 
+    var dom = this.add.dom(0, 0).createFromCache('players');
+    this.panel = $(dom.node);
+    this.panel.css('width', '100%');
+    this.panel.find('.game-type').text(data.game.private ? "Partida privada" : "Partida pública");
+    this.panel.find('.game-password').text(data.game.private ? "Password: " + data.game.gamePassword : "");
+
+    this.connection = new WebSocket('ws://' + location.host  + '/game-play');
+    this.connection.onmessage = this.handleMessage.bind(this);
+    this.connection.onopen = this.handleOpen.bind(this);
+  };
+
+  PlayerLoading.prototype.handleOpen = function(msg) {
+    var command = {
+      command: "JOIN_GAME",
+      game: this.data.game.id,
+      player: this.data.player,
+      host: this.data.command==="GAME_ADDED" ? true : false
+    };
+
+    this.connection.send(JSON.stringify(command));
+  };
+
+  PlayerLoading.prototype.handleMessage = function(msg) {
+    var message = JSON.parse(msg.data);
+    if(message.command==="GAME_JOINED" || message.command==="GAME_LEAVED") {
+      var game = message.game;
+      this.panel.find('.players-container').empty();
+      this.panel.find('.game-type').text(game.private ? "Partida privada" : "Partida pública");
+      this.panel.find('.game-password').text(game.private ? "Password: " + game.gamePassword : "");
+      this.panel.find('.game-players').text("Jugadores: {0}/{1}".format(game.players.length, game.minPlayers));
+      for(var i=0, length=game.players.length; i<length; i++) {
+        if(game.players[i]==null) continue;
+        this.addPlayer(game.players[i]);
+      }
+    }
+  };
+
+  PlayerLoading.prototype.addPlayer = function(playerData) {
+    var template = this.panel.find('.player-template').first();
+    var playerPanel = template.clone();
+    playerPanel.find('.player-name').text(playerData.name);
+    playerPanel.find('.player-color').css('background-color', '#00ff00');
+    this.panel.find('.players-container').append(playerPanel);
+    playerPanel.removeClass('player-template').addClass('player-container');
+  };
+
+  // Not used anymore
+  PlayerLoading.prototype.showPanel = function(panel)
+  {
+      this.panels[panel].setVisible(true);
+  };
+
+  PlayerLoading.prototype.createPanels = function() {
     // Create panels, hidden
     var marginTop = 90;
     var halfWidth = this.game.canvas.width / 4;
@@ -65,13 +126,6 @@ deathrace.scenes = deathrace.scenes || {};
         halfHeight).setVisible(false);
       this.panels.push(playerPanel);
     }
-
-    this.showPanel(0);
-  };
-
-  PlayerLoading.prototype.showPanel = function(panel)
-  {
-      this.panels[panel].setVisible(true);
   };
 
   PlayerLoading.prototype.update = function(time, delta)

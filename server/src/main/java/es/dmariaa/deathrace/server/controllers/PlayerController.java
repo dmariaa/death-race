@@ -18,6 +18,9 @@ import java.io.IOException;
 @RestController
 public class PlayerController {
     @Autowired
+    private PlayerList playerList;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     private ObjectMapper objectMapper;
@@ -36,7 +39,7 @@ public class PlayerController {
     @GetMapping("/players")
     public String GetPlayers() throws RestException {
         try {
-            return objectMapper.writeValueAsString(PlayerList.getInstance().Get());
+            return objectMapper.writeValueAsString(playerList.Get());
         } catch (IOException e) {
             throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, e);
         }
@@ -45,7 +48,7 @@ public class PlayerController {
     @GetMapping("/players/{uuid}")
     public String GetPlayer(@PathVariable String uuid) throws RestException {
         try {
-            Player player = PlayerList.getInstance().GetOne(uuid);
+            Player player = playerList.GetOne(uuid);
             if(player==null) {
                 throw new RestException("Player not found", HttpStatus.NOT_FOUND, null);
             }
@@ -59,12 +62,12 @@ public class PlayerController {
     public String postPlayer(@RequestBody String body) throws RestException {
         try {
             Player player = objectMapper.readValue(body, Player.class);
-            Player existingPlayer = PlayerList.getInstance().GetOne(player.getUuid().toString());
+            Player existingPlayer = playerList.GetOne(player.getUuid().toString());
             if(existingPlayer != null) {
                 throw new RestException("Player already exists", HttpStatus.CONFLICT, null);
             }
             player.setPassword(passwordEncoder.encode(player.getPassword()));
-            return objectMapper.writeValueAsString(PlayerList.getInstance().Add(player));
+            return objectMapper.writeValueAsString(playerList.Add(player));
         } catch(JsonProcessingException e) {
             throw new RestException(e.getMessage(), HttpStatus.BAD_REQUEST, e);
         } catch (IOException e) {
@@ -75,7 +78,7 @@ public class PlayerController {
     @PutMapping("/players/{uuid}")
     public String putPlayer(@PathVariable String uuid, @RequestBody String body) throws RestException {
         try {
-            Player player = PlayerList.getInstance().GetOne(uuid);
+            Player player = playerList.GetOne(uuid);
             if(player==null) {
                 throw new RestException("Player not found", HttpStatus.NOT_FOUND, null);
             }
@@ -85,7 +88,7 @@ public class PlayerController {
             }
             player.setPreferences(newPlayer.getPreferences());
             player.setName(newPlayer.getName());
-            return objectMapper.writeValueAsString(PlayerList.getInstance().Replace(player));
+            return objectMapper.writeValueAsString(playerList.Replace(player));
         } catch (IOException e) {
             throw new RestException(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, e);
         }
@@ -97,9 +100,9 @@ public class PlayerController {
             Player player;
 
             if(body.getUuid() != null && !body.getUuid().isEmpty()) {
-                player = PlayerList.getInstance().GetOne(body.getUuid());
+                player = playerList.GetOne(body.getUuid());
             } else {
-                player = PlayerList.getInstance().GetOneByName(body.getName());
+                player = playerList.GetOneByName(body.getName());
             }
 
             if(player==null) {

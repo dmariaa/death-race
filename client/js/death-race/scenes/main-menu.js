@@ -63,7 +63,6 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   MainMenu.prototype.showUser = function() {
-    var users = this.registry.get('players');
     var currentUser = this.registry.get('current-player');
 
     this.userName = this.add.text(30, 10, currentUser.name, {
@@ -82,8 +81,8 @@ deathrace.scenes = deathrace.scenes || {};
   MainMenu.prototype.handleMenuSelected = function(menuName) {
     switch(menuName) {
       case 'play':
-        this.scene.switch('LoadPlayers');
-        this.scene.bringToTop('LoadPlayers');
+        this.scene.switch('GameList');
+        this.scene.bringToTop('GameList');
         break;
       case 'scores':
         this.scene.switch('HighScores');
