@@ -5,12 +5,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.introspect.AnnotatedMember;
 import com.fasterxml.jackson.databind.introspect.JacksonAnnotationIntrospector;
+import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
+@Service
 public class PlayerList {
     private String playerFile = "PlayersPreferences.json";
 
@@ -21,15 +23,6 @@ public class PlayerList {
     private PlayerList() throws IOException {
         objectMapper = new ObjectMapper();
         list = ReadFromFile();
-    }
-
-    private static PlayerList _instance;
-
-    public static synchronized PlayerList getInstance() throws IOException {
-        if(_instance==null) {
-            _instance = new PlayerList();
-        }
-        return _instance;
     }
 
     private String GetPlayerListFileName() {

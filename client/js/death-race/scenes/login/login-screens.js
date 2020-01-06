@@ -149,7 +149,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
         var players = this.registry.get('players') || {};
         players[data.uuid] = data;
 
-        deathrace.utils.saveToLocalStorage(players);
+        deathrace.utils.savePlayersToLocalStorage(players);
         this.registry.set('players', players);
         this.registry.set('current-player', data);
 
@@ -189,10 +189,11 @@ deathrace.scenes.login = deathrace.scenes.login || {};
         var players = this.registry.get('players') || {};
         players[data.uuid] = data;
 
-        deathrace.utils.saveToLocalStorage(players);
+        deathrace.utils.savePlayersToLocalStorage(players);
 
         this.registry.set('players', players);
         this.registry.set('current-player', data);
+        deathrace.utils.saveSession();
 
         this.scene.start('MainMenu');
         this.scene.stop();
@@ -225,6 +226,28 @@ deathrace.scenes.login = deathrace.scenes.login || {};
   };
 
   LoginScene.prototype.loadLastPlayer = function () {
+    var currentPlayerUUID = deathrace.utils.getSession();
+    if (currentPlayerUUID) {
+      $.ajax({
+        url: '/players/' + currentPlayerUUID,
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json'
+      })
+        .done(function (data) {
+          this.registry.set('current-player', data);
+          this.scene.start('MainMenu');
+          this.scene.stop();
+        }.bind(this))
+        .fail(function() {
+          this.loadLoginDialog();
+        }.bind(this));
+    } else {
+      this.loadLoginDialog();
+    }
+  };
+
+  LoginScene.prototype.loadLoginDialog = function() {
     var lastPlayers = window.localStorage.getItem('last-players');
 
     if (lastPlayers) {

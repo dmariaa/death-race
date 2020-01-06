@@ -10,6 +10,7 @@ import org.unbrokendome.jackson.beanvalidation.JsonValidated;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 import java.util.UUID;
 
 @JsonValidated
@@ -55,5 +56,19 @@ public class Player {
     @JsonProperty("password")
     public void setPassword(String password) {
         Password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return Uuid.equals(player.Uuid) &&
+                Name.equals(player.Name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(Uuid, Name);
     }
 }

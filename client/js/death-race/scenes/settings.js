@@ -32,7 +32,6 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   Settings.prototype.create = function() {
-    var users = this.registry.get('players');
     var currentUser = this.registry.get('current-player');
     var preferences = currentUser.preferences;
 
@@ -79,8 +78,6 @@ deathrace.scenes = deathrace.scenes || {};
       };
 
       currentUser.preferences = preferences;
-      users[currentUser.uuid] = currentUser;
-      this.registry.set('players', users);
       this.registry.set('current-player', currentUser);
       return true;
     }, this);

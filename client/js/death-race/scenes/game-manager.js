@@ -47,9 +47,14 @@ deathrace.scenes = deathrace.scenes || {};
 
     // HTML AND CSS TEMPLATES
     this.load.html('settings-html', 'html/settings.html');
-    this.load.css('settings-css', 'css/settings.css');
     this.load.html('login-form-html', 'html/login.html');
+    this.load.html('new-game-html', 'html/new-game.html');
+    this.load.html('players', 'html/players.html');
+    this.load.html('games', 'html/games.html');
+
+    this.load.css('new-game-css', 'css/game.css');
     this.load.css('login-form-css', 'css/login.css');
+    this.load.css('settings-css', 'css/settings.css');
 
     // Sprites
     this.load.image('bike', 'img/sprites/bike.png');

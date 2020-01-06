@@ -57,7 +57,8 @@ var loadPhaser = function() {
       deathrace.scenes.Countdown,
       deathrace.scenes.HighScores,
       deathrace.scenes.PlayerLoading,
-      deathrace.scenes.Help
+      deathrace.scenes.Help,
+      deathrace.scenes.GameList
     ],
     plugins: {
       global: [
@@ -101,12 +102,22 @@ deathrace.utils = deathrace.utils || {};
     return obj;
   };
 
-  namespace.saveToLocalStorage = function(players) {
+  namespace.savePlayersToLocalStorage = function(players) {
     var playersList = [];
     var keys = Object.keys(players);
     for(var i=0, length=keys.length; i < length; ++i) {
       playersList.push(players[keys[i]].uuid);
     }
     window.localStorage.setItem('last-players', playersList);
+  };
+
+  namespace.saveSession = function() {
+    var player = game.registry.get('current-player');
+    if(player) window.sessionStorage.setItem('current-player', player.uuid);
+  };
+
+  namespace.getSession = function() {
+    var playerUUID = window.sessionStorage.getItem('current-player');
+    return playerUUID;
   };
 })(deathrace.utils);

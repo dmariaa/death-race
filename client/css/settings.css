@@ -72,6 +72,7 @@
     cursor: pointer;
 }
 
+/*
 input[type="checkbox"] + .label {
     flex: 1;
     flex-basis: 40%;
@@ -109,3 +110,4 @@ input[type="checkbox"]:checked + label:after {
 input[type="checkbox"] {
     display: none;
 }
+*/
