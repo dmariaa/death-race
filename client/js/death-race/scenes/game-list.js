@@ -63,27 +63,33 @@ deathrace.scenes = deathrace.scenes || {};
     this.textPosition = textPosition;
 
     // Game list
-    var domList = this.add.dom(0, 0).createFromCache('games');
-    this.gameListPanel = $(domList.node);
+    this.domList = this.add.dom(0, 0).createFromCache('games');
+    this.gameListPanel = $(this.domList.node);
 
     // New game form
     var halfWidth = this.game.canvas.width / 2;
     var halfHeight = this.game.canvas.height / 2;
     var x = halfWidth;
     var y = halfHeight;
-    var dom = this.add.dom(x, y).createFromCache('new-game-html');
-    this.panel = $(dom.node).children().first();
-    this.panel.removeClass('visible');
+    this.dom = this.add.dom(x, y).createFromCache('new-game-html');
+    this.panel = $(this.dom.node).children().first();
+    this.setAddGamePanelVisible(false);
+
+    // Game password form
+    this.domPassword = this.add.dom(x, y).createFromCache('login-game');
+    this.passwordPanel = $(this.domPassword.node).children().first();
+    this.setLoginGamePanelVisible(false);
 
     // Game manager websocket
     this.connection = new WebSocket('ws://' + location.host + '/game-manager');
     this.connection.onmessage = this.handleMessage.bind(this);
 
     // Events
-    dom.addListener('click');
-    dom.on('click', this.handleForm, this);
-    domList.addListener('click');
-    domList.on('click', this.handleListClick, this);
+    this.dom.addListener('click');
+    this.dom.on('click', this.handleForm, this);
+    this.domList.addListener('click');
+    this.domList.on('click', this.handleListClick, this);
+    this.domPassword.addListener('click');
 
     this.input.keyboard.on('keydown', this.handleKeys, this);
   };
@@ -100,9 +106,9 @@ deathrace.scenes = deathrace.scenes || {};
       };
 
       this.connection.send(JSON.stringify(data));
-      $(this.panel).removeClass('visible');
+      this.setAddGamePanelVisible(false);
     } else if(target.hasClass('cancel')) {
-      $(this.panel).removeClass('visible');
+      this.setAddGamePanelVisible(false);
     }
   };
 
@@ -111,7 +117,7 @@ deathrace.scenes = deathrace.scenes || {};
       this.scene.wake('MainMenu');
       this.scene.stop();
     } else if(event.keyCode === Phaser.Input.Keyboard.KeyCodes.N) {
-      $(this.panel).addClass('visible');
+      this.setAddGamePanelVisible(true);
     }
   };
 
@@ -119,6 +125,7 @@ deathrace.scenes = deathrace.scenes || {};
     var message = JSON.parse(msg.data);
     switch(message.command) {
       case 'GAME_ADDED':
+      case 'GAME_JOINED':
         message.game = message.data[0];
         message.player = this.registry.get('current-player').uuid;
         delete message['data'];
@@ -128,6 +135,17 @@ deathrace.scenes = deathrace.scenes || {};
       case 'UPDATE_GAMES':
         this.games = message.data;
         this.updateGamesList();
+        break;
+      case 'PASSWORD_NOT_VALID':
+        var container = this.passwordPanel.find('.form-container').first();
+
+        container.on('animationend', function() {
+          container.removeClass('error');
+        });
+
+        container.addClass('error');
+
+        // TODO: Error sound
         break;
     }
   };
@@ -142,12 +160,29 @@ deathrace.scenes = deathrace.scenes || {};
       if(game) {
         var data = {
           command: 'JOIN_GAME',
-          game: game,
+          game: game.id,
           player: this.registry.get('current-player').uuid
         };
 
-        this.scene.start('PlayerLoading', data);
-        this.scene.stop();
+        if(game.private) {
+          this.setLoginGamePanelVisible(true);
+
+          this.passwordPanel.on('click', function(event) {
+            var target = $(event.target);
+            if(target.hasClass('cancel')) {
+              this.passwordPanel.off('click');
+              this.setLoginGamePanelVisible(false);
+            } else if(target.hasClass('login')) {
+              data.password = this.passwordPanel.find('[name="password"]').val();
+              this.connection.send(JSON.stringify(data));
+            }
+          }.bind(this));
+        } else {
+          this.connection.send(JSON.stringify(data));
+        }
+
+        // this.scene.start('PlayerLoading', data);
+        // this.scene.stop();
       } else {
         throw Error("Game {0} missing".format(gameId));
       }
@@ -193,6 +228,29 @@ deathrace.scenes = deathrace.scenes || {};
       }
     }
     return false;
+  };
+
+  GameList.prototype.setAddGamePanelVisible = function(visible) {
+    this.dom.setVisible(visible);
+    if(visible) {
+      this.dom.setDepth(100);
+      this.panel.addClass('visible');
+    } else {
+      this.dom.setDepth(0);
+      this.panel.removeClass('visible');
+    }
+
+  };
+
+  GameList.prototype.setLoginGamePanelVisible = function(visible) {
+    this.domPassword.setVisible(visible);
+    if(visible) {
+      this.domPassword.setDepth(100);
+      this.passwordPanel.addClass('visible');
+    } else {
+      this.domPassword.setDepth(0);
+      this.passwordPanel.removeClass('visible');
+    }
   };
 
   namespace.GameList = GameList;

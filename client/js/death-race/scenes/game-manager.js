@@ -49,6 +49,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.load.html('settings-html', 'html/settings.html');
     this.load.html('login-form-html', 'html/login.html');
     this.load.html('new-game-html', 'html/new-game.html');
+    this.load.html('login-game', 'html/login-game.html');
     this.load.html('players', 'html/players.html');
     this.load.html('games', 'html/games.html');
 

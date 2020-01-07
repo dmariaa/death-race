@@ -36,6 +36,9 @@ public class GameManagerWebsocket extends TextWebSocketHandler {
             case "ADD_GAME":
                 addGame(node, session);
                 break;
+            case "JOIN_GAME":
+                joinGame(node, session);
+                break;
             default:
                 throw new Exception("Invalid command sent");
         }
@@ -57,6 +60,29 @@ public class GameManagerWebsocket extends TextWebSocketHandler {
         public boolean hasIgnoreMarker(final AnnotatedMember m){
             return false;
         }
+    }
+
+    private void joinGame(JsonNode node, WebSocketSession session) throws IOException {
+        String playerUUID = node.get("player").asText();
+        String gameId = node.get("game").asText();
+        String password = node.get("password").asText();
+        Game game = gameManager.getGame(gameId);
+
+        String jsonResponse = "";
+        AddGameResponse response = new AddGameResponse();
+        response.setCommand("GAME_JOINED");
+
+        if(game.isPrivate() && !password.equals(game.getGamePassword())) {
+            response.setCommand("PASSWORD_NOT_VALID");
+            jsonResponse = objectMapper.writeValueAsString(response);
+        } else {
+            response.setData(new Game[] { game });
+            ObjectMapper withPasswordObjectMapper = new ObjectMapper();
+            withPasswordObjectMapper.setAnnotationIntrospector(new JsonIgnoreDisabler());
+            jsonResponse = withPasswordObjectMapper.writeValueAsString(response);
+        }
+
+        session.sendMessage(new TextMessage(jsonResponse));
     }
 
     private void addGame(JsonNode node, WebSocketSession session) throws IOException {
