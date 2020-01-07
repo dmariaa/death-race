@@ -14,16 +14,19 @@
  * limitations under the License.
  */
 
-.new-game-panel {
+.new-game-panel,
+.password-panel {
     opacity: 0;
     transition: opacity .56s ease-in-out;
 }
 
-.new-game-panel.visible {
+.new-game-panel.visible,
+.password-panel.visible {
     opacity: 1;
 }
 
-.new-game-panel.visible:before {
+.new-game-panel.visible:before,
+.password-panel.visible:before {
     content: "";
     display: block;
     position: absolute;
@@ -47,6 +50,15 @@
     padding: 10px;
 
     box-shadow: 0 0 10px rgb(174,128,255);
+}
+
+.form-container.error {
+    animation: blinkShadow 0.33s;
+    animation-iteration-count: 3;
+}
+
+@keyframes blinkShadow {
+    50% { box-shadow: 0 0 10px rgb(255,0,0); }
 }
 
 .form-row {
