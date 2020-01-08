@@ -34,9 +34,10 @@ deathrace.scenes = deathrace.scenes || {};
     this.playersScores = this.add.group();
   };
 
-  ArenaManager.prototype.create = function(players) {
-    this.players = players;
-    this.arena = this.scene.get('ArenaScene');
+  ArenaManager.prototype.create = function(gamedata) {
+    this.gamedata = gamedata;
+    this.arena = this.scene.get('ArenaHostScene');
+    this.currentPlayer = this.registry.get('current-player');
 
     this.add.rectangle(0, 0, this.game.canvas.width, this.game.canvas.height, 0x000000, 0.65)
       .setOrigin(0,0);
@@ -62,22 +63,21 @@ deathrace.scenes = deathrace.scenes || {};
       if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
         this.input.keyboard.off('keydown');
         this.saveScores();
-        this.scene.stop('ArenaScene');
+        this.scene.stop('ArenaHostScene');
         this.scene.wake('MainMenu');
         this.scene.bringToTop('MainMenu');
         this.scene.stop();
 
       } else if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.SPACE) {
         this.input.keyboard.off('keydown');
-        this.scene.stop('ArenaScene');
+        this.scene.stop('ArenaHostScene');
         this.launchArena();
-
       }
     }, this);
   };
 
   ArenaManager.prototype.saveScores = function() {
-    for(var i=0, length=this.players.length; i < length; ++i) {
+    for(var i=0, length=this.gamedata.game.players.length; i < length; ++i) {
       var player = this.players[i];
       var date = moment().format('YYYY-MM-DD');
       var data = {
@@ -102,7 +102,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     this.playersScores.clear(true, true);
 
-    var sortedPlayers = this.players.sort(function(a, b) {
+    var sortedPlayers = this.gamedata.game.players.sort(function(a, b) {
       return b.score - a.score;
     });
 
@@ -116,15 +116,25 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   ArenaManager.prototype.launchArena = function() {
-    this.scene.launch('HUD');
-    this.scene.launch('ArenaScene', this.players);
+    var arenaScene = "ArenaClientScene";
+    var data = {
+      game: this.gamedata.game,
+      connection: this.gamedata.connection
+    };
 
-    this.scene.bringToTop('ArenaScene');
+    if(this.gamedata.game.players[0].uuid===this.currentPlayer.uuid) {
+      arenaScene = "ArenaHostScene";
+    }
+
+    this.scene.launch('HUD');
+    this.scene.launch(arenaScene, data);
+
+    this.scene.bringToTop(arenaScene);
     this.scene.bringToTop('HUD');
 
     this.arena.events.once('round-end', function(player) {
       console.log("Received round-end event");
-      this.scene.get('ArenaScene').pause();
+      this.scene.get(arenaScene).pause();
       this.showWinner();
       this.currentRound++;
     }, this);

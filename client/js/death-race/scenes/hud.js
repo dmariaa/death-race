@@ -41,11 +41,10 @@ deathrace.scenes = deathrace.scenes || {};
   Hud.prototype.constructor = Hud;
 
   Hud.prototype.create = function() {
-    var arena = this.scene.get('ArenaScene');
+    var arena = this.scene.get('ArenaHostScene');
     arena.events.on('score', this.updateScore, this);
     arena.events.on('powerup-attached', this.savePowerup, this);
     arena.events.on('powerup-released', this.releasePowerup, this);
-
     this.events.on('shutdown', this.shutdown, this);
   };
 

@@ -56,13 +56,6 @@ deathrace.scenes = deathrace.scenes || {};
     }
   };
 
-  var colors = [
-    { name: 'Rojo', value: new Phaser.Display.Color(255, 0, 0) },
-    { name: 'Verde', value: new Phaser.Display.Color(0, 255, 0) },
-    { name: 'Azul', value: new Phaser.Display.Color(0, 0, 255) },
-    { name: 'Amarillo', value: new Phaser.Display.Color(255, 255, 0) }
-  ];
-
   LoadPlayers.prototype.getPlayerInfo = function(player) {
     var input;
 

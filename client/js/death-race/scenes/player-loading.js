@@ -86,18 +86,34 @@ deathrace.scenes = deathrace.scenes || {};
       this.panel.find('.game-type').text(game.private ? "Partida privada" : "Partida pública");
       this.panel.find('.game-password').text(game.private ? "Password: " + game.gamePassword : "");
       this.panel.find('.game-players').text("Jugadores: {0}/{1}".format(game.players.length, game.minPlayers));
+
       for(var i=0, length=game.players.length; i<length; i++) {
-        if(game.players[i]==null) continue;
+        game.players[i].color = i;
         this.addPlayer(game.players[i]);
       }
+
+      if(game.players.length===game.minPlayers) {
+        this.launchGame(game);
+      }
     }
+  };
+
+  PlayerLoading.prototype.launchGame = function(game) {
+    this.scene.get('GameManager').stopMusic('menu-sound');
+
+    this.scene.start("ArenaManager", {
+      game: game,
+      connection: this.connection
+    });
+
+    this.scene.stop();
   };
 
   PlayerLoading.prototype.addPlayer = function(playerData) {
     var template = this.panel.find('.player-template').first();
     var playerPanel = template.clone();
     playerPanel.find('.player-name').text(playerData.name);
-    playerPanel.find('.player-color').css('background-color', '#00ff00');
+    playerPanel.find('.player-color').css('background-color', deathrace.utils.colors[playerData.color].value.rgba);
     this.panel.find('.players-container').append(playerPanel);
     playerPanel.removeClass('player-template').addClass('player-container');
   };

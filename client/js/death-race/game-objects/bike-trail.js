@@ -65,7 +65,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   BikeTrail.prototype.add = function(x, y) {
     var wall = this.scene.add.line();
     wall.isTrail = true;
-    this.scene.physics.add.existing(wall);
+
+    if(this.scene.physics) {
+      this.scene.physics.add.existing(wall);
+    }
+
     wall.setOrigin(0, 0);
     wall.setStrokeStyle(1, this.color.color);
     wall.setLineWidth(1);
@@ -86,11 +90,21 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     if(!this._currentWall) {
       this.add(x, y);
     }
+
     var geom = this._currentWall.geom;
+    var x1 = Math.min(geom.x1, x);
+    var x2 = Math.abs(geom.x1 - x);
+    var y1 = Math.min(geom.y1, y);
+    var y2 = Math.abs(geom.y1 - y);
+
     this._currentWall.setTo(geom.x1, geom.y1, x, y);
-    this._currentWall.body.setOffset(Math.min(geom.x1, geom.x2), Math.min(geom.y2, geom.y1));
-    this._currentWall.body.setSize(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1), false);
-    this._currentWallLength = Math.max(Math.abs(geom.x2 - geom.x1), Math.abs(geom.y2 - geom.y1));
+
+    if(this.scene.physics) {
+      this._currentWall.body.setOffset(x1, y1);
+      this._currentWall.body.setSize(x2, y2, false);
+    }
+
+    this._currentWallLength = Math.max(x2, y2);
   };
 
   BikeTrail.prototype.getLength = function() {

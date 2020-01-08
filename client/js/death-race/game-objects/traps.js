@@ -22,7 +22,10 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         texture = texture || 'trap';
         Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
         scene.add.existing(this);
-        scene.physics.add.existing(this);
+
+        if(scene.physics) {
+            scene.physics.add.existing(this);
+        }
 
         this.setScale(1.0, 1.0);
         this.path = [ new Phaser.Math.Vector2(x, y), new Phaser.Math.Vector2(x, y) ];
