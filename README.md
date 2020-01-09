@@ -350,6 +350,8 @@ Otra forma de hacerlo es a través del entorno Intellij:
 
 ## Diagrama de clases y API REST
 
+![Anarcho-capitalist_flag svg](https://user-images.githubusercontent.com/45218480/72113148-f08dc300-333f-11ea-80cd-3ec24aa063e1.png)
+
 
 #### Referencias
 
