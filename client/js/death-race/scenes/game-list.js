@@ -204,7 +204,7 @@ deathrace.scenes = deathrace.scenes || {};
     gamePanel.attr('data-id', game.id);
     gamePanel.find('.game-name').text(game.name);
     gamePanel.find('.game-players-count').text(
-      (game.players.length===4 ? '(completo)' : ("({0}/{1} jugadores)".format(game.players.length, 4)))
+      (game.players.length===game.minPlayers ? '(completo)' : ("({0}/{1} jugadores)".format(game.players.length, game.minPlayers)))
     );
     gamePanel.find('.game-icon').text(game.private ? 'lock' : '');
 

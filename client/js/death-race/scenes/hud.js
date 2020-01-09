@@ -40,8 +40,8 @@ deathrace.scenes = deathrace.scenes || {};
   Hud.prototype = Object.create(Phaser.Scene.prototype);
   Hud.prototype.constructor = Hud;
 
-  Hud.prototype.create = function() {
-    var arena = this.scene.get('ArenaHostScene');
+  Hud.prototype.create = function(arenaScene) {
+    var arena = this.scene.get(arenaScene);
     arena.events.on('score', this.updateScore, this);
     arena.events.on('powerup-attached', this.savePowerup, this);
     arena.events.on('powerup-released', this.releasePowerup, this);
@@ -94,7 +94,7 @@ deathrace.scenes = deathrace.scenes || {};
   Hud.prototype.attach = function(id, bike) {
     var hud = this.createHud(id);
     this.huds[bike.name] = hud;
-    console.log("HUD ATTACHED TO " + bike.name + " => " + JSON.stringify(this.huds));
+    // console.log("HUD ATTACHED TO " + bike.name + " => " + JSON.stringify(this.huds));
   };
 
   Hud.prototype.updateScore = function(bike, score) {

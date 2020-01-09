@@ -18,6 +18,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import javax.xml.soap.Text;
 import java.io.IOException;
 import java.util.HashMap;
 
@@ -53,18 +54,27 @@ public class GameWebsocket extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         JsonNode node = objectMapper.readTree(message.getPayload());
         String command = node.get("command").asText();
-        String gameId = node.get("game").asText();
-        String playerUUID = node.get("player").asText();
-        Player player = playerList.GetOne(playerUUID);
-        Game game = gameManager.getGame(gameId);
+//        try {
+            String gameId = node.get("game").asText();
+            String playerUUID = node.get("player").asText();
+            Player player = playerList.GetOne(playerUUID);
+            Game game = gameManager.getGame(gameId);
 
-        if(command.equals("JOIN_GAME")) {
-            game.addPlayer(player);
-            playerSessions.put(playerUUID, new ImmutablePair<WebSocketSession, Game>(session, game));
-            notifyPlayers(game, new JoinGameResponse(game));
-        } else if(command.equals("GAME_UPDATED") || command.equals("GAME_STARTED")) {
-            notifyPlayers(game, message);
-        }
+            if(command.equals("JOIN_GAME")) {
+                game.addPlayer(player);
+                playerSessions.put(playerUUID, new ImmutablePair<WebSocketSession, Game>(session, game));
+                notifyPlayers(game, new JoinGameResponse(game));
+            } else if(command.equals("GAME_UPDATED") || command.equals("GAME_STARTED")) {   // Broadcast
+                notifyPlayers(game, message);
+            } else if(command.equals("INPUT")) {                                            // Send to host
+                Player host = game.getPlayers()[0];
+                notifyPlayer(host, message);
+            } else if(command.equals("COUNTDOWN")) {
+                notifyPlayers(game, message);
+            }
+ //       } catch(NullPointerException exception) {
+ //           int n = 1;
+ //       }
     }
 
     @Override
@@ -114,6 +124,13 @@ public class GameWebsocket extends TextWebSocketHandler {
             String pUUID = players[i].getUuid().toString();
             WebSocketSession psession = playerSessions.get(pUUID).getLeft();
             psession.sendMessage(message);
+        }
+    }
+
+    private void notifyPlayer(Player player, TextMessage message) throws IOException {
+        ImmutablePair<WebSocketSession, Game> data = this.playerSessions.get(player.getUuid().toString());
+        if(data != null) {
+            data.left.sendMessage(message);
         }
     }
 

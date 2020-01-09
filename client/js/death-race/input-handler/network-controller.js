@@ -58,6 +58,7 @@ deathrace.inputhandler = deathrace.inputhandler || {};
     });
 
     if(!command) return;
+
     command.command.execute(bike);
   };
 

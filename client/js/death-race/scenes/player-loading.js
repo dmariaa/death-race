@@ -27,13 +27,17 @@ deathrace.scenes = deathrace.scenes || {};
     });
 
     this.panels = [];
+
+    this.maxSeconds = 10;
   };
 
   PlayerLoading.prototype = Object.create(Phaser.Scene.prototype);
   PlayerLoading.prototype.constructor = PlayerLoading;
 
   PlayerLoading.prototype.create = function(data) {
+    this.currentPlayer = this.registry.get('current-player');
     this.data = data;
+    this.startGame = false;
 
     // Create background
     this.background = this.add.image(0, 0, 'general-background');
@@ -56,6 +60,10 @@ deathrace.scenes = deathrace.scenes || {};
     var bounds = this.title.getBounds();
     this.title.setOrigin(0, 0).setAlign('left').setPosition(bounds.x, bounds.y);
 
+    this.keyboardMessage = this.add.text(textPosition.x, this.game.canvas.height - 100, "<ESC> para salir", {
+      fontFamily: "Orbitron", fontSize: 30
+    }).setOrigin(0.5, 0).setAlign('center');
+
     var dom = this.add.dom(0, 0).createFromCache('players');
     this.panel = $(dom.node);
     this.panel.css('width', '100%');
@@ -65,6 +73,12 @@ deathrace.scenes = deathrace.scenes || {};
     this.connection = new WebSocket('ws://' + location.host  + '/game-play');
     this.connection.onmessage = this.handleMessage.bind(this);
     this.connection.onopen = this.handleOpen.bind(this);
+
+    this.input.keyboard.on('keydown', this.handleKey, this);
+    this.events.on('shutdown', this.handleSceneShutdown, this);
+  };
+
+  PlayerLoading.prototype.handleSceneShutdown = function() {
   };
 
   PlayerLoading.prototype.handleOpen = function(msg) {
@@ -78,6 +92,14 @@ deathrace.scenes = deathrace.scenes || {};
     this.connection.send(JSON.stringify(command));
   };
 
+  PlayerLoading.prototype.handleKey = function(event) {
+    if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
+      this.connection.close();
+      this.scene.wake('MainMenu');
+      this.scene.stop();
+    }
+  };
+
   PlayerLoading.prototype.handleMessage = function(msg) {
     var message = JSON.parse(msg.data);
     if(message.command==="GAME_JOINED" || message.command==="GAME_LEAVED") {
@@ -86,13 +108,27 @@ deathrace.scenes = deathrace.scenes || {};
       this.panel.find('.game-type').text(game.private ? "Partida privada" : "Partida pública");
       this.panel.find('.game-password').text(game.private ? "Password: " + game.gamePassword : "");
       this.panel.find('.game-players').text("Jugadores: {0}/{1}".format(game.players.length, game.minPlayers));
+      this.isHost = (game.players[0].uuid===this.currentPlayer.uuid);
+      this.game = game;
 
       for(var i=0, length=game.players.length; i<length; i++) {
         game.players[i].color = i;
+        game.players[i].score = 0;
         this.addPlayer(game.players[i]);
       }
 
       if(game.players.length===game.minPlayers) {
+        this.startGame = true;
+        this.seconds = 0;
+      } else {
+        this.startGame = false;
+      }
+    } else if(message.command==="COUNTDOWN") {
+      var game = this.game;
+      var seconds = message.seconds;
+      this.title.setText("Partida completa, comenzando en {0} segundos".format(seconds.toFixed(1)));
+
+      if(seconds <= 0) {
         this.launchGame(game);
       }
     }
@@ -146,9 +182,26 @@ deathrace.scenes = deathrace.scenes || {};
 
   PlayerLoading.prototype.update = function(time, delta)
   {
-    var numberOfDots = (Math.trunc(time / 350) % 4);
-    var dots = "...".substring(0, numberOfDots);
-    this.title.setText("Esperando jugadores" + dots);
+    if(!this.startGame) {
+      var numberOfDots = (Math.trunc(time / 350) % 4);
+      var dots = "...".substring(0, numberOfDots);
+      this.title.setText("Esperando jugadores" + dots);
+      this.prevSeconds = 0;
+    } else {
+      if(this.isHost) {
+        this.seconds += (delta / 1000);
+
+        if(this.seconds - this.prevSeconds >= 0.1) {
+          this.prevSeconds = this.seconds;
+          this.connection.send(JSON.stringify({
+            command: "COUNTDOWN",
+            game: this.game.id,
+            player: this.currentPlayer.uuid,
+            seconds: this.maxSeconds - this.seconds
+          }));
+        }
+      }
+    }
   };
 
   namespace.PlayerLoading = PlayerLoading;

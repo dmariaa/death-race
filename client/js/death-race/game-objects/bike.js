@@ -308,10 +308,12 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     // This needs to be done to correct the physics AABB, which doesn't update correctly when
     // bike is rotated against positive axis (-1,0) or (0,-1)
-    this.body.setOffset(
-      (this.physicsCorrectionOffset * this.directionVector.x - this.physicsCorrectionOffset) * Math.abs(this.directionVector.x),
-      (this.physicsCorrectionOffset * this.directionVector.y - this.physicsCorrectionOffset) * Math.abs(this.directionVector.y)
-    );
+    if(this.scene.physics) {
+      this.body.setOffset(
+        (this.physicsCorrectionOffset * this.directionVector.x - this.physicsCorrectionOffset) * Math.abs(this.directionVector.x),
+        (this.physicsCorrectionOffset * this.directionVector.y - this.physicsCorrectionOffset) * Math.abs(this.directionVector.y)
+      );
+    }
 
     this.setPosition(
       this.x + this.directionVector.x * this.trailOffset,

@@ -32,7 +32,19 @@ deathrace.scenes = deathrace.scenes || {};
       }
     });
 
+    this.parent = deathrace.scenes.Arena.prototype;
+
     this.isHost = true;
+
+    this.networkCommands = {
+      'steer-left': new deathrace.inputhandler.CommandSteerLeft,
+      'steer-right': new deathrace.inputhandler.CommandSteerRight,
+      'break-on': new deathrace.inputhandler.CommandBreakOn,
+      'break-off': new deathrace.inputhandler.CommandBreakOff,
+      'use-item-1': new deathrace.inputhandler.CommandUseInventoryItem1,
+      'use-item-2': new deathrace.inputhandler.CommandUseInventoryItem2,
+      'use-item-3': new deathrace.inputhandler.CommandUseInventoryItem3
+    };
   };
 
   // Inheritance, Arena extends Phaser.Scene
@@ -75,7 +87,29 @@ deathrace.scenes = deathrace.scenes || {};
     namespace.Arena.prototype.create.call(this);
   };
 
-  ArenaHost.prototype.handleMessage = function (message) {
+  ArenaHost.prototype.handleMessage = function (msg) {
+    var message = JSON.parse(msg.data);
+    if(message.command==='INPUT') {
+      console.log("INPUT " + message.input + " received");
+      var command = this.networkCommands[message.input];
+      var bike = this.bikes[message.bike];
+      command.bike = bike;
+      command.execute();
+    }
+  };
+
+  ArenaHost.prototype.endRound = function (winner) {
+    console.log("END_ROUND SENT");
+
+    this.connection.send(JSON.stringify({
+      command: "GAME_UPDATED",
+      type: "END_ROUND",
+      game: this.hostData.game.id,
+      player: winner.player.uuid,
+      bike: winner.player.bikeId
+    }));
+
+    this.parent.endRound.call(this, winner);
   };
 
   ArenaHost.prototype.handleOpen = function (message) {

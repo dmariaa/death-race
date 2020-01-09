@@ -64,6 +64,11 @@ deathrace.scenes = deathrace.scenes || {};
        */
       this.bikes = [];
 
+      /**
+       * Array of powerups
+       * @type {*[]}
+       */
+      this.powerUpsArray = [];
       // Resources loaded by game manager
     };
 
@@ -93,7 +98,6 @@ deathrace.scenes = deathrace.scenes || {};
       // Groups for other objects
       this.shots = this.add.group();
       this.knifes = this.add.group();
-      this.traps = this.add.group();
 
       if(this.physics) {
         this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
@@ -109,9 +113,9 @@ deathrace.scenes = deathrace.scenes || {};
       this.scene.bringToTop('Countdown');
       this.scene.pause();
 
-      this.events.on('pause', this.pause, this);
-      this.events.on('resume', this.resume, this);
-      this.events.on('shutdown', this.shutdown, this);
+      this.events.on('pause', this.pauseScene, this);
+      this.events.on('resume', this.resumeScene, this);
+      this.events.on('shutdown', this.shutdownScene, this);
 
       this.scene.get('GameManager').playMusic('background-sound', true);
     };
@@ -166,9 +170,9 @@ deathrace.scenes = deathrace.scenes || {};
           { key: this.networkController.actions.STEER_RIGHT, command: new deathrace.inputhandler.CommandSteerRight },
           { key: this.networkController.actions.BREAK, command: new deathrace.inputhandler.CommandToggleBreak },
 
-          { key: this.networkController.actions.POWERUP_1, command: new deathrace.inputhandler.CommandUseInventoryItem(0) },
-          { key: this.networkController.actions.POWERUP_2, command: new deathrace.inputhandler.CommandUseInventoryItem(1) },
-          { key: this.networkController.actions.POWERUP_3, command: new deathrace.inputhandler.CommandUseInventoryItem(2) }
+          { key: this.networkController.actions.POWERUP_1, command: new deathrace.inputhandler.CommandUseInventoryItem1 },
+          { key: this.networkController.actions.POWERUP_2, command: new deathrace.inputhandler.CommandUseInventoryItem2 },
+          { key: this.networkController.actions.POWERUP_3, command: new deathrace.inputhandler.CommandUseInventoryItem3 }
         ]);
       }
 
@@ -178,21 +182,21 @@ deathrace.scenes = deathrace.scenes || {};
     /**
      * Pauses Arena execution
      */
-    Arena.prototype.pause = function () {
+    Arena.prototype.pauseScene = function () {
       this.sound.setMute(true);
     };
 
     /**
      * Resumes Arena execution
      */
-    Arena.prototype.resume = function () {
+    Arena.prototype.resumeScene = function () {
       this.sound.setMute(false);
     };
 
     /**
      * Shutdown handler
      */
-    Arena.prototype.shutdown = function() {
+    Arena.prototype.shutdownScene = function() {
       for(var i=0, length=this.bikes.length; i < length; i++) {
         if(this.bikes[i]) {
           this.bikes[i].destroy();
@@ -206,13 +210,13 @@ deathrace.scenes = deathrace.scenes || {};
      */
     Arena.prototype.update = function (time, delta) {
       this.updateBikes(time, delta);
+    };
 
+    Arena.prototype.checkWinner = function() {
       if (this.bikeGroup.getLength() == 1 && !this.roundFinished) {
         this.roundFinished = true;
         var bikes = this.bikeGroup.getChildren();
         var winner = bikes[0];
-        winner.player.score += winner.score + 100;
-        winner.setActive(false);
         this.endRound(winner);
       }
     };
@@ -226,6 +230,19 @@ deathrace.scenes = deathrace.scenes || {};
       if (other instanceof deathrace.gameobjects.powerups.PowerUp) {
         if (bike.addPowerUp(other)) {
           this.powerUps.remove(other, true);
+
+          if(this.isHost) {
+            console.log("Pickup powerup sent");
+
+            this.connection.send(JSON.stringify({
+              command: "GAME_UPDATED",
+              type: "POWERUP_PICKUP",
+              game: this.hostData.game.id,
+              player: bike.player.uuid,
+              bike: bike.player.bikeId,
+              powerup: other.powerUpId
+            }));
+          }
         }
       } else {
         if (bike.horn && !other.isExternalWall && !other.isTrail) {
@@ -234,18 +251,41 @@ deathrace.scenes = deathrace.scenes || {};
           || other.isExternalWall
           || other instanceof deathrace.gameobjects.projectile.Projectile
           || other instanceof deathrace.gameobjects.Trap) {
-          bike.setActive(false);
-          bike.setVisible(false);
-          bike.explode();
-          this.bikeGroup.remove(bike);
+
+          if(this.isHost) {
+            console.log("Bike crash sent");
+
+            this.connection.send(JSON.stringify({
+              command: "GAME_UPDATED",
+              type: "BIKE_CRASH",
+              game: this.hostData.game.id,
+              player: bike.player.uuid,
+              bike: bike.player.bikeId
+            }));
+          }
+
+          this.bikeCrash(bike);
+          this.checkWinner();
         }
       }
+    };
+
+    Arena.prototype.bikeCrash = function(bike) {
+      bike.setActive(false);
+      bike.setVisible(false);
+      bike.explode();
+      this.bikeGroup.remove(bike);
     };
 
     Arena.prototype.updateBikes = function(time, delta) {
       var updateBikesData = [];
       for(var i=0, length=this.bikes.length; i < length; ++i) {
         var bike = this.bikes[i];
+
+        if(!bike.active) {
+          continue;
+        }
+
         bike.update(time, delta);
 
         updateBikesData.push({
@@ -270,6 +310,11 @@ deathrace.scenes = deathrace.scenes || {};
     };
 
     Arena.prototype.endRound = function (winner) {
+      console.log("endRound called");
+
+      winner.player.score += winner.score + 100;
+      winner.setActive(false);
+
       this.time.delayedCall(1000, function() {
         console.log("Emitting round-end event");
         this.events.emit('round-end', winner.player);
@@ -383,6 +428,7 @@ deathrace.scenes = deathrace.scenes || {};
         var bike = this.add.bike(spawnPoints[i].x, spawnPoints[i].y, player.name,
           deathrace.utils.colors[player.color].value);
 
+        player.bikeId = i;
         bike.player = player;
         this.scene.get('HUD').attach(i, bike);
 
@@ -399,9 +445,7 @@ deathrace.scenes = deathrace.scenes || {};
         */
 
         if(player.uuid===currentPlayer.uuid) {
-          if(this.isHost) {
-            this.setupKeyboard2(bike);
-          }
+          this.setupKeyboard2(bike);
         } else {
           this.setupNetworkInput(bike, player.uuid);
         }
@@ -426,7 +470,9 @@ deathrace.scenes = deathrace.scenes || {};
       for(var i=0, length=powerUpsPositions.length; i < length; ++i) {
         var powerupData = powerUpsPositions[i];
         var powerUp = this.add.powerUp(powerupData.position.x, powerupData.position.y, powerupData.type);
+        powerUp.powerUpId = i;
         this.powerUps.add(powerUp);
+        this.powerUpsArray.push(powerUp);
       }
     };
 
@@ -442,6 +488,10 @@ deathrace.scenes = deathrace.scenes || {};
         var trap = this.add.trap(randomPosition.x, randomPosition.y);
         this.traps.add(trap);
       }
+    };
+
+    Arena.prototype.getPlayers = function() {
+      return this.sceneData.players;
     };
 
     // Add to namespace

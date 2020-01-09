@@ -39,8 +39,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   GameObjectsPlugin.prototype.createBike = function (x, y, texture, color) {
     var bike = new deathrace.gameobjects.Bike(this.scene, x, y, texture, color);
     this.scene.add.existing(bike);
-    // TODO: Remove
-    // this.scene.physics.add.existing(bike);
     return bike;
   };
 
