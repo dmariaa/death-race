@@ -1,5 +1,8 @@
 # Death Race
 
+https://youtu.be/lCSRrM5xp5s
+
+
 ![Cabecera Tron](https://vignette.wikia.nocookie.net/tron/images/c/c7/Light_Cycle_Race_in_--Tron_%28film%29-Tron--.jpg/revision/latest?cb=20110116153052)
 <br><sub>Imagen obtenida de Tron Wiki (https://tron.fandom.com/wiki/Tron_Wiki)</sub>
 
@@ -338,6 +341,15 @@ Otra forma de hacerlo es a través del entorno Intellij:
 2. Se compila abriéndose el servidor
 3. Abrir en el navegador de Google Chrome una pestaña y escribir: localhost:8080/client/index.html
 4. Disfrutar del juego!
+
+
+# Fase 4
+
+## Documentación del protocolo sobre WebSockets
+
+
+## Diagrama de clases y API REST
+
 
 #### Referencias
 
