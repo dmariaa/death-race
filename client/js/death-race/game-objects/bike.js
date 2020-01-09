@@ -33,7 +33,11 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   var Bike = function (scene, x, y, name, color) {
     texture = 'bike';
     Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
-    scene.physics.add.existing(this);
+
+    if(scene.physics) {
+      scene.physics.add.existing(this);
+      this.body.syncBounds = true;
+    }
 
     this.genericColor = 0xff0000;
     this.name = name + '-bike';
@@ -50,7 +54,10 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.radius = 150;
     this.puppet = false;
 
-    this.body.syncBounds = true;
+    //this.setOrigin(0.5, 0);
+    //this.trailOffset = 1;
+    //this.physicsCorrectionOffset = this.height;
+
     this.setDisplayOrigin(6, 6.5);
     this.physicsCorrectionOffset = 7;
     this.trailOffset = this.physicsCorrectionOffset + 1;
@@ -208,7 +215,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    */
   Bike.prototype.preUpdate = function (time, delta) {
     Phaser.GameObjects.Sprite.prototype.preUpdate.call(this, time, delta);
-    this.update(time, delta);
+    //this.update(time, delta);
   };
 
   /**
@@ -217,17 +224,28 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @param delta
    */
   Bike.prototype.update = function (time, delta) {
-    this.setPosition(
+    Phaser.GameObjects.Sprite.prototype.preUpdate.call(this, time, delta);
+    this.updateBike(
       this.x + this.directionVector.x * this.speed * delta,
       this.y + this.directionVector.y * this.speed * delta
     );
+  };
+
+  /**
+   * Updates bike position
+   * @param x
+   * @param y
+   * @param score
+   */
+  Bike.prototype.updateBike = function(x, y, score) {
+    this.setPosition(x, y);
 
     this.trail.set(
       this.x - this.directionVector.x * this.trailOffset,
       this.y - this.directionVector.y * this.trailOffset
     );
 
-    this.score = Math.trunc(this.trail.getLength() * 0.1);
+    this.score = score || Math.trunc(this.trail.getLength() * 0.1);
     this.scene.events.emit('score', this, this.score);
   };
 
@@ -290,13 +308,16 @@ deathrace.gameobjects = deathrace.gameobjects || {};
 
     // This needs to be done to correct the physics AABB, which doesn't update correctly when
     // bike is rotated against positive axis (-1,0) or (0,-1)
-    this.body.setOffset(
-      (this.physicsCorrectionOffset * this.directionVector.x - this.physicsCorrectionOffset) * Math.abs(this.directionVector.x),
-      (this.physicsCorrectionOffset * this.directionVector.y - this.physicsCorrectionOffset) * Math.abs(this.directionVector.y));
+    if(this.scene.physics) {
+      this.body.setOffset(
+        (this.physicsCorrectionOffset * this.directionVector.x - this.physicsCorrectionOffset) * Math.abs(this.directionVector.x),
+        (this.physicsCorrectionOffset * this.directionVector.y - this.physicsCorrectionOffset) * Math.abs(this.directionVector.y)
+      );
+    }
 
     this.setPosition(
-      this.x + this.directionVector.x * this.physicsCorrectionOffset,
-      this.y + this.directionVector.y * this.physicsCorrectionOffset
+      this.x + this.directionVector.x * this.trailOffset,
+      this.y + this.directionVector.y * this.trailOffset
     );
   };
 

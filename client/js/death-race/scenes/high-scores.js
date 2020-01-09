@@ -66,7 +66,6 @@ deathrace.scenes = deathrace.scenes || {};
       if(i < highscores.length) {
         var highscore = highscores[i];
         this.createHighScore(textPosition.x, textPosition.y, highscore);
-
       }
 
       textPosition.y += 58;

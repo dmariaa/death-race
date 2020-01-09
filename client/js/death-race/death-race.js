@@ -49,7 +49,8 @@ var loadPhaser = function() {
       deathrace.scenes.Settings,
       deathrace.scenes.LoadPlayers,
       deathrace.scenes.CreditMenu,
-      deathrace.scenes.Arena,
+      deathrace.scenes.ArenaHost,
+      deathrace.scenes.ArenaClient,
       deathrace.scenes.PlayMenu,
       deathrace.scenes.Loading,
       deathrace.scenes.PressAnyKey,
@@ -120,4 +121,11 @@ deathrace.utils = deathrace.utils || {};
     var playerUUID = window.sessionStorage.getItem('current-player');
     return playerUUID;
   };
+
+  namespace.colors = [
+    { name: 'Rojo', value: new Phaser.Display.Color(255, 0, 0) },
+    { name: 'Verde', value: new Phaser.Display.Color(0, 255, 0) },
+    { name: 'Azul', value: new Phaser.Display.Color(0, 0, 255) },
+    { name: 'Amarillo', value: new Phaser.Display.Color(255, 255, 0) }
+  ];
 })(deathrace.utils);

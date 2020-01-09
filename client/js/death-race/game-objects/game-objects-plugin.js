@@ -39,7 +39,6 @@ deathrace.gameobjects = deathrace.gameobjects || {};
   GameObjectsPlugin.prototype.createBike = function (x, y, texture, color) {
     var bike = new deathrace.gameobjects.Bike(this.scene, x, y, texture, color);
     this.scene.add.existing(bike);
-    this.scene.physics.add.existing(bike);
     return bike;
   };
 
@@ -63,26 +62,28 @@ deathrace.gameobjects = deathrace.gameobjects || {};
  GameObjectsPlugin.prototype.createKnife = function(x,y, directionVector){
     var knife = new deathrace.gameobjects.projectile.Knife(this.scene, x, y, directionVector);
     this.scene.add.existing(knife);
-    this.scene.physics.add.existing(knife);
+    if(this.scene.physics) {
+      this.scene.physics.add.existing(knife);
+    }
     return knife;
   };
 
   GameObjectsPlugin.prototype.createShot = function(x,y, directionVector){
-        var shot = new deathrace.gameobjects.projectile.Shot(this.scene, x, y, directionVector);
-        this.scene.add.existing(shot);
+      var shot = new deathrace.gameobjects.projectile.Shot(this.scene, x, y, directionVector);
+      this.scene.add.existing(shot);
+      if(this.scene.physics) {
         this.scene.physics.add.existing(shot);
-        return shot;
+      }
+      return shot;
   };
 
     GameObjectsPlugin.prototype.createTrap = function (x, y, texture) {
-        var trap = new deathrace.gameobjects.Trap (this.scene, x, y, texture);
+        var trap = new deathrace.gameobjects.Trap(this.scene, x, y, texture);
         return trap;
     };
 
     GameObjectsPlugin.prototype.createPlayerLoadingPanel = function(x, y, width, height) {
         var playerLoadingPanel = new deathrace.gameobjects.PlayerLoadingPanel(this.scene, x, y, width, height);
-        // this.scene.add.existing(playerLoadingPanel);
-        // playerLoadingPanel.drawPanel();
         return playerLoadingPanel;
     };
 

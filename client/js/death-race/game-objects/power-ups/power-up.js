@@ -31,7 +31,9 @@ deathrace.gameobjects.powerups = deathrace.gameobjects.powerups || {};
     sprite = sprite || "powerups.unknown";
     Phaser.GameObjects.Sprite.call(this, scene, x, y, sprite);
     scene.add.existing(this);
-    scene.physics.add.existing(this);
+    if(scene.physics) {
+      scene.physics.add.existing(this);
+    }
 
     this.setScale(0.5, 0.5);
     this.path = [new Phaser.Math.Vector2(x, y), new Phaser.Math.Vector2(x, y)];

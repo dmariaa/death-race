@@ -65,7 +65,7 @@ public class GameManagerWebsocket extends TextWebSocketHandler {
     private void joinGame(JsonNode node, WebSocketSession session) throws IOException {
         String playerUUID = node.get("player").asText();
         String gameId = node.get("game").asText();
-        String password = node.get("password").asText();
+        String password = node.get("password") != null ? node.get("password").asText() : null;
         Game game = gameManager.getGame(gameId);
 
         String jsonResponse = "";

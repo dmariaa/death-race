@@ -90,6 +90,24 @@ deathrace.inputhandler = deathrace.inputhandler || {};
 
   namespace.CommandToggleBreak = CommandToggleBreak;
 
+  var CommandBreakOn = function(bike) {
+    CommandToggleBreak.call(this, bike, true);
+  };
+
+  CommandBreakOn.prototype = Object.create(CommandToggleBreak.prototype);
+  CommandBreakOn.constructor = CommandBreakOn;
+
+  namespace.CommandBreakOn = CommandBreakOn;
+
+  var CommandBreakOff = function(bike) {
+    CommandToggleBreak.call(this, bike, false);
+  };
+
+  CommandBreakOff.prototype = Object.create(CommandToggleBreak.prototype);
+  CommandBreakOff.constructor = CommandBreakOff;
+
+  namespace.CommandBreakOff = CommandBreakOff;
+
   /**
    * Bike inventory item using
    * @constructor
@@ -110,4 +128,31 @@ deathrace.inputhandler = deathrace.inputhandler || {};
   };
 
   namespace.CommandUseInventoryItem = CommandUseInventoryItem;
+
+  var CommandUseInventoryItem1 = function(bike) {
+    namespace.CommandUseInventoryItem.call(this, bike, 1);
+  }
+
+  CommandUseInventoryItem1.prototype = Object.create(CommandUseInventoryItem.prototype);
+  CommandUseInventoryItem1.constructor = CommandUseInventoryItem1;
+
+  namespace.CommandUseInventoryItem1 = CommandUseInventoryItem1;
+
+  var CommandUseInventoryItem2 = function(bike) {
+    namespace.CommandUseInventoryItem.call(this, bike, 2);
+  }
+
+  CommandUseInventoryItem2.prototype = Object.create(CommandUseInventoryItem.prototype);
+  CommandUseInventoryItem2.constructor = CommandUseInventoryItem2;
+
+  namespace.CommandUseInventoryItem2 = CommandUseInventoryItem2;
+
+  var CommandUseInventoryItem3 = function(bike) {
+    namespace.CommandUseInventoryItem.call(this, bike, 3);
+  }
+
+  CommandUseInventoryItem3.prototype = Object.create(CommandUseInventoryItem.prototype);
+  CommandUseInventoryItem3.constructor = CommandUseInventoryItem3;
+
+  namespace.CommandUseInventoryItem3 = CommandUseInventoryItem3;
 })(deathrace.inputhandler);

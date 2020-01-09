@@ -22,19 +22,8 @@ deathrace.scenes = deathrace.scenes || {};
      * Game Arena class constructor
      * @constructor
      */
-    var Arena = function () {
-      Phaser.Scene.call(this, {
-        key: "ArenaScene",
-        physics: {
-          default: 'arcade',
-          arcade: {
-            debug: false
-          }
-        },
-        input: {
-          gamepad: true
-        }
-      });
+    var Arena = function (properties) {
+      Phaser.Scene.call(this, properties);
     };
 
     // Inheritance, Arena extends Phaser.Scene
@@ -75,97 +64,48 @@ deathrace.scenes = deathrace.scenes || {};
        */
       this.bikes = [];
 
+      /**
+       * Array of powerups
+       * @type {*[]}
+       */
+      this.powerUpsArray = [];
       // Resources loaded by game manager
     };
 
     /**
      * Scene create callback
      */
-    Arena.prototype.create = function (players) {
+    Arena.prototype.create = function () {
       console.log("ArenaScene loaded");
 
       this.roundFinished = false;
 
-      // Building grid
-      this.gridColor = 0x000040;
-      this.grid = this.add.grid(this.margin, this.margin, this.horzLength, this.vertLength, 32, 32, 0x000000, 1, this.gridColor, 1);
-      this.grid.setOrigin(0, 0);
+      // Create arena
+      this.createArena();
 
-      // Building external walls
-      this.wallGroup = this.physics.add.group();
+      // Create level
+      this.createLevel(this.sceneData.levelId);
 
-      this.northWall = this.add.rectangle(this.margin, this.margin, this.horzLength, this.wallWidth, 0x00ff00);
-      this.northWall.setOrigin(0, 0);
-      this.northWall.name = "north";
-      this.northWall.isExternalWall = true;
-
-      this.southWall = this.add.rectangle(this.margin, this.vertLength + this.margin - this.wallWidth, this.horzLength, this.wallWidth, 0x00ff00);
-      this.southWall.setOrigin(0, 0);
-      this.southWall.name = "south";
-      this.southWall.isExternalWall = true;
-
-      this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
-      this.eastWall.setOrigin(0, 0);
-      this.eastWall.name = "east";
-      this.eastWall.isExternalWall = true;
-
-      this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
-      this.westWall.setOrigin(0, 0);
-      this.westWall.name = "west";
-      this.westWall.isExternalWall = true;
-
-      this.wallGroup.add(this.northWall);
-      this.wallGroup.add(this.southWall);
-      this.wallGroup.add(this.eastWall);
-      this.wallGroup.add(this.westWall);
-
-      // Building level
-      this.level = this.add.level();
-      this.level.loadLevelAleatory();
-
-      // Bike trails
-      this.bikeTrails = this.add.group();
-
-      var spawnPoints = this.level.bikeSpawnPoints;
-      this.bikeGroup = this.add.group();
-
-      // Restart HUD
-      for (var i = 0, length = players.length; i < length; ++i) {
-        var player = players[i];
-        var bike = this.add.bike(spawnPoints[i].x, spawnPoints[i].y, player.name, player.color.value);
-
-        bike.player = player;
-        this.scene.get('HUD').attach(i, bike);
-
-        if (player.gamepad) {
-          this.setupGamePad(player.gamepad, bike);
-        } else {
-          if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.A) {
-            this.setupKeyboard2(bike);
-          } else if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.LEFT) {
-            this.setupKeyboard1(bike);
-          }
-        }
-        this.bikeGroup.add(bike);
-        this.bikes.push(bike);
-      }
+      // Create bikes
+      this.createBikes(this.sceneData.players);
 
       // Generate power ups
-      this.powerUps = this.add.group();
+      this.createPowerups(this.sceneData.powerUpsPositions);
+
+      // Generate traps
+      this.createTraps(this.sceneData.trapsPositions);
+
+      // Groups for other objects
       this.shots = this.add.group();
       this.knifes = this.add.group();
-      this.traps = this.add.group();
 
-      this.spawnRandomPowerUps(5, 15);
-      this.spawnRandomTraps();
-
-      // Bike - walls collider
-      this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.bikeTrails, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
-      this.physics.add.overlap(this.bikeGroup, this.traps, this.bikeCollision, null, this);
-
+      if(this.physics) {
+        this.physics.add.overlap(this.bikeGroup, this.wallGroup, this.bikeCollision, null, this);
+        this.physics.add.overlap(this.bikeGroup, this.bikeTrails, this.bikeCollision, null, this);
+        this.physics.add.overlap(this.bikeGroup, this.level.walls, this.bikeCollision, null, this);
+        this.physics.add.overlap(this.bikeGroup, this.powerUps, this.bikeCollision, null, this);
+        this.physics.add.overlap(this.bikeGroup, this.traps, this.bikeCollision, null, this);
+      }
 
       // Load press-any-key scene
       this.scene.get('Countdown').parentScene = this;
@@ -173,9 +113,9 @@ deathrace.scenes = deathrace.scenes || {};
       this.scene.bringToTop('Countdown');
       this.scene.pause();
 
-      this.events.on('pause', this.pause, this);
-      this.events.on('resume', this.resume, this);
-      this.events.on('shutdown', this.shutdown, this);
+      this.events.on('pause', this.pauseScene, this);
+      this.events.on('resume', this.resumeScene, this);
+      this.events.on('shutdown', this.shutdownScene, this);
 
       this.scene.get('GameManager').playMusic('background-sound', true);
     };
@@ -222,21 +162,41 @@ deathrace.scenes = deathrace.scenes || {};
       ]);
     };
 
+    Arena.prototype.setupNetworkInput = function(bike, playerId) {
+      if(!this.networkController) {
+        this.networkController = new deathrace.inputhandler.NetworkController(this.connection);
+        this.networkController.setCommands([
+          { key: this.networkController.actions.STEER_LEFT, command: new deathrace.inputhandler.CommandSteerLeft },
+          { key: this.networkController.actions.STEER_RIGHT, command: new deathrace.inputhandler.CommandSteerRight },
+          { key: this.networkController.actions.BREAK, command: new deathrace.inputhandler.CommandToggleBreak },
+
+          { key: this.networkController.actions.POWERUP_1, command: new deathrace.inputhandler.CommandUseInventoryItem1 },
+          { key: this.networkController.actions.POWERUP_2, command: new deathrace.inputhandler.CommandUseInventoryItem2 },
+          { key: this.networkController.actions.POWERUP_3, command: new deathrace.inputhandler.CommandUseInventoryItem3 }
+        ]);
+      }
+
+      this.networkController.addClient(playerId, bike);
+    };
+
     /**
      * Pauses Arena execution
      */
-    Arena.prototype.pause = function () {
+    Arena.prototype.pauseScene = function () {
       this.sound.setMute(true);
     };
 
     /**
      * Resumes Arena execution
      */
-    Arena.prototype.resume = function () {
+    Arena.prototype.resumeScene = function () {
       this.sound.setMute(false);
     };
 
-    Arena.prototype.shutdown = function() {
+    /**
+     * Shutdown handler
+     */
+    Arena.prototype.shutdownScene = function() {
       for(var i=0, length=this.bikes.length; i < length; i++) {
         if(this.bikes[i]) {
           this.bikes[i].destroy();
@@ -249,12 +209,14 @@ deathrace.scenes = deathrace.scenes || {};
      * @override Phaser.scene.update
      */
     Arena.prototype.update = function (time, delta) {
+      this.updateBikes(time, delta);
+    };
+
+    Arena.prototype.checkWinner = function() {
       if (this.bikeGroup.getLength() == 1 && !this.roundFinished) {
         this.roundFinished = true;
         var bikes = this.bikeGroup.getChildren();
         var winner = bikes[0];
-        winner.player.score += winner.score + 100;
-        winner.setActive(false);
         this.endRound(winner);
       }
     };
@@ -268,25 +230,91 @@ deathrace.scenes = deathrace.scenes || {};
       if (other instanceof deathrace.gameobjects.powerups.PowerUp) {
         if (bike.addPowerUp(other)) {
           this.powerUps.remove(other, true);
+
+          if(this.isHost) {
+            console.log("Pickup powerup sent");
+
+            this.connection.send(JSON.stringify({
+              command: "GAME_UPDATED",
+              type: "POWERUP_PICKUP",
+              game: this.hostData.game.id,
+              player: bike.player.uuid,
+              bike: bike.player.bikeId,
+              powerup: other.powerUpId
+            }));
+          }
         }
       } else {
-        if (bike.horn
-          && !other.isExternalWall
-          && !other.isTrail) {
+        if (bike.horn && !other.isExternalWall && !other.isTrail) {
           bike.breakWall(other);
         } else if (bike.ghost === false
           || other.isExternalWall
           || other instanceof deathrace.gameobjects.projectile.Projectile
           || other instanceof deathrace.gameobjects.Trap) {
-          bike.setActive(false);
-          bike.setVisible(false);
-          bike.explode();
-          this.bikeGroup.remove(bike);
+
+          if(this.isHost) {
+            console.log("Bike crash sent");
+
+            this.connection.send(JSON.stringify({
+              command: "GAME_UPDATED",
+              type: "BIKE_CRASH",
+              game: this.hostData.game.id,
+              player: bike.player.uuid,
+              bike: bike.player.bikeId
+            }));
+          }
+
+          this.bikeCrash(bike);
+          this.checkWinner();
         }
       }
     };
 
+    Arena.prototype.bikeCrash = function(bike) {
+      bike.setActive(false);
+      bike.setVisible(false);
+      bike.explode();
+      this.bikeGroup.remove(bike);
+    };
+
+    Arena.prototype.updateBikes = function(time, delta) {
+      var updateBikesData = [];
+      for(var i=0, length=this.bikes.length; i < length; ++i) {
+        var bike = this.bikes[i];
+
+        if(!bike.active) {
+          continue;
+        }
+
+        bike.update(time, delta);
+
+        updateBikesData.push({
+          bikeIdx: i,
+          bike: bike.name,
+          x: bike.x,
+          y: bike.y,
+          directionX: bike.directionVector.x,
+          directionY: bike.directionVector.y,
+          score: bike.score
+        });
+      }
+
+      if(this.isHost) {
+        this.connection.send(JSON.stringify({
+          command: "GAME_UPDATED",
+          game: this.hostData.game.id,
+          player: this.currentPlayer.uuid,
+          data: updateBikesData
+        }));
+      }
+    };
+
     Arena.prototype.endRound = function (winner) {
+      console.log("endRound called");
+
+      winner.player.score += winner.score + 100;
+      winner.setActive(false);
+
       this.time.delayedCall(1000, function() {
         console.log("Emitting round-end event");
         this.events.emit('round-end', winner.player);
@@ -298,41 +326,36 @@ deathrace.scenes = deathrace.scenes || {};
       max = max || 7;
 
       var numberOfPowerUps = Math.trunc(Math.random() * (max - min) + min);
-      this.powerUps.clear(true);
+      var powerUpsPositions = [];
 
       for (var i = 0; i < numberOfPowerUps; ++i) {
-        var randomPosition = this.calculateRandomPosition();
-        var powerUp = this.add.powerUp(randomPosition.x, randomPosition.y);
-        this.powerUps.add(powerUp);
+        var randomPosition = this.calculateRandomPosition(powerUpsPositions);
+        powerUpsPositions.push({
+          type: deathrace.gameobjects.powerups.Types.randomType(),
+          position: randomPosition
+        });
       }
+
+      return powerUpsPositions;
     };
 
-    Arena.prototype.spawnRandomTraps = function () {
-      var numberOfTraps = Math.trunc(Math.random() * 3 + 1);
-      this.traps.clear(true);
+    Arena.prototype.spawnRandomTraps = function (min, max) {
+      min = min || 3;
+      max = max || 7;
+
+      var numberOfTraps = Math.trunc(Math.random() * (max - min) + min);
+      var trapsPositions = [];
 
       for (var i = 0; i < numberOfTraps; ++i) {
-        var trapsX = Math.trunc(Math.random() * this.horzLength);
-        var trapsY = Math.trunc(Math.random() * this.vertLength);
-
-        if ((this.horzLength / 2) < trapsX) {
-          trapsX = trapsX - (this.margin + 32);
-        } else {
-          trapsX = trapsX + (this.margin + 32);
-        }
-        if ((this.vertLength / 2) < trapsY) {
-          trapsY = trapsY - (this.margin + 32);
-        } else {
-          trapsY = trapsY + (this.margin + 32);
-        }
-
-        var trap = this.add.trap(trapsX, trapsY);
-        this.traps.add(trap);
+        var randomPosition = this.calculateRandomPosition(trapsPositions);
+        trapsPositions.push(randomPosition);
       }
+
+      return trapsPositions;
     };
 
-    Arena.prototype.calculateRandomPosition = function () {
-      var margin = this.margin + 16;
+    Arena.prototype.calculateRandomPosition = function (alreadyUsedPositions) {
+      var margin = this.margin + 32;
       var position;
 
       var squared_radius = 10000; // 81 pixels squared
@@ -345,25 +368,131 @@ deathrace.scenes = deathrace.scenes || {};
 
         var valid = true;
 
-        for (var i = 0, length = this.powerUps.children.entries.length; i < length; ++i) {
-          var other = this.powerUps.children.entries[i];
-          var otherPosition = new Phaser.Math.Vector2(other.x, other.y);
-
+        for (var i = 0, length = alreadyUsedPositions.length; i < length; ++i) {
+          var otherPosition = alreadyUsedPositions[i];
           if (position.distanceSq(otherPosition) <= squared_radius) {
-            // console.log("Position ({0},{1}) conflicts with ({2},{3})".format(position.x, position.y, otherPosition.x, otherPosition.y));
             valid = false;
             break;
           }
-        }
-
-        if (valid) {
-          // console.log("Position ({0},{1}) is Valid!!".format(position.x, position.y));
         }
       } while (!valid);
 
       return position;
     };
 
+    Arena.prototype.createArena = function() {
+      // Building grid
+      this.gridColor = 0x000040;
+      this.grid = this.add.grid(this.margin, this.margin, this.horzLength, this.vertLength, 32, 32, 0x000000, 1, this.gridColor, 1);
+      this.grid.setOrigin(0, 0);
+
+      // Building external walls
+      this.northWall = this.add.rectangle(this.margin, this.margin, this.horzLength, this.wallWidth, 0x00ff00);
+      this.northWall.setOrigin(0, 0);
+      this.northWall.name = "north";
+      this.northWall.isExternalWall = true;
+
+      this.southWall = this.add.rectangle(this.margin, this.vertLength + this.margin - this.wallWidth, this.horzLength, this.wallWidth, 0x00ff00);
+      this.southWall.setOrigin(0, 0);
+      this.southWall.name = "south";
+      this.southWall.isExternalWall = true;
+
+      this.eastWall = this.add.rectangle(this.margin + this.horzLength - this.wallWidth, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+      this.eastWall.setOrigin(0, 0);
+      this.eastWall.name = "east";
+      this.eastWall.isExternalWall = true;
+
+      this.westWall = this.add.rectangle(this.margin, this.margin, this.wallWidth, this.vertLength, 0x00ff00);
+      this.westWall.setOrigin(0, 0);
+      this.westWall.name = "west";
+      this.westWall.isExternalWall = true;
+
+      if(this.physics) {
+        this.wallGroup = this.physics.add.group();
+        this.wallGroup.add(this.northWall);
+        this.wallGroup.add(this.southWall);
+        this.wallGroup.add(this.eastWall);
+        this.wallGroup.add(this.westWall);
+      }
+    };
+
+    Arena.prototype.createBikes = function(players) {
+      var spawnPoints = this.level.bikeSpawnPoints;
+      this.bikeGroup = this.add.group();
+      this.bikeTrails = this.add.group();
+
+      var currentPlayer = this.registry.get('current-player');
+
+      for (var i = 0, length = players.length; i < length; ++i) {
+        var player = players[i];
+        var bike = this.add.bike(spawnPoints[i].x, spawnPoints[i].y, player.name,
+          deathrace.utils.colors[player.color].value);
+
+        player.bikeId = i;
+        bike.player = player;
+        this.scene.get('HUD').attach(i, bike);
+
+        /*
+        if (player.gamepad) {
+          this.setupGamePad(player.gamepad, bike);
+        } else {
+          if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.A) {
+            this.setupKeyboard2(bike);
+          } else if (player.keyboard === Phaser.Input.Keyboard.KeyCodes.LEFT) {
+            this.setupKeyboard1(bike);
+          }
+        }
+        */
+
+        if(player.uuid===currentPlayer.uuid) {
+          this.setupKeyboard2(bike);
+        } else {
+          this.setupNetworkInput(bike, player.uuid);
+        }
+
+        this.bikeGroup.add(bike);
+        this.bikes.push(bike);
+      }
+    };
+
+    Arena.prototype.createLevel = function(levelId) {
+      this.level = this.add.level();
+      this.level.loadLevel(levelId);
+    };
+
+    Arena.prototype.createPowerups = function(powerUpsPositions) {
+      if(!this.powerUps) {
+        this.powerUps = this.add.group();
+      } else {
+        this.powerUps.clear(true);
+      }
+
+      for(var i=0, length=powerUpsPositions.length; i < length; ++i) {
+        var powerupData = powerUpsPositions[i];
+        var powerUp = this.add.powerUp(powerupData.position.x, powerupData.position.y, powerupData.type);
+        powerUp.powerUpId = i;
+        this.powerUps.add(powerUp);
+        this.powerUpsArray.push(powerUp);
+      }
+    };
+
+    Arena.prototype.createTraps = function(trapsPositions) {
+      if(!this.traps) {
+        this.traps = this.add.group();
+      } else {
+        this.traps.clear(true);
+      }
+
+      for(var i=0, length=trapsPositions.length; i < length; ++i) {
+        var randomPosition = trapsPositions[i];
+        var trap = this.add.trap(randomPosition.x, randomPosition.y);
+        this.traps.add(trap);
+      }
+    };
+
+    Arena.prototype.getPlayers = function() {
+      return this.sceneData.players;
+    };
 
     // Add to namespace
     deathrace.scenes.Arena = Arena;

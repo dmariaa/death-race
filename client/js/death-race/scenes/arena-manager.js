@@ -34,9 +34,12 @@ deathrace.scenes = deathrace.scenes || {};
     this.playersScores = this.add.group();
   };
 
-  ArenaManager.prototype.create = function(players) {
-    this.players = players;
-    this.arena = this.scene.get('ArenaScene');
+  ArenaManager.prototype.create = function(gamedata) {
+    this.currentPlayer = this.registry.get('current-player');
+    this.gamedata = gamedata;
+    this.isHost = (this.gamedata.game.players[0].uuid===this.currentPlayer.uuid);
+    this.arenaScene = this.isHost ? 'ArenaHostScene' : 'ArenaClientScene';
+    this.arena = this.scene.get(this.arenaScene);
 
     this.add.rectangle(0, 0, this.game.canvas.width, this.game.canvas.height, 0x000000, 0.65)
       .setOrigin(0,0);
@@ -58,26 +61,28 @@ deathrace.scenes = deathrace.scenes || {};
     this.drawPlayersScore();
     this.scene.bringToTop();
 
+    var players = this.arena.getPlayers();
+
     this.input.keyboard.on('keydown', function(event) {
       if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
         this.input.keyboard.off('keydown');
         this.saveScores();
-        this.scene.stop('ArenaScene');
+        this.scene.stop(this.arenaScene);
         this.scene.wake('MainMenu');
         this.scene.bringToTop('MainMenu');
         this.scene.stop();
-
       } else if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.SPACE) {
         this.input.keyboard.off('keydown');
-        this.scene.stop('ArenaScene');
+        this.scene.stop(this.arenaScene);
         this.launchArena();
-
       }
     }, this);
   };
 
   ArenaManager.prototype.saveScores = function() {
-    for(var i=0, length=this.players.length; i < length; ++i) {
+    var players = this.arena.getPlayers();
+
+    for(var i=0, length=players.length; i < length; ++i) {
       var player = this.players[i];
       var date = moment().format('YYYY-MM-DD');
       var data = {
@@ -99,10 +104,11 @@ deathrace.scenes = deathrace.scenes || {};
   ArenaManager.prototype.drawPlayersScore = function() {
     var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, this.game.canvas.height / 2 - 100);
     var textStyle = { fontFamily: "Orbitron", fontSize: 40 };
+    var players = this.arena.getPlayers();
 
     this.playersScores.clear(true, true);
 
-    var sortedPlayers = this.players.sort(function(a, b) {
+    var sortedPlayers = players.sort(function(a, b) {
       return b.score - a.score;
     });
 
@@ -116,15 +122,20 @@ deathrace.scenes = deathrace.scenes || {};
   };
 
   ArenaManager.prototype.launchArena = function() {
-    this.scene.launch('HUD');
-    this.scene.launch('ArenaScene', this.players);
+    var data = {
+      game: this.gamedata.game,
+      connection: this.gamedata.connection
+    };
 
-    this.scene.bringToTop('ArenaScene');
+    this.scene.launch('HUD', this.arenaScene);
+    this.scene.launch(this.arenaScene, data);
+
+    this.scene.bringToTop(this.arenaScene);
     this.scene.bringToTop('HUD');
 
     this.arena.events.once('round-end', function(player) {
       console.log("Received round-end event");
-      this.scene.get('ArenaScene').pause();
+      this.scene.pause(this.arenaScene);
       this.showWinner();
       this.currentRound++;
     }, this);
