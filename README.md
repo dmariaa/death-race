@@ -342,6 +342,15 @@ Otra forma de hacerlo es a través del entorno Intellij:
 3. Abrir en el navegador de Google Chrome una pestaña y escribir: localhost:8080/client/index.html
 4. Disfrutar del juego!
 
+
+# Fase 4
+
+## Documentación del protocolo sobre WebSockets
+
+
+## Diagrama de clases y API REST
+
+
 #### Referencias
 
 Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
