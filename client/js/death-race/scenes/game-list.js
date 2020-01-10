@@ -92,6 +92,13 @@ deathrace.scenes = deathrace.scenes || {};
     this.domPassword.addListener('click');
 
     this.input.keyboard.on('keydown', this.handleKeys, this);
+
+    this.events.on('shutdown', this.shutdownScene, this);
+  };
+
+  GameList.prototype.shutdownScene = function() {
+    console.log("Closing Game List SCENE");
+    this.connection.close();
   };
 
   GameList.prototype.handleForm = function(event) {

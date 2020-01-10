@@ -62,19 +62,57 @@ deathrace.scenes = deathrace.scenes || {};
     this.scene.bringToTop();
 
     var players = this.arena.getPlayers();
+    var playersStart = new Array();
+
+    if(!this.waitingText) {
+      this.waitingText = this.add.text(this.game.canvas.width / 2, this.game.canvas.height - 80,
+        "Esperando que {0} jugadores estén preparados".format(players.length - playersStart.length),
+        {fontFamily: "Orbitron", fontSize: 30})
+        .setOrigin(0.5, 0).setAlign('center');
+    }
+
+    var waitForSpace = function(msg) {
+      var message = JSON.parse(msg.data);
+      if(message.command==="START_PRESSED") {
+        if(!playersStart.includes(message.player)) {
+          playersStart.push(message.player);
+        }
+        if(playersStart.length===players.length) {
+          this.gamedata.connection.removeEventListener('message', waitForSpace);
+          this.input.keyboard.off('keydown');
+          this.scene.stop(this.arenaScene);
+          console.log("LAUNCHING ARENA FROM WAITFORSPACE");
+          this.launchArena();
+        } else {
+          this.waitingText.setText("Esperando que {0} jugadores esten preparados"
+            .format(players.length - playersStart.length));
+        }
+      }
+    }.bind(this);
+
+    this.gamedata.connection.addEventListener('message', waitForSpace);
+    // this.startPressed = false;
+
+    this.input.keyboard.off('keydown');
 
     this.input.keyboard.on('keydown', function(event) {
       if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
         this.input.keyboard.off('keydown');
         this.saveScores();
         this.scene.stop(this.arenaScene);
+        this.scene.stop('GameList');
+        this.gamedata.connection.close();
         this.scene.wake('MainMenu');
         this.scene.bringToTop('MainMenu');
         this.scene.stop();
-      } else if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.SPACE) {
+      } else if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.SPACE && !this.startPressed) {
+        // this.startPressed = true;
         this.input.keyboard.off('keydown');
-        this.scene.stop(this.arenaScene);
-        this.launchArena();
+        this.gamedata.connection.send(JSON.stringify({
+          command: "START_PRESSED",
+          game: this.gamedata.game.id,
+          player: this.currentPlayer.uuid
+        }));
       }
     }, this);
   };
@@ -83,7 +121,7 @@ deathrace.scenes = deathrace.scenes || {};
     var players = this.arena.getPlayers();
 
     for(var i=0, length=players.length; i < length; ++i) {
-      var player = this.players[i];
+      var player = players[i];
       var date = moment().format('YYYY-MM-DD');
       var data = {
         "player-name": player.name,
@@ -108,7 +146,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     this.playersScores.clear(true, true);
 
-    var sortedPlayers = players.sort(function(a, b) {
+    var sortedPlayers = players.concat().sort(function(a, b) {
       return b.score - a.score;
     });
 
@@ -127,6 +165,7 @@ deathrace.scenes = deathrace.scenes || {};
       connection: this.gamedata.connection
     };
 
+    this.scene.stop('HUD');
     this.scene.launch('HUD', this.arenaScene);
     this.scene.launch(this.arenaScene, data);
 

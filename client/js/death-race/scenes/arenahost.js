@@ -45,6 +45,8 @@ deathrace.scenes = deathrace.scenes || {};
       'use-item-2': new deathrace.inputhandler.CommandUseInventoryItem2,
       'use-item-3': new deathrace.inputhandler.CommandUseInventoryItem3
     };
+
+    this.handleMessageBinded = this.handleMessage.bind(this);
   };
 
   // Inheritance, Arena extends Phaser.Scene
@@ -62,7 +64,7 @@ deathrace.scenes = deathrace.scenes || {};
    * Scene create callback
    */
   ArenaHost.prototype.create = function (data) {
-    console.log("ArenaHostScene loaded");
+    console.log("ArenaHostScene created");
     this.hostData = data;
 
     this.currentPlayer = this.registry.get('current-player');
@@ -75,7 +77,8 @@ deathrace.scenes = deathrace.scenes || {};
     };
 
     this.connection = data.connection;
-    this.connection.addEventListener('message', this.handleMessage.bind(this));
+    this.connection.removeEventListener('message', this.handleMessageBinded);
+    this.connection.addEventListener('message', this.handleMessageBinded);
     var createCommand = {
       command: "GAME_STARTED",
       data: this.sceneData,

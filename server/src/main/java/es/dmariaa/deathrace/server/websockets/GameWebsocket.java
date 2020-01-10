@@ -69,7 +69,7 @@ public class GameWebsocket extends TextWebSocketHandler {
             } else if(command.equals("INPUT")) {                                            // Send to host
                 Player host = game.getPlayers()[0];
                 notifyPlayer(host, message);
-            } else if(command.equals("COUNTDOWN")) {
+            } else if(command.equals("COUNTDOWN") || command.equals("START_PRESSED")) {
                 notifyPlayers(game, message);
             }
  //       } catch(NullPointerException exception) {
