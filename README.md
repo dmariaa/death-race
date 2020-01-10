@@ -347,8 +347,17 @@ Otra forma de hacerlo es a través del entorno Intellij:
 
 ## Documentación del protocolo sobre WebSockets
 
+Las funcionalidades añadidas por Websocket han sido la conexión entre el servidor y el cliente, pudiendo acceder a una misma partida, de quien haya abierto el servidor, pudiendo mirar sus puntuaciones y unirse quien tenga su dirección IP. Se deberá de crear una cuenta nueva y se podrán crear partidas públicas y privadas, siendo estas últimas con contraseña.
+
+![Captura](https://user-images.githubusercontent.com/45218480/72114007-86c2e880-3342-11ea-99c2-78e3575b77eb.PNG)
+
+Además, se quedará esperando a los jugadores hasta que estén el número definido al crear la partida y una vez creada se podrá jugar.
+
+![Captura](https://user-images.githubusercontent.com/45218480/72114067-b70a8700-3342-11ea-96fc-f34aee491a1d.PNG)
 
 ## Diagrama de clases y API REST
+
+![Anarcho-capitalist_flag svg](https://user-images.githubusercontent.com/45218480/72113148-f08dc300-333f-11ea-80cd-3ec24aa063e1.png)
 
 
 #### Referencias
