@@ -355,6 +355,109 @@ Además, se quedará esperando a los jugadores hasta que estén el número defin
 
 ![Captura](https://user-images.githubusercontent.com/45218480/72114067-b70a8700-3342-11ea-96fc-f34aee491a1d.PNG)
 
+El servidor websocket mantiene la lista de partidas, así como los jugadores que forman parte de cada partida. 
+
+El estado de la partida se mantiene en un cliente, que hace de host de la partida, y el servidor de websocket se encarga de redirigir los mensajes enviados por los clientes de la forma adecuada.
+
+Hay dos endpoints con protocolo websocket:
+
+game-manager: encargado de la gestión de partidas. 
+
+Comandos de cliente a servidor:
+
+ADD_GAME: Creación de partida.
+
+{
+   command: “ADD_GAME”,
+   player: <uuid del usuario>,
+   name: <nombre de la partida>
+   private: <true: partida privada, false: partida pública>,
+   minplayers: <número de jugadores>
+}
+
+JOIN_GAME: El usuario se conecta a una partida.
+
+{
+   command: “JOIN_GAME”,
+   game: <id del juego>,
+   player: <uuid del jugador>
+}
+
+Comandos de servidor a cliente:
+	
+GAME_ADDED: Se ha creado una partida (enviado al creador de la misma).
+
+{
+   command: “GAME_ADDED”,
+   data: <datos del juego añadido, incluye el id generado>
+}
+   
+GAME_JOINED: Se ha accedido a una partida (enviado al que se conecta)
+
+Respuesta:
+{
+   command: “GAME_JOINED”,
+   data: <datos del juego>
+}
+
+UPDATE_GAMES: Actualización de la lista de partidas.
+
+{
+   command: “UPDATE_GAMES”,
+   data: <lista de partidas actualizada>
+}
+
+
+game-play: encargado de la transimisión del estado de la partida
+
+Comandos de cliente a servidor y retransmisiones:
+
+JOIN_GAME: el usuario se ha conectado a la partida
+
+{
+   command: ”JOIN_GAME”,
+   game: <id de la partida>,
+   player: <uuid del jugador>
+}
+
+GAME_STARTED: la partida ha comenzado (enviado por el host de la partida). El servidor lo retransmite a todos los jugadores de la partida.
+
+{
+   command: “GAME_STARTED”,
+   game: <id de la partida>,
+   player: <uuid del jugador>,
+   data: <datos de la partida>
+}
+
+GAME_UPDATED: actualización de información de la partida (enviado por el host de la partida). El servidor lo retransmite a todos los jugadores de la partida.
+
+{
+   command: “GAME_STARTED”,
+   game: <id de la partida>,
+   player: <uuid del jugador>,
+   type: <tipo de actualización>
+   … datos dependientes del tipo de actualizacion
+}
+
+INPUT: el jugador ha pulsado una tecla (enviado por todos los jugadores salvo el host de la partida). Se reenvia al host de la partida.
+
+{
+   command: “INPUT”,
+   game: <id de la partida>,
+   player: <uuid del jugador>,
+   input: <tipo de entrada>
+}
+
+COUNTDOWN: una cuenta atrás está en marcha (enviado por el host de la partida). El servidor lo retransmite a todos los jugadores de la partida.
+
+{
+   command: “COUNTDOWN”,
+   game: <id de la partida>,
+   player: <uuid del jugador>,
+   seconds: <segundos restantes>
+}
+
+
 ## Diagrama de clases y API REST
 
 ![Anarcho-capitalist_flag svg](https://user-images.githubusercontent.com/45218480/72113148-f08dc300-333f-11ea-80cd-3ec24aa063e1.png)
