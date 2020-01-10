@@ -27,17 +27,20 @@ deathrace.scenes = deathrace.scenes || {};
     });
 
     this.parent = deathrace.scenes.Arena.prototype;
-
     this.isHost = false;
+    this.handleMessageBinded = this.handleMessage.bind(this);
   };
 
   ArenaClient.prototype = Object.create(deathrace.scenes.Arena.prototype);
   ArenaClient.prototype.constructor = ArenaClient;
 
   ArenaClient.prototype.create = function(data) {
+    console.log("ArenaClientScene created");
+
     this.gameData = data;
     this.connection = data.connection;
-    this.connection.addEventListener('message', this.handleMessage.bind(this));
+    this.connection.removeEventListener('message', this.handleMessageBinded)
+    this.connection.addEventListener('message', this.handleMessageBinded);
   };
 
   ArenaClient.prototype.setupKeyboard2 = function (bike) {
@@ -59,6 +62,8 @@ deathrace.scenes = deathrace.scenes || {};
   ArenaClient.prototype.handleMessage = function (msg) {
     var message = JSON.parse(msg.data);
     if(message.command==='GAME_UPDATED') {
+      if(this.isHost) return; // Client only
+
       if(!message.type) {
         var bikesData = message.data;
         for(var i=0, length=bikesData.length; i < length; ++i) {

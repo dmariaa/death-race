@@ -53,6 +53,7 @@ public class GameManagerWebsocket extends TextWebSocketHandler {
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
         sessions.remove(session);
+        updateGamesLists();
     }
 
     static class JsonIgnoreDisabler extends JacksonAnnotationIntrospector {
@@ -109,8 +110,12 @@ public class GameManagerWebsocket extends TextWebSocketHandler {
     public void updateGamesLists() throws IOException {
         // Broadcast session to all receivers
         for(WebSocketSession webSocketSession : sessions) {
-            logger.debug(String.format("Notifying gamelist update to session %s", webSocketSession.getId()));
-            sendGameList(webSocketSession);
+            if(webSocketSession.isOpen()) {
+                logger.debug(String.format("Notifying gamelist update to session %s", webSocketSession.getId()));
+                sendGameList(webSocketSession);
+            } else {
+                sessions.remove(webSocketSession);
+            }
         }
     }
 

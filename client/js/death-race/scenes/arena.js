@@ -76,7 +76,17 @@ deathrace.scenes = deathrace.scenes || {};
      * Scene create callback
      */
     Arena.prototype.create = function () {
-      console.log("ArenaScene loaded");
+      console.log("ArenaScene created");
+
+      if(this.bikes.length > 0) {
+        for(var i=0, length=this.bikes.length; i < length; i++) {
+          if(this.bikes[i]) {
+            this.bikes[i].destroy();
+          }
+        }
+
+        this.bikes = new Array();
+      }
 
       this.roundFinished = false;
 
@@ -197,19 +207,22 @@ deathrace.scenes = deathrace.scenes || {};
      * Shutdown handler
      */
     Arena.prototype.shutdownScene = function() {
+      console.log("Destroying scene");
       for(var i=0, length=this.bikes.length; i < length; i++) {
         if(this.bikes[i]) {
           this.bikes[i].destroy();
         }
       }
-      this.bikes = [];
+      this.bikes = new Array();
     };
 
     /**
      * @override Phaser.scene.update
      */
     Arena.prototype.update = function (time, delta) {
-      this.updateBikes(time, delta);
+      if(this.isHost) {
+        this.updateBikes(time, delta);
+      }
     };
 
     Arena.prototype.checkWinner = function() {
@@ -251,6 +264,19 @@ deathrace.scenes = deathrace.scenes || {};
           || other.isExternalWall
           || other instanceof deathrace.gameobjects.projectile.Projectile
           || other instanceof deathrace.gameobjects.Trap) {
+
+          if(bike.trail.walls[1]==other || bike.trail.walls[0]==other) {
+            return;
+          }
+
+          if(bike.turning) {
+            console.log("BIKE TURNING");
+            if(bike.trail.getLength() > 20) {
+              console.log("END BIKE TURNING");
+              bike.turning = false;
+            }
+            return;
+          }
 
           if(this.isHost) {
             console.log("Bike crash sent");
@@ -314,6 +340,7 @@ deathrace.scenes = deathrace.scenes || {};
 
       winner.player.score += winner.score + 100;
       winner.setActive(false);
+      this.bikeGroup.remove(winner);
 
       this.time.delayedCall(1000, function() {
         console.log("Emitting round-end event");
@@ -417,6 +444,7 @@ deathrace.scenes = deathrace.scenes || {};
     };
 
     Arena.prototype.createBikes = function(players) {
+      console.log("CREATE BIKES CALLED");
       var spawnPoints = this.level.bikeSpawnPoints;
       this.bikeGroup = this.add.group();
       this.bikeTrails = this.add.group();
@@ -461,7 +489,7 @@ deathrace.scenes = deathrace.scenes || {};
     };
 
     Arena.prototype.createPowerups = function(powerUpsPositions) {
-      if(!this.powerUps) {
+      if(!this.powerUps || !this.powerUps.children) {
         this.powerUps = this.add.group();
       } else {
         this.powerUps.clear(true);
@@ -477,7 +505,7 @@ deathrace.scenes = deathrace.scenes || {};
     };
 
     Arena.prototype.createTraps = function(trapsPositions) {
-      if(!this.traps) {
+      if(!this.traps || !this.traps.children) {
         this.traps = this.add.group();
       } else {
         this.traps.clear(true);

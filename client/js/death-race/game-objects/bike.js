@@ -31,8 +31,9 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * @constructor
    */
   var Bike = function (scene, x, y, name, color) {
-    texture = 'bike';
-    Phaser.GameObjects.Sprite.call(this, scene, x, y, texture);
+    this.originalTexture = 'bike';
+
+    Phaser.GameObjects.Sprite.call(this, scene, x, y, null);
 
     if(scene.physics) {
       scene.physics.add.existing(this);
@@ -54,22 +55,22 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     this.radius = 150;
     this.puppet = false;
 
-    //this.setOrigin(0.5, 0);
-    //this.trailOffset = 1;
-    //this.physicsCorrectionOffset = this.height;
-
     this.setDisplayOrigin(6, 6.5);
     this.physicsCorrectionOffset = 7;
-    this.trailOffset = this.physicsCorrectionOffset + 1;
+    this.trailOffset = this.physicsCorrectionOffset + 4;
 
     // Explosion texture
-    var rt = scene.textures.createCanvas(this.name + '-bikepieces', 5, 5);
+    var explosionTextureName = this.name + '-bikepieces';
+    if(scene.textures.exists(explosionTextureName)) {
+      debugger;
+    }
+    var rt = scene.textures.createCanvas(explosionTextureName, 5, 5);
     rt.context.fillStyle = this.color.rgba;
     rt.context.fillRect(0, 0, 5, 5);
     rt.refresh();
 
     // Explosion particles
-    var expl = scene.add.particles(this.name + '-bikepieces');
+    var expl = scene.add.particles(explosionTextureName);
     this.explosion = expl.createEmitter({
       speed: {min: -800, max: 800},
       alpha: {start: 1.0, end: 0},
@@ -97,6 +98,7 @@ deathrace.gameobjects = deathrace.gameobjects || {};
     };
 
     this.once('destroy', function(bike) {
+      console.log("Destroying bike textures");
       scene.textures.remove(this.name + '-bikepieces');
       scene.textures.remove(this.name + '-texture');
     }, this);
@@ -181,10 +183,10 @@ deathrace.gameobjects = deathrace.gameobjects || {};
    * with selected color palette.
    */
   Bike.prototype.setColors = function () {
-    var tx = this.texture;
+    var tx = this.scene.textures.get(this.originalTexture);
     var img = tx.getSourceImage();
-    var textureName = this.name + '-texture';
 
+    var textureName = this.name + '-texture';
     var ct = this.scene.textures.createCanvas(textureName, img.width, img.height);
     ct.context.drawImage(img, 0, 0);
 
@@ -203,8 +205,10 @@ deathrace.gameobjects = deathrace.gameobjects || {};
         pixels[i + 3] = this.color.alpha;
       }
     }
+
     ct.context.putImageData(pixelsData, 0, 0);
     ct.refresh();
+
     this.setTexture(textureName);
   };
 
@@ -319,6 +323,8 @@ deathrace.gameobjects = deathrace.gameobjects || {};
       this.x + this.directionVector.x * this.trailOffset,
       this.y + this.directionVector.y * this.trailOffset
     );
+
+    this.turning=true;
   };
 
   deathrace.gameobjects.Bike = Bike;

@@ -41,11 +41,11 @@ deathrace.scenes = deathrace.scenes || {};
 
     // Create background
     this.background = this.add.image(0, 0, 'general-background');
-    this.background.setDisplaySize(this.game.canvas.width, this.game.canvas.height);
+    this.background.setDisplaySize(game.canvas.width, game.canvas.height);
     this.background.setOrigin(0);
 
     // Create Title
-    var textPosition = new Phaser.Math.Vector2(this.game.canvas.width / 2, 20);
+    var textPosition = new Phaser.Math.Vector2(game.canvas.width / 2, 20);
     var gameName = this.add.text(textPosition.x, textPosition.y, data.game.name, {
       fontFamily: "Orbitron", fontSize: 50
     }).setOrigin(0.5, 0).setAlign('center');
@@ -60,7 +60,7 @@ deathrace.scenes = deathrace.scenes || {};
     var bounds = this.title.getBounds();
     this.title.setOrigin(0, 0).setAlign('left').setPosition(bounds.x, bounds.y);
 
-    this.keyboardMessage = this.add.text(textPosition.x, this.game.canvas.height - 100, "<ESC> para salir", {
+    this.keyboardMessage = this.add.text(textPosition.x, game.canvas.height - 100, "<ESC> para salir", {
       fontFamily: "Orbitron", fontSize: 30
     }).setOrigin(0.5, 0).setAlign('center');
 
@@ -127,6 +127,8 @@ deathrace.scenes = deathrace.scenes || {};
       var game = this.game;
       var seconds = message.seconds;
       this.title.setText("Partida completa, comenzando en {0} segundos".format(seconds.toFixed(1)));
+      var bounds = this.title.getBounds();
+      this.title.setOrigin(0, 0).setAlign('left').setPosition(bounds.x, bounds.y);
 
       if(seconds <= 0) {
         this.launchGame(game);
@@ -163,8 +165,8 @@ deathrace.scenes = deathrace.scenes || {};
   PlayerLoading.prototype.createPanels = function() {
     // Create panels, hidden
     var marginTop = 90;
-    var halfWidth = this.game.canvas.width / 4;
-    var halfHeight = (this.game.canvas.height - marginTop) / 4;
+    var halfWidth = game.canvas.width / 4;
+    var halfHeight = (game.canvas.height - marginTop) / 4;
     var numberOfPanels = 4;
     for(var i=0; i < numberOfPanels; i++) {
       var row = Math.trunc(i / 2);
