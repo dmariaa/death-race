@@ -467,6 +467,66 @@ COUNTDOWN: una cuenta atrás está en marcha (enviado por el host de la partida)
 
 ## Documentación de errores
 
+Antes de terminar la fase 4 (sacados el 30 de diciembre de 2019):
+
+1. Si se tiene una cuenta creada y no se mete la contraseña correcta no sale ningún error diciendo que la contraseña es incorrecta
+
+2. Si se le da a “Usar otra cuenta” y metemos el mismo usuario, pero distinta contraseña ocurre el mismo error anterior
+
+3. No se puede retroceder una vez se pulsa una opción a la hora de usar usuario
+
+4. Si intentas acceder con un Usuario y una contraseña que no existen, no sale el error de que ese usuario no existe
+
+5. Si creas dos usuarios y haces una modificación con uno en los ajustes. Al salir e intentar iniciar sesión con cualquiera de ellos saldrá esto superponiéndose ambos menús:
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223389-75f6ba80-356e-11ea-888d-93dfdb166528.PNG)
+
+Esto se va acumulando, es decir, si se hace 5 veces se superponen 5 pantallas:
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223397-8c047b00-356e-11ea-9c03-e8020be39d99.PNG)
+
+6. Los objetos pueden hacer Spawn en cualquier sitio salvo fuera de los márgenes, es decir, que
+pueden Spawnear encima del jugador matándolo de inmediato, encima de las barreras que hay en el mapa o 
+incluso encima de ellos mismos:
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223408-b1918480-356e-11ea-85f5-305cf7fedbce.PNG)
+
+
+7. Lo mismo ocurre con los Power Ups:
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223413-c837db80-356e-11ea-9358-5ee0897616c5.PNG)
+
+8. La flecha hacia abajo o la S disminuían la velocidad de las motos un poco. Pero si se mantiene presionado puede llegar incluso a pararlas.
+
+9. Tras jugar una ronda, si se vuelve al menú, no hay música. Para ninguno de los usuarios.
+
+Tras completar la fase 4 se han sacado los siguientes errores:
+
+11. Si un jugador se ha caido/se ha salido o elimina la pestaña donde se ejecuta; el otro(s) jugador(es) no pueden salir de la partida y tienen que reiniciar.
+
+12. Durante el transcurso del juego, suenan los sonidos de las explosiones de forma aleatoria.
+
+13. Hay un pequeño error en las estelas que no están centradas. El temporizador tampoco está centrado.
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223578-afc8c080-3570-11ea-9898-429b77be69cd.PNG)
+
+14. No funcionan los objetos
+
+15. Si se pulsa TAB y no se está en el juego, a los otros juegos se le pausan
+
+16. Cuando se sale de una partida privada y se vuelve a entrar, aparece el hud clásico del gameplay.
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223626-41383280-3571-11ea-8975-24b6ab420da9.PNG)
+
+17. El botón de salir no hace nada
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223380-5eb7cd00-356e-11ea-9e74-ab14855fc9aa.PNG)
+
+
+
+## Soluciones
+
+
 
 #### Referencias
 
