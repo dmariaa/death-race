@@ -520,9 +520,6 @@ Tras completar la fase 4 se han sacado los siguientes errores:
 
 17. Al clickar el botón de Salir no ocurre nada
 
-![Captura](https://user-images.githubusercontent.com/45218480/72223380-5eb7cd00-356e-11ea-9e74-ab14855fc9aa.PNG)
-
-
 
 ## Soluciones
 
