@@ -463,6 +463,11 @@ COUNTDOWN: una cuenta atrás está en marcha (enviado por el host de la partida)
 ![Anarcho-capitalist_flag svg](https://user-images.githubusercontent.com/45218480/72113148-f08dc300-333f-11ea-80cd-3ec24aa063e1.png)
 
 
+# Fase 5
+
+## Documentación de errores
+
+
 #### Referencias
 
 Web libre de derechos para música de fondo: https://patrickdearteaga.com/es/musica-arcade/
