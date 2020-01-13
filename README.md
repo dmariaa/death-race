@@ -469,15 +469,116 @@ COUNTDOWN: una cuenta atrás está en marcha (enviado por el host de la partida)
 
 Antes de terminar la fase 4 (sacados el 30 de diciembre de 2019):
 
-1. Si se tiene una cuenta creada y no se mete la contraseña correcta no sale ningún error diciendo que la contraseña es incorrecta
+---
 
-2. Si se le da a “Usar otra cuenta” y metemos el mismo usuario, pero distinta contraseña ocurre el mismo error anterior
+***Nombre del bug:*** No detección de contraseña incorrecta
+***ID del bug:*** B001
+***Localización:*** Menú principal > Selección de usuario > Nombre de usuario y contraseña
+***Número de build:*** ???
+***Importancia:*** Media
+***Prioridad:*** Media
+***Asignado a:*** David María Arribas
+***Reportado por:*** Pablo Fernández-Vega Padilla
+***Razón:*** ???
+***Estado:*** Abierto
+***Entorno de desarrollo:*** ???
+
+***Descripción:*** No se muestra ningún tipo de mensaje por pantalla que permita al usuario detectar que ha cometido un error a la hora de introducir la contraseña de su cuenta.
+
+***Pasos para ser reproducido:***
+1) Abrir la aplicación
+2) Seleccionar un usuario
+3) Rellenar el apartado Contraseña con una incorrecta
+
+***Resultado esperado:***
+Al introducir un contraseña incorrecta, se espera que el usuario reciba algún tipo de feedback, ya sea un mensaje, algún cambio de color, algún sonido... que le permite detectar que ha cometido un error al introducirla.
+
+---
+
+***Nombre del bug:*** No detección de contraseña incorrecta 2
+***ID del bug:*** B002
+***Localización:*** Menú principal > Selección de usuario > Usar otra cuenta > Nombre de usuario y contraseña
+***Número de build:*** ???
+***Importancia:*** Media
+***Prioridad:*** Media
+***Asignado a:*** David María Arribas
+***Reportado por:*** Pablo Fernández-Vega Padilla
+***Razón:*** ???
+***Estado:*** Abierto
+***Entorno de desarrollo:*** ???
+
+***Descripción:*** No se muestra ningún tipo de mensaje por pantalla que permita al usuario detectar que ha cometido un error a la hora de introducir la contraseña de su cuenta. En este caso, esto se incrementa por el hecho de que un nuevo usuario que introduzca el mismo nombre que una cuenta existente no puede saber el error que se está cometiendo.
+
+***Pasos para ser reproducido:***
+1) Abrir la aplicación
+2) Seleccionar usar otra cuenta
+3) Rellenar el apartado Usuario con un usuario ya existente
+3) Rellenar el apartado Contraseña con una incorrecta
+
+***Resultado esperado:*** 
+Al introducir un contraseña incorrecta, se espera que el usuario reciba algún tipo de feedback, ya sea un mensaje, algún cambio de color, algún sonido... que le permite detectar que ha cometido un error al introducirla.
+
+---
 
 3. No se puede retroceder una vez se pulsa una opción a la hora de usar usuario, ya sea crear cuenta o iniciar sesión con un usuario ya creado.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 4. Si intentas acceder con un Usuario y una contraseña que no existen, no sale el error de que ese usuario no existe
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 5. Si creas dos usuarios y haces una modificación con uno de ellos en el menú de Ajustes. Si se clicka a Salir e intentar iniciar sesión con cualquiera de ellos saldrá esto superponiéndose ambos menús:
+
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
 
 ![Captura](https://user-images.githubusercontent.com/45218480/72223389-75f6ba80-356e-11ea-888d-93dfdb166528.PNG)
 
@@ -485,41 +586,267 @@ Esto se va acumulando, es decir, si se hace 5 veces se superponen 5 pantallas:
 
 ![Captura](https://user-images.githubusercontent.com/45218480/72223397-8c047b00-356e-11ea-9c03-e8020be39d99.PNG)
 
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 6. Los objetos pueden hacer Spawn en cualquier sitio salvo fuera de los márgenes, es decir, que
 pueden Spawnear encima del jugador matándolo de inmediato, encima de las barreras que hay en el mapa o 
 incluso encima de ellos mismos:
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
 ![Captura](https://user-images.githubusercontent.com/45218480/72223408-b1918480-356e-11ea-85f5-305cf7fedbce.PNG)
 
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
 
 7. Lo mismo ocurre con los Power Ups:
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
 ![Captura](https://user-images.githubusercontent.com/45218480/72223413-c837db80-356e-11ea-9358-5ee0897616c5.PNG)
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:*** 
+
+---
 
 8. La flecha hacia abajo o la S disminuían la velocidad de las motos un poco. Pero si se mantiene presionado puede llegar incluso a pararlas.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 9. Tras jugar una ronda, si se vuelve al Menú Principal, no hay música. Para ninguno de los usuarios, es decir, si se clicka a Salir y se inicia sesión con cualquier otro usuario, a ese usuario tampoco se le escuchará la música.
+
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+---
+---
 
 Tras completar la fase 4 se han sacado los siguientes errores:
 
 11. Si se está jugando una ronda y un jugador se le cae la conexión o elimina la pestaña donde se está ejecutando el juego; el otro(s) jugador(es) verá como la moto rival se estrella en línea recta y una vez llegada a la pantalla final de la ronda no se podrá ni salir ni volver a jugar otra ronda.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 12. Si se está jugando una ronda, suenan los sonidos de las explosiones de forma aleatoria.
+
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:*** 
+
+---
 
 13. Hay un pequeño error en las estelas que no están centradas. El temporizador tampoco está centrado.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
 ![Captura](https://user-images.githubusercontent.com/45218480/72223578-afc8c080-3570-11ea-9898-429b77be69cd.PNG)
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
 
 14. No funcionan los power ups que están repartidos durante las distintas rondas de juego.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
+
 15. Si uno de los jugadores pulsa TAB mientras se está en el temporizador de la sala de espera para iniciar una partida o durante el gameplay de una ronda, la partida o el temporizador se congela la pantalla de todos los jugadores, de manera que todos los elementos se quedan pausados.
+
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
 
 16. Si se juega una ronda y tras esto, los jugadores pulsan Esc para salir ambos de la ronda y vuelven a clickar para crear una partida, una vez se entrar en la partida, aparece el hud de la ronda durante el tiempo en el que se inicia la partida.
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado:***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
 ![Captura](https://user-images.githubusercontent.com/45218480/72223626-41383280-3571-11ea-8975-24b6ab420da9.PNG)
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
 
 17. Al clickar el botón de Salir no ocurre nada
 
+***Nombre del bug:***
+***ID del bug:***
+***Localización:***
+***Número de build:***
+***Importancia:***
+***Prioridad:***
+***Asignado a:***
+***Reportado por:***
+***Razón:***
+***Estado: Abierto***
+***Lugar de desarrollo:***
+
+***Descripción:***
+
+***Pasos para ser reproducido:***
+
+***Resultado esperado:***
+
+---
 
 ## Soluciones
 
