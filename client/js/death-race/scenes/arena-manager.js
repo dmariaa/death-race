@@ -69,6 +69,9 @@ deathrace.scenes = deathrace.scenes || {};
         "Esperando que {0} jugadores estén preparados".format(players.length - playersStart.length),
         {fontFamily: "Orbitron", fontSize: 30})
         .setOrigin(0.5, 0).setAlign('center');
+    } else {
+      this.waitingText.setText("Esperando que {0} jugadores esten preparados"
+        .format(players.length - playersStart.length));
     }
 
     var waitForSpace = function(msg) {
@@ -79,7 +82,7 @@ deathrace.scenes = deathrace.scenes || {};
         }
         if(playersStart.length===players.length) {
           this.gamedata.connection.removeEventListener('message', waitForSpace);
-          this.input.keyboard.off('keydown');
+          this.input.keyboard.off('keydown', undefined, this);
           this.scene.stop(this.arenaScene);
           console.log("LAUNCHING ARENA FROM WAITFORSPACE");
           this.launchArena();
@@ -90,11 +93,10 @@ deathrace.scenes = deathrace.scenes || {};
       }
     }.bind(this);
 
+    this.gamedata.connection.removeEventListener('message', waitForSpace);
     this.gamedata.connection.addEventListener('message', waitForSpace);
-    // this.startPressed = false;
 
-    this.input.keyboard.off('keydown');
-
+    this.input.keyboard.off('keydown', undefined, this);
     this.input.keyboard.on('keydown', function(event) {
       if(event.keyCode===Phaser.Input.Keyboard.KeyCodes.ESC) {
         this.input.keyboard.off('keydown');
@@ -130,7 +132,7 @@ deathrace.scenes = deathrace.scenes || {};
       };
 
       $.ajax({
-        url: '/high-scores',
+        url: deathrace.utils.getHttpURL('/high-scores'),
         method: 'POST',
         dataType: 'json',
         contentType: 'application/json',

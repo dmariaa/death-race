@@ -59,6 +59,7 @@ deathrace.scenes = deathrace.scenes || {};
       }
     );
 
+    this.events.off('menuselected', this.handleMenuSelected, this);
     this.events.on('menuselected', this.handleMenuSelected, this);
   };
 
@@ -101,6 +102,7 @@ deathrace.scenes = deathrace.scenes || {};
         this.scene.bringToTop('Help');
         break;
       case 'exit':
+        deathrace.utils.clearSession();
         this.scene.get('GameManager').stopMusic('menu-sound');
         this.scene.start('LoginScene');
         this.scene.bringToTop('LoginScene');

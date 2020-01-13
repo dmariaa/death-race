@@ -81,7 +81,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.setLoginGamePanelVisible(false);
 
     // Game manager websocket
-    this.connection = new WebSocket('ws://' + location.host + '/game-manager');
+    this.connection = new WebSocket(deathrace.utils.getWebsocketURL('/game-manager'));
     this.connection.onmessage = this.handleMessage.bind(this);
 
     // Events

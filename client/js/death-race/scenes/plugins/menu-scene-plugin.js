@@ -40,9 +40,17 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
   MenuPlugin.prototype.start = function() {};
 
   MenuPlugin.prototype.create = function(config) {
+    this.selectedMenu = undefined;
     this.config = config;
     this.setupMenu();
     this.setupInput();
+
+    this.scene.events.on('shutdown', function() {
+      this.scene.events.off('shutdown', undefined, this);
+      this.selectedMenu = undefined;
+      this.menuGroup.destroy();
+      this.menuGroup = undefined;
+    }, this);
   };
 
   MenuPlugin.prototype.setupMenu = function() {
@@ -64,6 +72,7 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
       option.setName(options[i].id);
       option.setOrigin(0, 1);
       option.setInteractive();
+      option.setFontStyle('normal');
       menuPosition.y -= 40;
     }
   };
@@ -96,6 +105,7 @@ deathrace.scenes.plugins = deathrace.scenes.plugins || {};
   };
 
   MenuPlugin.prototype.handleMenuOver = function(pointer, gameObject) {
+    console.log("MenuOver handler");
     this.setSelected(gameObject);
   };
 

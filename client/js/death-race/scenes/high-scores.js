@@ -44,7 +44,7 @@ deathrace.scenes = deathrace.scenes || {};
 
     textPosition.y += 100;
 
-    $.ajax('/high-scores')
+    $.ajax(deathrace.utils.getHttpURL('/high-scores'))
       .done(this.drawCredits.bind(this));
 
     this.input.keyboard.on('keydown', this.handleKeys, this);

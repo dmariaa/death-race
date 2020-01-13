@@ -123,7 +123,9 @@ public class GameWebsocket extends TextWebSocketHandler {
         for(int i=0, length=players.length; i < length; i++ ) {
             String pUUID = players[i].getUuid().toString();
             WebSocketSession psession = playerSessions.get(pUUID).getLeft();
-            psession.sendMessage(message);
+            synchronized (psession) {
+                psession.sendMessage(message);
+            }
         }
     }
 

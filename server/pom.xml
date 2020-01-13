@@ -38,7 +38,7 @@
                             <goal>copy-resources</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${basedir}/target/classes/static/client</outputDirectory>
+                            <outputDirectory>${basedir}/target/classes/static</outputDirectory>
                             <resources>
                                 <resource>
                                     <directory>${basedir}/../client</directory>

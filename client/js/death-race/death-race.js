@@ -122,6 +122,28 @@ deathrace.utils = deathrace.utils || {};
     return playerUUID;
   };
 
+  namespace.clearSession = function() {
+    window.sessionStorage.removeItem('current-player');
+  };
+
+  namespace.getHttpURL = function(route) {
+    route = route || '';
+    protocol = namespace.isSecureProtocol() ? 'https' : 'http';
+    host = location.host;
+    return "{0}://{1}/{2}".format(protocol, host, route);
+  };
+
+  namespace.getWebsocketURL = function(route) {
+    route = route || '';
+    protocol = namespace.isSecureProtocol() ? 'wss' : 'ws';
+    host = location.host;
+    return "{0}://{1}/{2}".format(protocol, host, route);
+  };
+
+  namespace.isSecureProtocol = function() {
+    return window.location.protocol==='https:';
+  };
+
   namespace.colors = [
     { name: 'Rojo', value: new Phaser.Display.Color(255, 0, 0) },
     { name: 'Verde', value: new Phaser.Display.Color(0, 255, 0) },
