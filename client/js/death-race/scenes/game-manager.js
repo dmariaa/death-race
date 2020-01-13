@@ -166,7 +166,7 @@ deathrace.scenes = deathrace.scenes || {};
   GameManager.prototype.saveUserPreferences = function() {
     var data = this.registry.get('current-player');
     $.ajax({
-      url: '/players/' + data.uuid,
+      url: deathrace.utils.getHttpURL('/players/' + data.uuid),
       method: 'PUT',
       dataType: 'json',
       contentType: 'application/json',

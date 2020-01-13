@@ -70,7 +70,7 @@ deathrace.scenes = deathrace.scenes || {};
     this.panel.find('.game-type').text(data.game.private ? "Partida privada" : "Partida pública");
     this.panel.find('.game-password').text(data.game.private ? "Password: " + data.game.gamePassword : "");
 
-    this.connection = new WebSocket('ws://' + location.host  + '/game-play');
+    this.connection = new WebSocket(deathrace.utils.getWebsocketURL('/game-play'));
     this.connection.onmessage = this.handleMessage.bind(this);
     this.connection.onopen = this.handleOpen.bind(this);
 

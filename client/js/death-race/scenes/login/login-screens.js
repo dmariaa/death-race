@@ -33,9 +33,15 @@ deathrace.scenes.login = deathrace.scenes.login || {};
   };
 
   LoginScene.prototype.create = function () {
+    console.log("Starting LoginScene");
     this.createBackground();
     this.createTitle();
     this.loadLastPlayer();
+
+    this.events.on('shutdown', function() {
+      this.events.off('shutdown');
+      console.log("Shutting down LoginScene");
+    }, this);
   };
 
   LoginScene.prototype.createBackground = function () {
@@ -53,6 +59,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
   };
 
   LoginScene.prototype.createDialog = function() {
+    console.log("Creating login dialog");
     var lastPlayers = this.registry.get('players');
     var halfWidth = this.game.canvas.width / 2;
     var halfHeight = this.game.canvas.height / 2;
@@ -139,7 +146,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
     var node = this.loginForm.node;
 
     $.ajax({
-      url: '/players',
+      url: deathrace.utils.getHttpURL('/players'),
       method: 'POST',
       dataType: 'json',
       contentType: 'application/json',
@@ -179,7 +186,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
     var scene = this;
 
     $.ajax({
-      url: '/players/login',
+      url: deathrace.utils.getHttpURL('/players/login'),
       method: 'POST',
       dataType: 'json',
       contentType: 'application/json',
@@ -229,7 +236,7 @@ deathrace.scenes.login = deathrace.scenes.login || {};
     var currentPlayerUUID = deathrace.utils.getSession();
     if (currentPlayerUUID) {
       $.ajax({
-        url: '/players/' + currentPlayerUUID,
+        url: deathrace.utils.getHttpURL('/players/' + currentPlayerUUID),
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json'
