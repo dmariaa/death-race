@@ -472,48 +472,86 @@ Antes de terminar la fase 4 (sacados el 30 de diciembre de 2019):
 ---
 
 ***Nombre del bug:*** No detección de contraseña incorrecta
+
 ***ID del bug:*** B001
+
 ***Localización:*** Menú principal > Selección de usuario > Nombre de usuario y contraseña
-***Número de build:*** ???
+
+***Número de build:*** 4.0.1
+
 ***Importancia:*** Media
+
 ***Prioridad:*** Media
+
 ***Asignado a:*** David María Arribas
+
 ***Reportado por:*** Pablo Fernández-Vega Padilla
+
 ***Razón:*** ???
+
 ***Estado:*** Abierto
+
 ***Entorno de desarrollo:*** ???
 
-***Descripción:*** No se muestra ningún tipo de mensaje por pantalla que permita al usuario detectar que ha cometido un error a la hora de introducir la contraseña de su cuenta.
+
+
+***Descripción:***
+
+No se muestra ningún tipo de mensaje por pantalla que permita al usuario detectar que ha cometido un error a la hora de introducir la contraseña de su cuenta.
+
+
 
 ***Pasos para ser reproducido:***
+
 1) Abrir la aplicación
+
 2) Seleccionar un usuario
+
 3) Rellenar el apartado Contraseña con una incorrecta
 
+
+
 ***Resultado esperado:***
+
 Al introducir un contraseña incorrecta, se espera que el usuario reciba algún tipo de feedback, ya sea un mensaje, algún cambio de color, algún sonido... que le permite detectar que ha cometido un error al introducirla.
 
 ---
 
 ***Nombre del bug:*** No detección de contraseña incorrecta 2
+
 ***ID del bug:*** B002
+
 ***Localización:*** Menú principal > Selección de usuario > Usar otra cuenta > Nombre de usuario y contraseña
-***Número de build:*** ???
+
+***Número de build:*** 4.0.1
+
 ***Importancia:*** Media
+
 ***Prioridad:*** Media
+
 ***Asignado a:*** David María Arribas
+
 ***Reportado por:*** Pablo Fernández-Vega Padilla
+
 ***Razón:*** ???
+
 ***Estado:*** Abierto
+
 ***Entorno de desarrollo:*** ???
 
+
+
 ***Descripción:*** No se muestra ningún tipo de mensaje por pantalla que permita al usuario detectar que ha cometido un error a la hora de introducir la contraseña de su cuenta. En este caso, esto se incrementa por el hecho de que un nuevo usuario que introduzca el mismo nombre que una cuenta existente no puede saber el error que se está cometiendo.
+
+
 
 ***Pasos para ser reproducido:***
 1) Abrir la aplicación
 2) Seleccionar usar otra cuenta
 3) Rellenar el apartado Usuario con un usuario ya existente
 3) Rellenar el apartado Contraseña con una incorrecta
+
+
 
 ***Resultado esperado:*** 
 Al introducir un contraseña incorrecta, se espera que el usuario reciba algún tipo de feedback, ya sea un mensaje, algún cambio de color, algún sonido... que le permite detectar que ha cometido un error al introducirla.
@@ -523,20 +561,34 @@ Al introducir un contraseña incorrecta, se espera que el usuario reciba algún 
 3. No se puede retroceder una vez se pulsa una opción a la hora de usar usuario, ya sea crear cuenta o iniciar sesión con un usuario ya creado.
 
 ***Nombre del bug:***
+
 ***ID del bug:***
+
 ***Localización:***
+
 ***Número de build:***
+
 ***Importancia:***
+
 ***Prioridad:***
+
 ***Asignado a:***
+
 ***Reportado por:***
+
 ***Razón:***
+
 ***Estado:***
+
 ***Lugar de desarrollo:***
+
+
 
 ***Descripción:***
 
+
 ***Pasos para ser reproducido:***
+
 
 ***Resultado esperado:***
 
