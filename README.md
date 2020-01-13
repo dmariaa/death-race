@@ -799,7 +799,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B008
 
 ***Localización:*** 
 
@@ -843,7 +843,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B009
 
 ***Localización:*** 
 
@@ -887,11 +887,11 @@ sss
 
 Tras completar la fase 4 se han sacado los siguientes errores:
 
-11. Si se está jugando una ronda y un jugador se le cae la conexión o elimina la pestaña donde se está ejecutando el juego; el otro(s) jugador(es) verá como la moto rival se estrella en línea recta y una vez llegada a la pantalla final de la ronda no se podrá ni salir ni volver a jugar otra ronda.
+10. Si se está jugando una ronda y un jugador se le cae la conexión o elimina la pestaña donde se está ejecutando el juego; el otro(s) jugador(es) verá como la moto rival se estrella en línea recta y una vez llegada a la pantalla final de la ronda no se podrá ni salir ni volver a jugar otra ronda.
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B010
 
 ***Localización:*** 
 
@@ -903,7 +903,7 @@ Tras completar la fase 4 se han sacado los siguientes errores:
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:*** Alejandro Vera López
 
 ***Razón:*** ???
 
@@ -931,11 +931,11 @@ sss
 
 ---
 
-12. Si se está jugando una ronda, suenan los sonidos de las explosiones de forma aleatoria.
+11. Si se está jugando una ronda, suenan los sonidos de las explosiones de forma aleatoria.
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B011
 
 ***Localización:*** 
 
@@ -947,7 +947,7 @@ sss
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:***  Alejandro Vera López
 
 ***Razón:*** ???
 
@@ -974,11 +974,56 @@ sss
 sss
 ---
 
-13. Hay un pequeño error en las estelas que no están centradas. El temporizador tampoco está centrado.
+12. Hay un pequeño error en las estelas que no están centradas.
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B012
+
+***Localización:*** 
+
+***Número de build:*** 4.0.1
+
+***Importancia:*** 
+
+***Prioridad:*** 
+
+***Asignado a:*** David María Arribas
+
+***Reportado por:*** Pablo Fernández-Vega Padilla
+
+***Razón:*** ???
+
+***Estado:*** Abierto
+
+***Entorno de desarrollo:*** ???
+
+
+
+***Descripción:***
+
+sss
+
+![Captura](https://user-images.githubusercontent.com/45218480/72223578-afc8c080-3570-11ea-9898-429b77be69cd.PNG)
+
+***Pasos para ser reproducido:***
+
+1)
+
+2)
+
+
+***Resultado esperado:***
+
+sss
+
+---
+
+13. El temporizador tampoco está centrado.
+
+***Nombre del bug:*** 
+
+***ID del bug:*** B012
 
 ***Localización:*** 
 
@@ -1023,7 +1068,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B014
 
 ***Localización:*** 
 
@@ -1035,7 +1080,7 @@ sss
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:***  Alejandro Vera López
 
 ***Razón:*** ???
 
@@ -1067,7 +1112,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B015
 
 ***Localización:*** 
 
@@ -1079,7 +1124,7 @@ sss
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:***  Alejandro Vera López
 
 ***Razón:*** ???
 
@@ -1111,7 +1156,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B016
 
 ***Localización:*** 
 
@@ -1123,7 +1168,7 @@ sss
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:***  Alejandro Vera López
 
 ***Razón:*** ???
 
@@ -1156,7 +1201,7 @@ sss
 
 ***Nombre del bug:*** 
 
-***ID del bug:*** B003
+***ID del bug:*** B017
 
 ***Localización:*** 
 
@@ -1168,7 +1213,7 @@ sss
 
 ***Asignado a:*** David María Arribas
 
-***Reportado por:*** Pablo Fernández-Vega Padilla
+***Reportado por:***  Alejandro Vera López
 
 ***Razón:*** ???
 
